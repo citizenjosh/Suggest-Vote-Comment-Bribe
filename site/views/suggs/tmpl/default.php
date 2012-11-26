@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * @version $Id$
  * @package    Suggest Vote Comment Bribe
@@ -9,6 +9,9 @@
 // LOCATION: views/suggs/tmpl/default.php
 //--No direct access
 defined('_JEXEC') or die('=;)');
+
+$document =& JFactory::getDocument();
+$document->addStyleSheet( "components/com_suggestvotecommentbribe/assets/style.css" );
 
 JHTML::_('behavior.tooltip');
 ?>
@@ -144,7 +147,7 @@ $k = 1 - $k;
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="13"><a href='<?php echo JRoute::_( 'index.php?option=com_suggestvotecommentbribe&controller=sugg&task=edit'.'&Itemid='.$this->Itemid); ?>'><img src="<?php echo 'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS ?>icon-32-article-add.png" alt="<?php echo JText::_('SUGGADDNEW');?>"><br />
+			<td colspan="13"><a href='<?php echo JRoute::_( 'index.php?option=com_suggestvotecommentbribe&controller=sugg&task=edit'.'&Itemid='.$this->Itemid); ?>'><img src="components/com_suggestvotecommentbribe/assets/images/icon-32-article-add.png" alt="<?php echo JText::_('SUGGADDNEW');?>"><br />
 				<?php echo JText::_('SUGGADDNEW');?></a></td>
 		</tr>
 		<tr>

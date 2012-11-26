@@ -74,5 +74,11 @@ function CHANGELOG()
 	 # allow columns Suggestions to be resorted by column heading. Debug assistance by Joe @ JLLeblanc.com
 	 ^ moved all Settings to each menu item and to the (global) component Parameters. Done by Phong Lo @ PlokLab.com
 
+	 -------------------- 1.3.JoomlaSEO_org [01-January-2011] ------------------
+	 01-January-2011 Amit Kumar @ JoomlaSEO.org
+	 ^ improve user interface
+	 - remove button text, to simplify internationalization
+	 + improve CSS usage
+
 	 */
 }//--This is the END

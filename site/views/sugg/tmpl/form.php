@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * @version $Id$
  * @package    Suggest Vote Comment Bribe
@@ -50,6 +50,5 @@ if( $this->requiresCaptcha )
 	<input type="hidden" name="task" value="save" />
 	<input type="hidden" name="Itemid" value="<?php echo $this->Itemid; ?>" />
 	<input type="hidden" name="controller" value="sugg" />
-	<a href="#" onclick="document.forms['Form'].submit();return false;"><img src="<?php echo 'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS ?>icon-32-save.png" alt="<?php echo JTEXT::_("SAVE"); ?>"><br />
-		<?php echo JTEXT::_("SAVE"); ?></a>
+	<a href="#" onclick="document.forms['Form'].submit();return false;"><img src="<?php echo 'components/com_suggestvotecommentbribe/assets/images/icon-32-save.png' ?>" alt="<?php echo JTEXT::_("SAVE"); ?>"><br /></a>
 </form>

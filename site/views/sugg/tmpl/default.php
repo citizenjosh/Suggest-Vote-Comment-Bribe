@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * @version $Id$
  * @package    Suggest Vote Comment Bribe
@@ -8,6 +8,10 @@
  */
 //--No direct access
 defined('_JEXEC') or die('=;)');
+
+$document =& JFactory::getDocument();
+$document->addStyleSheet( "components/com_suggestvotecommentbribe/assets/style.css" );
+
 function force_sp($string,$charcount)
 {
 	$count=0;
@@ -40,7 +44,11 @@ if( $this->showtitle )
 <?php
 if( $this->showauthor )
 {
-	echo JText::_('AUTHOR').": ".$this->user_name;
+	if($this->item->UID)
+{
+$user2 =& JFactory::getUser($this->item->UID);
+echo 'This suggestion was submitted by ' . $user2->get('name') . '.';
+}
 } ?>
 
 <h2><?php echo JText::_('DESCRIPTION') ?></h2>
@@ -60,10 +68,10 @@ if( ($this->item->UID!=0 && $this->item->UID==$this->user_id) || isset($_COOKIE[
 	<input type=\"hidden\" name=\"Itemid\" value=\"".$this->Itemid."\">";
 	if($this->item->published){
 		echo "<input type=\"hidden\" name=\"task\" value=\"unpublish\">
-		<a href='javascript:void(0)' onclick='sugg.submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS."icon-32-unpublish.png\" alt=\"".JText::_('UNPUBLISH')."\"><br />".JText::_('UNPUBLISH')."</a>";
+		<a href='javascript:void(0)' onclick='sugg.submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS."icon-32-unpublish.png\" alt=\"".JText::_('UNPUBLISH')."\"><br /></a>";
 	}else{
 		echo "<input type=\"hidden\" name=\"task\" value=\"publish\">
-		<a href='javascript:void(0)' onclick='sugg.submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS."icon-32-publish.png\" alt=\"".JText::_('PUBLISH')."\"><br />".JText::_('PUBLISH')."</a>";
+		<a href='javascript:void(0)' onclick='sugg.submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS."icon-32-publish.png\" alt=\"".JText::_('PUBLISH')."\"><br /></a>";
 	}
 	echo "</form>";
 }
@@ -88,7 +96,7 @@ if( $this->showbribes )
 		<input type=\"hidden\" name=\"option\" value=\"com_suggestvotecommentbribe\">
 		<input type=\"hidden\" name=\"Itemid\" value=\"".$this->Itemid."\">
 		<input type=\"hidden\" name=\"controller\" value=\"bribe\">
-		<input type=\"hidden\" name=\"task\" value=\"edit\"><a href='javascript:void(0)' onclick='bribe.submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS.'bribe-32.jpg'."\" alt=\"".JText::_('LEAVEBRIBE')."\"><br />".JText::_('LEAVEBRIBE')."</a>
+		<input type=\"hidden\" name=\"task\" value=\"edit\"><a href='javascript:void(0)' onclick='bribe.submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS.'bribe-32.jpg'."\" alt=\"".JText::_('LEAVEBRIBE')."\"><br /></a>
 		</form>";
 	}
 ?></td>
@@ -113,7 +121,7 @@ if( $this->showcomments )
 			<input type=\"hidden\" name=\"controller\" value=\"comment\">
 			<input type=\"hidden\" name=\"task\" value=\"edit\">
 			<input type=\"hidden\" name=\"Itemid\" value=\"".$this->Itemid."\">
-			<a href='javascript:void(0)' onclick='comment.submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS."icon-32-article-add.png\" alt=\"".JText::_('LEAVECOMMENT')."\"><br />".JText::_('LEAVECOMMENT')."</a></form>";
+			<a href='javascript:void(0)' onclick='comment.submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS."icon-32-article-add.png\" alt=\"".JText::_('LEAVECOMMENT')."\"><br /></a></form>";
 		}
 ?></td>
 	</tr>
@@ -145,7 +153,7 @@ if( $this->showvotes )
 					<input type=\"hidden\" name=\"SID\" value=\"".$this->item->id."\">
 					<input type=\"hidden\" name=\"task\" value=\"remove\">
 					<input type=\"hidden\" name=\"Itemid\" value=\"".$this->Itemid."\">
-					<a href='javascript:void(0)' onclick='vote".$vote->id.".submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS.'thumbs-down.png'."\" alt=\"".JText::_('REMOVEVOTE')."\"><br />".JText::_('REMOVEVOTE')."</a></form>";
+					<a href='javascript:void(0)' onclick='vote".$vote->id.".submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS.'thumbs-down.png'."\" alt=\"".JText::_('REMOVEVOTE')."\"><br /></a></form>";
 					break;
 				}
 				// or, if the user is logged in OR captcha && login are not required
@@ -160,8 +168,7 @@ if( $this->showvotes )
 					<input type=\"hidden\" name=\"task\" value=\"save\" />
 					<input type=\"hidden\" name=\"Itemid\" value=\"".$this->Itemid."\" />
 					<input type=\"hidden\" name=\"value\" value=\"1\" />
-					<a href='javascript:void(0)' onclick='vote.submit()'><img src=\"'.'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS.'thumbs-up.png'.'\" alt=\"'.JText::_('LEAVEVOTE').'\"><br />
-					".JText::_('LEAVEVOTE')."</a></form>";
+					<a href='javascript:void(0)' onclick='vote.submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS.'thumbs-up.png'."\" alt=\"".JText::_('LEAVEVOTE')."\"><br />	</a></form>";
 				}
 				// the current User is not associated with a Vote AND the current User is not logged in AND to Vote requires CAPTCHA
 				// so allow the current User to Vote on this Suggestion
@@ -174,8 +181,7 @@ if( $this->showvotes )
 					<input type=\"hidden\" name=\"SID\" value=\"".$this->item->id."\" >
  					<input type=\"hidden\" name=\"task\" value=\"edit\">
  					<input type=\"hidden\" name=\"Itemid\" value=\"".$this->Itemid."\">
- 					<a href='javascript:void(0)' onclick='vote.submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS.'thumbs-up.png'."\" alt=\"".JText::_('LEAVEVOTE')."\"><br />".
- 					JText::_('LEAVEVOTE')."</a></form>";
+ 					<a href='javascript:void(0)' onclick='vote.submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS.'thumbs-up.png'."\" alt=\"".JText::_('LEAVEVOTE')."\"><br /></a></form>";
 				}
 			}
 
@@ -191,8 +197,7 @@ if( $this->showvotes )
 				   <input type=\"hidden\" name=\"cid\" value=\"0\">
 				   <input type=\"hidden\" name=\"Itemid\" value=\"".$this->Itemid."\">
 				   <input type=\"hidden\" name=\"value\" value=\"1\" />
-				   <a href='javascript:void(0)' onclick='vote.submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS.'thumbs-up.png'."\" alt=\"".JText::_('LEAVEVOTE')."\"><br />".
-				   JText::_('LEAVEVOTE')."</a></form>";
+				   <a href='javascript:void(0)' onclick='vote.submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS.'thumbs-up.png'."\" alt=\"".JText::_('LEAVEVOTE')."\"><br /></a></form>";
 				}
 				else
 				{
@@ -203,8 +208,7 @@ if( $this->showvotes )
 					<input type=\"hidden\" name=\"controller\" value=\"vote\" />
 					<input type=\"hidden\" name=\"cid\" value=\"0\" />
 					<input type=\"hidden\" name=\"Itemid\" value=\"".$this->Itemid."\" />
- 					<a href='javascript:void(0)' onclick='vote.submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS."thumbs-up.png\" alt=\"".JText::_('LEAVEVOTE')."\"><br />".
- 					JText::_('LEAVEVOTE')."</a></form>";
+ 					<a href='javascript:void(0)' onclick='vote.submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS."thumbs-up.png\" alt=\"".JText::_('LEAVEVOTE')."\"><br /></a></form>";
 				}
 			}
 			echo $del;
@@ -236,12 +240,12 @@ if( $this->showcomments )
 			if($comment->published)
 			{
 				$disable.=" <input type=\"hidden\" name=\"task\" value=\"unpublish\">
-				<a href='javascript:void(0)' onclick='comment".$comment->id.".submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS."icon-32-unpublish.png\" alt=\"".JText::_('UNPUBLISH')."\"><br />".JText::_('UNPUBLISH')."</a></form>";
+				<a href='javascript:void(0)' onclick='comment".$comment->id.".submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS."icon-32-unpublish.png\" alt=\"".JText::_('UNPUBLISH')."\"><br /></a></form>";
 			}
 			else
 			{
 				$disable.=" <input type=\"hidden\" name=\"task\" value=\"publish\">
-				<a href='javascript:void(0)' onclick='comment".$comment->id.".submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS."icon-32-publish.png\" alt=\"".JText::_('PUBLISH')."\"><br />".JText::_('PUBLISH')."</a></form>";
+				<a href='javascript:void(0)' onclick='comment".$comment->id.".submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS."icon-32-publish.png\" alt=\"".JText::_('PUBLISH')."\"><br /></a></form>";
 			}
 		}
 		else

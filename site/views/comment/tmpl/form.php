@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * @version $Id$
  * @package    Suggest Vote Comment Bribe
@@ -51,8 +51,7 @@ if( ($useracces =='guests_enter_captcha'&& !$user->id )||$useracces =='everyone_
 	echo "</fieldset>";
 }
 ?>
-<a href="#" onclick="document.forms['adminForm'].submit();return false;"><img src="<?php echo 'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS ?>icon-32-save.png" alt="<?php echo JTEXT::_("SAVE"); ?>"><br />
-	<?php echo JTEXT::_("SAVE"); ?></a>
+<a href="#" onclick="document.forms['adminForm'].submit();return false;"><img src="<?php echo 'components/com_suggestvotecommentbribe/assets/images/icon-32-save.png'?>" alt="<?php echo JTEXT::_("SAVE"); ?>"><br /></a>
 
 
 <input type="hidden" name="UID" value="<?php echo $this->userID;?>" />
