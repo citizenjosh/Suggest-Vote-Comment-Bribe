@@ -49,9 +49,20 @@ class SuggestionControllerbribe extends JController
 	function save()
 	{
 		$db = &JFactory::getDBO();
-		$db->setQuery('select*from #__suggestvotecommentbribe');
-		$settings=$db->loadObjectlist();
-		$settings=$settings[0];
+		$params 	= &JComponentHelper::getParams('com_suggestvotecommentbribe');
+		$menuitemid = JRequest::getInt( 'Itemid' );
+		if ($menuitemid)
+		{
+			$menu = JSite::getMenu();
+			$menuparams = $menu->getParams( $menuitemid );
+			$params->merge( $menuparams );
+		}
+		$settings->max_title 	= $params->get('max_title',100);
+		$settings->pubk 		= $params->get('pubk');
+		$settings->prvk 		= $params->get('prvk');
+		$settings->max_desc 	= $params->get('max_desc');
+		$settings->email 		= $params->get('email');
+		$settings->URL 			= $params->get('URL');
 		// read the post from PayPal system and add 'cmd'
 		$req = 'cmd=_notify-validate';
 
@@ -71,9 +82,13 @@ class SuggestionControllerbribe extends JController
 		$item_number = $_POST['item_number'];
 		$payment_status = $_POST['payment_status'];
 		if($_POST['mc_gross'])
+		{
 		$payment_amount = $_POST['mc_gross'];
+		}
 		else
+		{
 		$payment_amount = $_POST['mc_gross_1'];
+		}
 		$payment_currency = $_POST['mc_currency'];
 		$txn_id = $_POST['txn_id'];
 		$receiver_email = $_POST['receiver_email'];
@@ -96,7 +111,8 @@ class SuggestionControllerbribe extends JController
 					$post['id']='0';
 					$post['amount']=$payment_amount;
 					$model = $this->getModel( 'bribe' );
-					if ($model->store($post)) {
+					if ($model->store($post))
+					{
 						$model1 = $this->getModel( 'sugg' );
 						JRequest::setVar('cid',array($post['SID']));
 						$sugg=$model1->getData();
@@ -109,7 +125,6 @@ class SuggestionControllerbribe extends JController
 						$db = &JFactory::getDBO();
 						$db->setQuery('update #__suggestvotecommentbribe_sugg set amountDonated=(select sum(amount) from #__suggestvotecommentbribe_bribe where SID='.$post['SID'].') where id='.$post['SID']);
 						$db->query();
-
 					}
 				}
 			}

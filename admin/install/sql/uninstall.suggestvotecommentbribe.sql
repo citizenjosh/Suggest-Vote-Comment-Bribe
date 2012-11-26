@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS `#__suggestvotecommentbribe`;
 DROP TABLE IF EXISTS `#__suggestvotecommentbribe_sugg`;
 DROP TABLE IF EXISTS `#__suggestvotecommentbribe_vote`;
 DROP TABLE IF EXISTS `#__suggestvotecommentbribe_log`;

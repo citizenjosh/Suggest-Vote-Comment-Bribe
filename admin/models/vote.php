@@ -25,7 +25,7 @@ class SuggestionsModelvote extends JModel
 
 		if (!$row->bind($data)) {
 			return false;
-		}
+		}
 		if (!$row->check()) {
 			return false;
 		}

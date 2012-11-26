@@ -65,5 +65,14 @@ function CHANGELOG()
 	 + show/hide columns displayed
 	 ^ some setting (including show/hide columns) are on menu items
 
+	 -------------------- 1.3.0 [11-September-2010] ------------------
+	 11-September-2010 Citizen Josh
+	 ^ put reCAPTCHA options into each SVCB menu item
+	 ^ put user rights options into each SVCB menu item
+	 # show no columns if no columns are set for display
+	 + added Estonian translation, thanks to Meelis @ Maasikamoos.com
+	 # allow columns Suggestions to be resorted by column heading. Debug assistance by Joe @ JLLeblanc.com
+	 ^ moved all Settings to each menu item and to the (global) component Parameters. Done by Phong Lo @ PlokLab.com
+
 	 */
 }//--This is the END

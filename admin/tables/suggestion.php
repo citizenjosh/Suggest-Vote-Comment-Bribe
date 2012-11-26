@@ -27,46 +27,37 @@ class TableSuggestion extends JTable
 	var $id = null;
 
 	/**
+	 * Thank-you URL
 	 * @var string
 	 */
 	var $URL = null;
 
 	/**
-	 * @var int
-	 */
-	var $login= 0;
-
-	/**
-	 * @var int
-	 */
-	var $show= 0;
-
-	/**
-	 * @var int
-	 */
-	var $captcha= 0;
-
-	/**
+	 * PayPal email address to receive Bribes
 	 * @var string
 	 */
 	var $email = null;
 
 	/**
+	 * Public Key from reCAPTCHA
 	 * @var string
 	 */
 	var $pubk = null;
 
 	/**
+	 * private Key from reCAPTCHA
 	 * @var string
 	 */
 	var $prvk = null;
 
 	/**
+	 * Maximum number of characters in a title of a Suggestion
 	 * @var int
 	 */
 	var $max_title = 0;
 
 	/**
+	 * Maximum number of characters in a description of a Suggestion
 	 * @var int
 	 */
 	var $max_desc = 0;

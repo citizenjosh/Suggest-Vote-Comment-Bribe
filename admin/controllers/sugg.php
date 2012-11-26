@@ -73,8 +73,13 @@ class SuggestionsControllersugg extends JController
 		$model1 = $this->getModel( 'log' );
 		$post1['title']=$this->cids;
 		if($user->id)
+		{
 		$post1['description']=$user->get('name');
-		else   $post1['description']='Anonymous';
+		}
+		else
+		{
+			$post1['description']=JText::_( 'ANONYMOUS' );
+		}
 		$post1['description'].=' has ';
 		$post1['description'].=$this->getTask().'ed';
 		$post1['description'].=' a suggestion at '.date(DATE_RFC822);
@@ -142,8 +147,17 @@ class SuggestionsControllersugg extends JController
 			return;
 		}
 		$db = &JFactory::getDBO();
-		$db->setQuery('select * from #__suggestvotecommentbribe');
-		$settings=$db->loadObjectlist();
+/*		$db->setQuery('select * from #__suggestvotecommentbribe');
+		$settings=$db->loadObjectlist();*/
+		$params = &JComponentHelper::getParams('com_suggestvotecommentbribe');
+		$setting = new stdClass();
+		$setting->URL 			= $params->get("URL","");
+		$setting->email 		= $params->get("email","");
+		$setting->pubk 		= $params->get("pubk","");
+		$setting->prvk 		= $params->get("prvk","");
+		$setting->max_title 	= $params->get("max_title","");
+		$setting->max_desc 	= $params->get("max_desc","");
+		$settings[] = $setting;
 		$post['title']=substr($_POST['title'], 0,$settings[0]->max_title);
 		$post['description']=substr($_POST['description'], 0,$settings[0]->max_desc);
 		$post['title']=(htmlspecialchars($post['title'],ENT_NOQUOTES));
@@ -186,7 +200,7 @@ class SuggestionsControllersugg extends JController
 			}
 			else
 			{
-				$post1['description']='Anonymous';
+				$post1['description']=JText::_( 'ANONYMOUS' );
 			}
 			$post1['description'].=' has '.$posted.' a suggestion at '.date(DATE_RFC822);
 			$model1->store($post1);
@@ -223,7 +237,7 @@ class SuggestionsControllersugg extends JController
 				$post1['description'].=' has removed a suggestion at '.date(DATE_RFC822);
 				$model1->store($post1);
 
-				$msg .= JText::_( 'ITEM_DELETED'.': '.$cid );
+				$msg .= JText::_( 'ITEM_DELETED'.': '.$cid.'<br />' );
 			}
 		}
 

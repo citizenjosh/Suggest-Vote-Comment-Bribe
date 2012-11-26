@@ -19,7 +19,7 @@ class SuggestionModelsuggs extends JModel
 	function _buildQuery()
 	{
 		$where = array();
-
+		$user = &JFactory::getUser();
 		if ($this->search)
 		{
 			$where[] = 'LOWER(name) LIKE \''. $this->search. '\'';
@@ -35,7 +35,11 @@ class SuggestionModelsuggs extends JModel
 			}
 		}
 		$ids=trim($ids, ',');
-		$where=' where published=1 or id in('.$ids.'0) or UID='.JFactory::getUser()->id;
+		if( $user->id ){
+			$where=' where published=1 or id in('.$ids.'0) or UID='.JFactory::getUser()->id;
+		}else {
+			$where=' where published=1';
+		}
 		##ECR_MAT_FILTER_MODEL1##
 		if (($this->filter_order) && ($this->filter_order_Dir))
 		$orderby    = ' ORDER BY '. $this->filter_order .' '. $this->filter_order_Dir;

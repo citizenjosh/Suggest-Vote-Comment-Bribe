@@ -38,10 +38,16 @@ class SuggestionControllersugg extends JController
 		;
 		return $this->_query;
 	}
+	
+	/**
+	 * 
+	 * @return unknown_type
+	 */
 	function edit()
 	{
 		$model = $this->getModel( 'security' );
 		$can=$model->canSuggest(JRequest::getVar('cid'));
+		// if $can!==true then $can contains the error message for display 
 		if($can!==true)
 		{
 			$this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=suggs'.'&Itemid='.JRequest::getVar('Itemid'), $can );
@@ -111,22 +117,38 @@ class SuggestionControllersugg extends JController
 			$this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=suggs'.'&Itemid='.JRequest::getVar('Itemid'), $can );
 			return;
 		}
-
-
+		
 		#_ECR_SMAT_DESCRIPTION_CONTROLLER1_
 		$post['id']    = (int) $cid[0];
+		$params 	= &JComponentHelper::getParams( 'com_suggestvotecommentbribe' );
+		$menuitemid = JRequest::getInt( 'Itemid' );
+		if ($menuitemid)
+		{
+			$menu = JSite::getMenu();
+			$menuparams = $menu->getParams( $menuitemid );
+			$params->merge( $menuparams );
+		}
+//echo "<pre>";
+//print_r($params->_registry['_default']['data']);
+//echo "</pre>";
+//exit();
+		$max_title 	= $params->get('max_title',100);
+		$captcha 	= $params->get('captcha');
+		$prvk 		= $params->get('prvk');
+		$max_desc 	= $params->get('max_desc');
+		$useraccess = $params->get('useraccess');
 		$db = &JFactory::getDBO();
-		$db->setQuery('select * from #__suggestvotecommentbribe');
-		$captcha=$db->loadObjectlist();
+
 		$user=JFactory::getUser();
-		if($captcha[0]->captcha&&!$user->id)
+//		echo '<h1>'.$useraccess.'</h1>';exit();
+		if($useraccess == 'everyone_enters_captcha' || ($useraccess=='guests_enter_captcha'&&!$user->id))
 		{
 			include(JPATH_ROOT."/components/com_suggestvotecommentbribe/recaptchalib.php");
-			$resp = recaptcha_check_answer ($captcha[0]->prvk,
+			$resp = recaptcha_check_answer ($prvk,
 			$_SERVER["REMOTE_ADDR"],
 			$_POST["recaptcha_challenge_field"],
 			$_POST["recaptcha_response_field"]);
-
+//			echo "<pre>";print_r($resp);echo "</pre>";exit();
 			if (!$resp->is_valid)
 			{
 				$link = 'index.php?option=com_suggestvotecommentbribe&view=suggs'.'&Itemid='.JRequest::getVar('Itemid');
@@ -136,14 +158,17 @@ class SuggestionControllersugg extends JController
 		}
 		if($post['title']=='')
 		{
-			$t=time();
+			$t = time();
 			$link = 'index.php?option=com_suggestvotecommentbribe&controller=sugg&task=edit&ses=s'.$t.'&Itemid='.JRequest::getVar('Itemid');
 			$_SESSION['s'.$t]=$_POST['description'];
 			$this->setRedirect( $link, JText::_('TITLE_IS_REQUIRED'));
 			return;
 		}
-		$post['title']=substr($_POST['title'], 0,$captcha[0]->max_title);
-		$post['description']=substr($_POST['description'], 0,$captcha[0]->max_desc);
+		
+		#$post['title']=substr(JRequest::getVar('title'), 0,$max_title);
+		$post['title']=substr($_POST['title'], 0,$max_title);
+		#$post['description']=substr(JRequest::getVar('description'), 0,$max_desc);
+		$post['description']=substr($_POST['description'], 0,$max_desc);
 		$post['title']=(htmlentities($post['title'],ENT_NOQUOTES));
 		$post['description']=((htmlentities($post['description'],ENT_NOQUOTES)));
 		$post['title']=str_replace("\\\\", "\\", $post['title']);

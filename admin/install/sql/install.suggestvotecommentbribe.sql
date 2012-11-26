@@ -1,21 +1,3 @@
-CREATE TABLE if not exists `#__suggestvotecommentbribe` (
-  `id` int(11) NOT NULL auto_increment,
-  `URL` varchar(255) NOT NULL,
-  `login` int(1),
-  `show` int(1) NOT NULL,
-  `captcha` int(1) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `pubk` varchar(255) NOT NULL,
-  `prvk` varchar(255) NOT NULL,
-  `max_title` int,
-  `max_desc` int,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-INSERT INTO `#__suggestvotecommentbribe` VALUES
-(1, 'http://CitizenJosh.com', 1, 1, 0, 'bursar@Interpreneurial.com', '', '', 100,1000);
-
-
 CREATE TABLE `#__suggestvotecommentbribe_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,

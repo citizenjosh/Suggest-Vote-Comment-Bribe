@@ -9,13 +9,6 @@
 
 //--No direct access
 defined('_JEXEC') or die('=;)');
-
-$db = &JFactory::getDBO();
-$db->setQuery('select*from #__suggestvotecommentbribe');
-$settings=$db->loadObjectlist();
-$settings=$settings[0];
-$user =& JFactory::getUser();
-
 JHTML::_('behavior.tooltip');
 ?>
 
@@ -28,41 +21,35 @@ JHTML::_('behavior.tooltip');
 		<td colspan="2"><input class="text_area" type="text" name="title"
 			id="title" size="32" maxlength="255"
 			value="<?php echo $this->item->title;?>" /> <br>
-		<?php echo JText::_( 'MAX_CHARACTERS' ); ?>: <?php echo $settings->max_title ?></td>
+		<?php echo JText::_( 'MAX_CHARACTERS' ); ?>: <?php echo $this->settings->max_title ?></td>
 	</tr>
 </table>
 </fieldset>
 <fieldset class="adminform"><legend><?php echo JText::_( 'Description' ); ?></legend>
 <table class="admintable">
 	<tr>
-		<td valign="top" colspan="3"><textarea name=description cols=70
-			rows=10><?php if($_GET['ses']){
-				echo $_SESSION[$_GET['ses']];
-			}
-			else
-			{
-				echo $this->item->description;
-			}?></textarea> <br>
-		<?php echo JText::_( 'MAX_CHARACTERS' ); ?>: <?php echo $settings->max_desc ?></td>
+		<td valign="top" colspan="3"><textarea name="description" cols="70"
+			rows="10"><?php echo $this->item->description; ?></textarea> <br>
+		<?php echo JText::_( 'MAX_CHARACTERS' ); ?>: <?php echo $this->settings->max_desc ?></td>
 	</tr>
 </table>
 </fieldset>
-			<?php
-			if($this->item->id==0 && $settings->captcha && $user->id<1)
-			{
-				echo "<fieldset>";
-				echo JTEXT::_("COPYWHATYOUWROTE");
-				require_once(JPATH_ROOT.DS.'components'.DS.'com_suggestvotecommentbribe'.DS.'recaptchalib.php');
-				echo recaptcha_get_html($settings->pubk);
-				echo "</fieldset>";
-			}
-			?> <input type="hidden" name="cid[]"
-	value="<?php echo $this->item->id; ?>" /> <input type="hidden"
-	name="UID" value="<?php echo $user->get('id'); ?>" /> <input
-	type="hidden" name="option" value="com_suggestvotecommentbribe" /> <input
-	type="hidden" name="task" value="save" /> <input
-	type="hidden" name="Itemid" value="<?php echo $this->Itemid; ?>" /> <input type="hidden"
-	name="controller" value="sugg" /> <input type="image"
-	src="<?php echo 'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS ?>icon-32-save.png"
-	alt="<?php echo JTEXT::_("SAVE"); ?>"><br />
-			<?php echo JTEXT::_("SAVE"); ?></form>
+<?php
+if( $this->requiresCaptcha )
+{
+	echo "<fieldset>";
+	echo JTEXT::_("COPYWHATYOUWROTE");
+	require_once(JPATH_ROOT.DS.'components'.DS.'com_suggestvotecommentbribe'.DS.'recaptchalib.php');
+	echo recaptcha_get_html($this->settings->pubk);
+	echo "</fieldset>";
+}
+?>
+	<input type="hidden" name="cid[]" value="<?php echo $this->item->id; ?>" />
+	<input type="hidden" name="UID" value="<?php echo $this->user_id; ?>" />
+	<input type="hidden" name="option" value="com_suggestvotecommentbribe" />
+	<input type="hidden" name="task" value="save" />
+	<input type="hidden" name="Itemid" value="<?php echo $this->Itemid; ?>" />
+	<input type="hidden" name="controller" value="sugg" />
+	<a href="#" onclick="document.forms['Form'].submit();return false;"><img src="<?php echo 'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS ?>icon-32-save.png" alt="<?php echo JTEXT::_("SAVE"); ?>"><br />
+		<?php echo JTEXT::_("SAVE"); ?></a>
+</form>

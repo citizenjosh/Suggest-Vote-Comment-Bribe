@@ -374,10 +374,10 @@ $rows = 0;
 		href="index.php?option=com_menus&task=edit&type=component&url[option]=com_suggestvotecommentbribe&url[view]=suggs&menutype=mainmenu">menu
 	item from the "<?php JText::_('COMPONENT_TITLE')?> &rArr; Suggs &rArr;
 	Default Layout"</a>
-	
-	
+
+
 	<li>Update <a
-		href="index.php?option=com_suggestvotecommentbribe&view=suggestions"><i><?php JText::_('COMPONENT_TITLE') ?></i>
+		href="index.php?option=com_suggestvotecommentbribe&view=suggs"><i><?php JText::_('COMPONENT_TITLE') ?></i>
 	settings</a></li>
 	<li><i>Please</i> give a 5-star rating at the <a
 		href="http://extensions.joomla.org/extensions/contacts-and-feedback/testimonials-a-suggestions/11505"

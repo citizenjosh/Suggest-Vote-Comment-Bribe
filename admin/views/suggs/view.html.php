@@ -19,6 +19,7 @@ class SuggestionsViewsuggs extends JView
 	{
 		JHTML::stylesheet( 'suggestvotecommentbribe.css', 'administrator/components/com_suggestvotecommentbribe/assets/' );
 		JToolBarHelper::title(   '  ' .JText::_( 'Suggestions' ), 'sugg');
+		JToolBarHelper::preferences( 'com_suggestvotecommentbribe',500,500 );
 
 		JToolBarHelper::deleteList();
 		JToolBarHelper::editListX();
@@ -32,7 +33,6 @@ class SuggestionsViewsuggs extends JView
 		$this->assignRef('items', $items);
 		$this->assignRef('pagination', $pagination);
 		$this->assignRef('lists', $lists);
-
 		parent::display($tpl);
 	}// function
 

@@ -86,8 +86,13 @@ class SuggestionControllercomment extends JController
 		$model1 = $this->getModel( 'log' );
 		$post1['title']=$sid;
 		if($user->id)
-		$post1['description']=$user->get('name');
-		else   $post1['description']='Anonymous';
+		{
+			$post1['description']=$user->get('name');
+		}
+		else
+		{
+			$post1['description']=JText::_( 'ANONYMOUS' );
+		}
 		$post1['description'].=' has ';
 		$post1['description'].=$this->getTask().'ed';
 		$post1['description'].=' a comment at '.date(DATE_RFC822);
@@ -102,22 +107,46 @@ class SuggestionControllercomment extends JController
 		$post = JRequest::get('post');
 		$cid  = JRequest::getVar( 'cid', array(0), 'post', 'array' );
 		#_ECR_SMAT_DESCRIPTION_CONTROLLER1_
-		$post['id']    = (int) $cid[0];
-		$model_sec = $this->getModel( 'security' );
-		$user =JFactory::getUser();
-		$can=$model_sec->canComment(JRequest::getVar('cid'),JRequest::getVar('SID'));
+		$post['id'] = (int) $cid[0];
+		$model_sec 	= $this->getModel( 'security' );
+		$user 		=JFactory::getUser();
+		$can		=$model_sec->canComment(JRequest::getVar('cid'),JRequest::getVar('SID'));
 		if($can!==true)
 		{
 			$this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=suggs'.'&Itemid='.JRequest::getVar('Itemid'), $can );
 			return;
 		}
-		$db = &JFactory::getDBO();
+		$params 	= &JComponentHelper::getParams('com_suggestvotecommentbribe');
+		$menuitemid = JRequest::getInt( 'Itemid' );
+		if ($menuitemid)
+		{
+			$menu = JSite::getMenu();
+			$menuparams = $menu->getParams( $menuitemid );
+			$params->merge( $menuparams );
+		}
+		$max_title 	= $params->get('max_title',100);
+		$captcha 	= $params->get('captcha');
+		$prvk 		= $params->get('prvk');
+		$max_desc 	= $params->get('max_desc');
+		
+		$URL 		= $params->get("URL","");
+		$email 		= $params->get("email","");
+		$pubk 		= $params->get("pubk","");
+		
+		$useracces 	= $params->get("useraccess","");
+//		echo $useracces;
+		$recaptchatheme = $params->get("recaptchatheme","");
+		$recaptchalng 	= $params->get("recaptchalng","");
+		$db 			= &JFactory::getDBO();
+
+/*
 		$db->setQuery('select * from #__suggestvotecommentbribe');
 		$captcha=$db->loadObjectlist();
-		if($captcha[0]->captcha&&!$user->id)
-		{
+*/
+#		if($captcha[0]->captcha&&!$user->id)
+		if( ($useracces =='guests_enter_captcha'&& !$user->id )||$useracces =='everyone_enters_captcha' ){		
 			include(JPATH_ROOT."/components/com_suggestvotecommentbribe/recaptchalib.php");
-			$resp = recaptcha_check_answer ($captcha[0]->prvk,
+			$resp = recaptcha_check_answer ($prvk,
 			$_SERVER["REMOTE_ADDR"],
 			$_POST["recaptcha_challenge_field"],
 			$_POST["recaptcha_response_field"]);
@@ -129,8 +158,8 @@ class SuggestionControllercomment extends JController
 				return;
 			}
 		}
-		$post['title']=substr($_POST['title'], 0,$captcha[0]->max_title);
-		$post['description']=substr($_POST['description'], 0,$captcha[0]->max_desc);
+		$post['title']=substr($_POST['title'], 0,$max_title);
+		$post['description']=substr($_POST['description'], 0,$max_desc);
 		$post['title']=(htmlentities($post['title'],ENT_NOQUOTES));
 		$post['description']=((htmlentities($post['description'],ENT_NOQUOTES)));
 		$post['title']=str_replace("\\\\", "\\", $post['title']);
@@ -142,6 +171,7 @@ class SuggestionControllercomment extends JController
 		$post['title']=str_replace(' ','&nbsp;',$post['title']);
 		$post['description']=nl2br(str_replace(' ','&nbsp;',$post['description']));
 		$post['UID']=$user->id;
+
 		if($post['title']=='')
 		{
 			$t=time();
@@ -157,6 +187,7 @@ class SuggestionControllercomment extends JController
 			$this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=suggs'.'&Itemid='.JRequest::getVar('Itemid'), $can );
 			return;
 		}
+		
 		if ($model->store($post)) {
 			$msg = JText::_( 'Item Saved' );
 			if(!$user->id)
@@ -173,8 +204,14 @@ class SuggestionControllercomment extends JController
 
 			$model1 = $this->getModel( 'log' );
 			$post1['title']=$post['SID'];
-			if($user->id)$post1['description']=$user->name;
-			else $post1['description']='Anonymous';
+			if($user->id)
+			{
+				$post1['description']=$user->name;
+			}
+			else
+			{
+				$post1['description']=JText::_( 'ANONYMOUS' );
+			}
 			$post1['description'].=' has commented on '.$sugg->title.' at '.date(DATE_RFC822);
 			$model1->store($post1);
 			$post2['type']='comment';

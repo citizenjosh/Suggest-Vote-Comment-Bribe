@@ -120,6 +120,13 @@ function recaptcha_get_html ($pubkey, $error = null, $use_ssl = false)
 		$errorpart = "&amp;error=" . $error;
 	}
 	$params = &JComponentHelper::getParams('com_suggestvotecommentbribe');
+	$menuitemid = JRequest::getInt( 'Itemid' );
+	if ($menuitemid)
+	{
+		$menu = JSite::getMenu();
+		$menuparams = $menu->getParams( $menuitemid );
+		$params->merge( $menuparams );
+	}
 	return '<script language="javascript" type="text/javascript">var RecaptchaOptions = {theme : \''.$params->get("recaptchatheme").'\',lang : \''.$params->get("recaptchalng").'\'};</script>
 	<script type="text/javascript" src="'. $server . '/challenge?k=' . $pubkey . $errorpart . '"></script>
 

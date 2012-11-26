@@ -218,7 +218,7 @@ $rows = 0;
 	</tfoot>
 	<tbody>
 		<tr class="row0">
-			<td class="key" colspan="2"><?php echo "".JText::_('COMPONENT_TITLE')." ".JText::_('COMPONENT'); ?></td>
+			<td class="key" colspan="2"><?php echo "Component Title"." ".JText::_('COMPONENT'); ?></td>
 			<td><img src="images/publish_g.png" alt="OK" /><strong><?php echo JText::_('REMOVED'); ?></strong></td>
 		</tr>
 		<?php if (count($status->modules)) : ?>

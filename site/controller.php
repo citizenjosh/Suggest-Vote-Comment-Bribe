@@ -29,15 +29,26 @@ class SuggestionController extends JController
 	{
 		if($_REQUEST['view']=='sugg')
 		{
-			$db=JFactory::getDBO();
-			$thisuser=JFactory::getUser();
-			$cids=implode(',',$_REQUEST['cid']);
-			$db->setQuery("select * from #__suggestvotecommentbribe_sugg where ID in ($cids)");
-			$item=$db->loadObjectlist();
-			$item=$item[0];
-			if($item->published==0&&(($thisuser!=0||$thisuser!=$item->UID)&&!$_COOKIE['suggest'.$item->id]))
-			{
-				$this->setRedirect('index.php?option=com_suggestvotecommentbribe&view=suggs',JTEXT::_('THISWASUNPUBLISHED'));
+			$cid = $_REQUEST['cid'];
+			$layout= &JRequest::getVar('layout');
+			if($layout=='form' && !$cid ){
+//				JRequest::setVar('controller','sugg');
+//				JRequest::setVar('task','edit');
+			}else {
+				$db=JFactory::getDBO();
+				$thisuser=JFactory::getUser();
+				$cids=implode(',',$_REQUEST['cid']);
+				$db->setQuery("select * from #__suggestvotecommentbribe_sugg where ID in ($cids)");
+				$item=$db->loadObjectlist();
+				$item=$item[0];
+				
+				if($thisuser->id==0 && $item->UID == 0 && $item->state==0) {
+					$this->setRedirect('index.php?option=com_suggestvotecommentbribe&view=suggs',JTEXT::_('THISWASUNPUBLISHED'));
+				}
+				if($item->published==0&&(($thisuser!=0||$thisuser!=$item->UID)&&!$_COOKIE['suggest'.$item->id]))
+				{
+					$this->setRedirect('index.php?option=com_suggestvotecommentbribe&view=suggs',JTEXT::_('THISWASUNPUBLISHED'));
+				}
 			}
 		}
 		parent::display();

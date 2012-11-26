@@ -33,7 +33,7 @@ class SuggestionControllervote extends JController
 		if($can!==true)
 		{
 			$this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=suggs'.'&Itemid='.JRequest::getVar('Itemid'), $can );
-		 return;
+			return;
 		}
 		JRequest::setVar( 'view', 'vote' );
 		JRequest::setVar( 'layout', 'form'  );
@@ -56,10 +56,23 @@ class SuggestionControllervote extends JController
 		}
 		$user =& JFactory::getUser();
 		$db = &JFactory::getDBO();
-		$db->setQuery('select * from #__suggestvotecommentbribe');
-		$captcha=$db->loadObjectlist();
-		if($captcha[0]->captcha&&!$user->id)
+		$params 	= &JComponentHelper::getParams('com_suggestvotecommentbribe');
+		$menuitemid = JRequest::getInt( 'Itemid' );
+		if ($menuitemid)
 		{
+			$menu = JSite::getMenu();
+			$menuparams = $menu->getParams( $menuitemid );
+			$params->merge( $menuparams );
+		}
+		$settings->max_title 	= $params->get('max_title',100);
+		$settings->pubk 		= $params->get('pubk');
+		$settings->prvk 		= $params->get('prvk');
+		$settings->max_desc 	= $params->get('max_desc');
+		$settings->email 		= $params->get('email');
+		$settings->URL 			= $params->get('URL');
+		
+		$captcha[]=$settings;
+		if($captcha[0]->captcha&&!$user->id) {
 			include(JPATH_ROOT."/components/com_suggestvotecommentbribe/recaptchalib.php");
 			$resp = recaptcha_check_answer ($captcha[0]->prvk,
 			$_SERVER["REMOTE_ADDR"],
@@ -93,8 +106,15 @@ class SuggestionControllervote extends JController
 		$sugg=$model1->getData();
 		$model1 = $this->getModel( 'log' );
 		$post1['title']=$SID;
-		if($user->id)$post1['description']=$user->name;
-		else $post1['description']='Anonymous';
+		if($user->id)
+		{
+				
+			$post1['description']=$user->name;
+		}
+		else
+		{
+			$post1['description']=JText::_( 'ANONYMOUS' );
+		}
 		$post1['description'].=' has voted for '.$sugg->title.' at '.date(DATE_RFC822);
 		$model1->store($post1);
 
@@ -125,8 +145,14 @@ class SuggestionControllervote extends JController
 			foreach($cids as $cid) {
 				$model1 = $this->getModel( 'log' );
 				$post1['title']=$SID;
-				if($user->id)$post1['description']=$user->name;
-				else $post1['description']='Anonymous';
+				if($user->id)
+				{
+					$post1['description']=$user->name;
+				}
+				else
+				{
+					$post1['description']='Anonymous';
+				}
 				$post1['description'].=' has removed his vote for '.$sugg->title.' at '.date(DATE_RFC822);
 				$model1->store($post1);
 				$msg = JText::_( 'Vote removed' );
@@ -146,6 +172,4 @@ class SuggestionControllervote extends JController
 		$db->query();
 		$this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=sugg&cid[0]='.$SID.'&Itemid='.JRequest::getVar('Itemid'), $msg );
 	}
-
-
 }

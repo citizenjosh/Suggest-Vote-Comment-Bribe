@@ -10,9 +10,19 @@
 //--No direct access
 defined('_JEXEC') or die('=;)');
 $db = &JFactory::getDBO();
+/*
 $db->setQuery('select*from #__suggestvotecommentbribe');
 $settings=$db->loadObjectlist();
 $settings=$settings[0];
+*/
+$params = &JComponentHelper::getParams('com_suggestvotecommentbribe');
+$settings = new stdClass();
+$settings->URL 			= $params->get("URL","");
+$settings->email 		= $params->get("email","");
+$settings->pubk 		= $params->get("pubk","");
+$settings->prvk 		= $params->get("prvk","");
+$settings->max_title 	= $params->get("max_title","");
+$settings->max_desc 	= $params->get("max_desc","");
 
 JHTML::_('behavior.tooltip');
 ?>

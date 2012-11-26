@@ -27,9 +27,12 @@ class SuggestionsController extends JController
 	 */
 	function display()
 	{
-		if(!$_REQUEST['view'])
+		global $mainframe;
+		$view = &JRequest::getVar('view');
+		if(!$view)
 		{
-			$this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=suggestions','' );
+			#$this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=suggestions','' );
+			$mainframe->redirect( 'index.php?option=com_suggestvotecommentbribe&view=suggs','' );
 		}
 
 		parent::display();

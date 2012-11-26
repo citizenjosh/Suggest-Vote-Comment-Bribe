@@ -3,11 +3,11 @@
 	<author>CitizenJosh.com</author>
 	<authorEmail>joomla@Interpreneurial.com</authorEmail>
 	<authorUrl>http://CitizenJosh.com</authorUrl>
-	<version>1.2.0</version>
+	<version>1.3.0</version>
 	<description>A user can write a suggestion on which users can vote, comment, and bribe.</description>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<copyright>Copyright (C) 2010 All rights reserved.</copyright>
-	<creationDate>10-Apr-2010</creationDate>
+	<creationDate>30-May-2010</creationDate>
 
 	<installfile>install/install.suggestvotecommentbribe.php</installfile>
 	<uninstallfile>install/uninstall.suggestvotecommentbribe.php</uninstallfile>
@@ -35,6 +35,7 @@
 	</files>
 	<languages folder="site/language">
 		<language tag="en-GB">en-GB/en-GB.com_suggestvotecommentbribe.ini</language>
+		<language tag="et-EE">et-EE/et-EE.com_suggestvotecommentbribe.ini</language>
 	</languages>
 	<administration>
 		<menu img="components/com_suggestvotecommentbribe/assets/images/favicon.ico" link="option=com_suggestvotecommentbribe">Suggest Vote Comment Bribe</menu>
@@ -44,7 +45,6 @@
 			<menu img="" link="option=com_suggestvotecommentbribe&amp;view=votes">Votes</menu>
 			<menu img="" link="option=com_suggestvotecommentbribe&amp;view=bribes">Bribes</menu>
 			<menu img="" link="option=com_suggestvotecommentbribe&amp;view=logs">Log</menu>
-			<menu img="" link="option=com_suggestvotecommentbribe&amp;view=suggestions">Settings</menu>
 		</submenu>
 		<files folder="admin">
 			<folder>assets</folder>
@@ -63,13 +63,20 @@
 		</files>
 		<languages folder="admin/language">
 			<language tag="en-GB">en-GB/en-GB.com_suggestvotecommentbribe.ini</language>
+			<language tag="et-EE">et-EE/et-EE.com_suggestvotecommentbribe.ini</language>
 		</languages>
 	</administration>
-
+<!--
 	<params addPath="/administrator/components/com_suggestvotecommentbribe/elements">
+		<param type="list" name="useraccess" default="must_be_logged_in" label="User Restrictions" description="Restrictions for a user to use this." > 
+			<option value="must_be_logged_in">Must be logged in (no CAPTCHA)</option>
+			<option value="guests_enter_captcha">Guests enter CAPTCHA</option> 
+			<option value="everyone_enters_captcha">Everyone enters CAPTCHA</option> 
+			<option value="unrestricted">Unrestricted</option>
+		</param>
 		<param type="spacer" default="show/hide" /> 
 		<param name="columnstoshow" type="multilist"
-			default="showTitle"
+			default=""
 			multiple="multiple" label="Select columns to show"
 			description="Select one or more items from the list. You can use Ctrl-click to select more than one item."> 
 			<option value="showId">ID</option> 
@@ -81,12 +88,6 @@
 			<option value="showState">State</option> 
 		</param>
 		<param type="spacer" default="reCAPTCHA" />
-		<!--
-			<param type="radio" name="usecaptcha" default="1" label="Use CAPTCHA"
-			description="When to use CAPTCHA" > <option value="0">No</option>
-			<option value="1">Only for Guests</option> <option value="2">For
-			Everyone</option> </param>
-		-->
 		<param type="list" name="recaptchatheme" default="clean"
 			label="reCAPTCHA theme" description="Theme for reCAPTCHA">
 			<option value="blackglass">Blackglass</option>
@@ -106,4 +107,5 @@
 			<option value="tr">Turkish</option>
 		</param>
 	</params>
+-->
 </install>

@@ -73,12 +73,16 @@ class SuggestionsControllercomment extends JController
 		$comm=$model->getdata();
 		$model1 = $this->getModel( 'log' );
 		$post1['title']=$comm->SID;
-		if($user->id)
-		$post1['description']=$user->get('name');
-		else   $post1['description']='Anonymous';
-		$post1['description'].=' has ';
+		if($user->id){
+			$post1['description']=$user->get('name');
+		}
+		else
+		{
+			$post1['description']=JText::_( 'ANONYMOUS' );
+		}
+		$post1['description'].=JText::_('HAS');
 		$post1['description'].=$this->getTask().'ed';
-		$post1['description'].=' a comment at '.date(DATE_RFC822);
+		$post1['description'].=JText::_('A COMMENT AT').date(DATE_RFC822);
 		$model1->store($post1);
 		for($i=0;$i<count($this->cid);$i++)
 		{
@@ -111,8 +115,18 @@ class SuggestionsControllercomment extends JController
 		}
 
 		$db = &JFactory::getDBO();
-		$db->setQuery('select * from #__suggestvotecommentbribe');
-		$settings=$db->loadObjectlist();
+/*		$db->setQuery('select * from #__suggestvotecommentbribe');
+		$settings=$db->loadObjectlist();*/
+$params = &JComponentHelper::getParams('com_suggestvotecommentbribe');
+$setting = new stdClass();
+$setting->URL 			= $params->get("URL","");
+$setting->email 		= $params->get("email","");
+$setting->pubk 		= $params->get("pubk","");
+$setting->prvk 		= $params->get("prvk","");
+$setting->max_title 	= $params->get("max_title","");
+$setting->max_desc 	= $params->get("max_desc","");
+$settings = array($setting);
+
 		$post['title']=substr($_POST['title'], 0,$settings[0]->max_title);
 		$post['description']=substr($_POST['description'], 0,$settings[0]->max_desc);
 		$post['title']=(htmlentities($post['title'],ENT_NOQUOTES));
@@ -137,10 +151,9 @@ class SuggestionsControllercomment extends JController
 			$post1['title']=$post['SID'];
 			if($user->id)
 			$post1['description']=$user->get('name');
-			else $post1['description']='Anonymous';
+			else $post1['description']=JText::_( 'ANONYMOUS' );
 			$post1['description'].=' has modified a comment on '.$sugg->title.' at '.date(DATE_RFC822);
 			$model1->store($post1);
-
 		} else {
 			$msg = JText::_( 'ERROR_SAVING_ITEM' );
 		}
@@ -163,9 +176,13 @@ class SuggestionsControllercomment extends JController
 			$post1['title']=$comm->SID;
 			$user =& JFactory::getUser();
 			foreach($cids as $cid) {
-				if($user->id)
-				$post1['description']=$user->get('name');
-				else   $post1['description']='Anonymous';
+				if($user->id){
+					$post1['description']=$user->get('name');
+				}
+				else
+				{
+					$post1['description']=JText::_( 'ANONYMOUS' );
+				}
 				$post1['description'].=' has removed a comment at '.date(DATE_RFC822);
 				$model1->store($post1);
 				$msg .= JText::_( 'Item Deleted '.' : '.$cid );
