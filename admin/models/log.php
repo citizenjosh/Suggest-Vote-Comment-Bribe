@@ -4,8 +4,8 @@
  * @package    Suggest Vote Comment Bribe
  * @subpackage Models
  * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
- * @license GNU/GPL 
-*/
+ * @license GNU/GPL
+ */
 
 //--No direct access
 defined('_JEXEC') or die('=;)');
@@ -36,13 +36,13 @@ class SuggestionsModellog extends JModel
 		}
 
 		return true;
-	}	
-	
+	}
+
 	function delete()
 	{
 		$cids = JRequest::getVar( 'cid', array(0), 'post', 'array' );
 		$row =& $this->getTable('log');
-  
+
 		if (count( $cids )) {
 			foreach($cids as $cid) {
 				if (!$row->delete( $cid )) {

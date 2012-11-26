@@ -19,6 +19,12 @@ $settings=$settings[0];
 $ordering = ($this->lists['order'] == 'ordering');
 
 ?>
+<?php	// handle parameters
+$params = &JComponentHelper::getParams('com_suggestvotecommentbribe');
+$columnstoshow = $params->get( 'columnstoshow' );
+?>
+
+
 <script
 	type="text/javascript" src="includes/js/joomla.javascript.js"></script>
 
@@ -28,16 +34,41 @@ $ordering = ($this->lists['order'] == 'ordering');
 <table class="adminlist" cellpadding="5px">
 	<thead>
 		<tr>
+		<?php
+		if( is_array($columnstoshow) && in_array('showId', $columnstoshow) ){
+		?>
 			<th nowrap="nowrap" style="text-align: left;"><?php echo JHTML::_('grid.sort',   JText::_('ID'), 'id', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+		<?php } ?>
+		<?php
+		if( is_array($columnstoshow) && in_array('showTitle', $columnstoshow) ){
+		?>
 			<th style="text-align: left;"><?php echo JHTML::_('grid.sort',   JText::_('TITLE'), 'title', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+		<?php } ?>
+		<?php
+		if( is_array($columnstoshow) && in_array('showVotes', $columnstoshow) ){
+		?>
 			<th style="text-align: left;"><?php echo JHTML::_('grid.sort', JText::_('SUGGNOOFVOTES'), 'noofVotes', $this->lists['order_Dir'], $this->lists['order']);?></th>
+		<?php } ?>
+		<?php
+		if( is_array($columnstoshow) && in_array('showComments', $columnstoshow) ){
+		?>
 			<th style="text-align: left;"><?php echo JHTML::_('grid.sort', JText::_('SUGGNOOFCOMMENTS'), 'noofComs', $this->lists['order_Dir'], $this->lists['order']);?></th>
+		<?php } ?>
+		<?php
+		if( is_array($columnstoshow) && in_array('showBribes', $columnstoshow) ){
+		?>
 			<th style="text-align: left;"><?php echo JHTML::_('grid.sort', JText::_('SUGGAMOUNTBRIBED'), 'amountDonated', $this->lists['order_Dir'], $this->lists['order']);?></th>
-			<th style="text-align: left;"><?php //echo JHTML::_('grid.sort', 'published', 'published', $this->lists['order_Dir'], $this->lists['order']);?></th>
-			<?php   if($settings->show){ ?>
+		<?php } ?>
+		<?php
+		if( $settings->show && is_array($columnstoshow) && in_array('showAuthor', $columnstoshow) ){
+		?>
 			<th style="text-align: left;"><?php echo JHTML::_('grid.sort', JText::_('AUTHOR'), 'UID', $this->lists['order_Dir'], $this->lists['order']);?></th>
-			<?php } ?>
+		<?php } ?>
+		<?php
+		if( is_array($columnstoshow) && in_array('showState', $columnstoshow) ){
+		?>
 			<th style="text-align: left;"><?php echo JHTML::_('grid.sort', JText::_('SUGGSTATE'), 'state', $this->lists['order_Dir'], $this->lists['order']);?></th>
+		<?php } ?>
 		</tr>
 	</thead>
 
@@ -55,46 +86,76 @@ $ordering = ($this->lists['order'] == 'ordering');
 				continue;
 			}
 		}
-		$link = JRoute::_( 'index.php?option=com_suggestvotecommentbribe&view=sugg&cid[]='. $row->id);
+		$link = JRoute::_( 'index.php?option=com_suggestvotecommentbribe&view=sugg&cid[]='. $row->id.'&Itemid='.$this->Itemid);
 
 		$checked = JHTML::_('grid.id',  $i, $row->id );
-
-		$published  = JHTML::_('grid.published', $row, $i,'../administrator/images/tick.png','../administrator/images/publish_x.png' );
-		?>
+	?>
+		
+		
+		
+		
+		
 		<tr class="<?php echo "row$k"; ?>">
-			<td align="center"><?php echo $row->id; ?></td>
-			<td><a href="<?php echo $link  ?>"> <?php $row->title=html_entity_decode($row->title,ENT_NOQUOTES); if(strlen($row->title)>20) $row->title=substr($row->title, 0,20).'...'; echo htmlentities($row->title,ENT_NOQUOTES); ?></a>
-			</td>
-			<td align="center"><?php echo $row->noofVotes;?></td>
-			<td align="center"><?php echo $row->noofComs;?></td>
-			<td align="center"><?php echo $row->amountDonated;?></td>
-			<!--            <td align="center"><?php echo $row->published?'Published':'Not published';?></td>
--->
-			<td align="center">&nbsp;</td>
-			<?php
-			if($settings->show)
-			{
-				?>
-			<td><?php          if($row->UID)
-			{
-				$user2 =& JFactory::getUser($row->UID);
-				echo $user2->get('name');
-			}
-			else echo 'Anonymous';
-
-			?></td>
-			<?php } ?>
-			<td><?php echo $row->state?'open':'closed'; ?></td>
-		</tr>
 		<?php
-		$k = 1 - $k;
+		if( is_array($columnstoshow) && in_array('showId', $columnstoshow) ){
+		?>
+			<td align="center"><?php echo $row->id; ?></td>
+		<?php } ?>
+		<?php
+		if( is_array($columnstoshow) && in_array('showTitle', $columnstoshow) ){
+		?>
+			<td><a href="<?php echo $link  ?>"> <?php $row->title=html_entity_decode($row->title,ENT_NOQUOTES); if(strlen($row->title)>20) $row->title=substr($row->title, 0,20).'...'; echo htmlentities($row->title,ENT_NOQUOTES); ?></a></td>
+		<?php } ?>
+		<?php
+		if( is_array($columnstoshow) && in_array('showVotes', $columnstoshow) ){
+		?>
+			<td align="center"><?php echo $row->noofVotes;?></td>
+		<?php } ?>
+		<?php
+		if( is_array($columnstoshow) && in_array('showComments', $columnstoshow) ){
+		?>
+			<td align="center"><?php echo $row->noofComs;?></td>
+		<?php } ?>
+		<?php
+		if( is_array($columnstoshow) && in_array('showBribes', $columnstoshow) ){
+		?>
+			<td align="center"><?php echo $row->amountDonated;?></td>
+		<?php } ?>
+		<?php
+		if( $settings->show && is_array($columnstoshow) && in_array('showAuthor', $columnstoshow) ){
+		?>
+			<td align="center">
+				<?php
+				if($row->UID)
+				{
+					$user2 =& JFactory::getUser($row->UID);
+					echo $user2->get('name');
+				}
+				else
+				{
+					echo JText::_('ANONYMOUS');
+				}
+			?></td>
+		<?php
+		}
+		?>
+		<?php
+		if( is_array($columnstoshow) && in_array('showState', $columnstoshow) ){
+		?>
+			<td><?php echo $row->state?'open':'closed'; ?></td>
+		<?php
+		}
+		?>
+		</tr>
+	<?php
+	$k = 1 - $k;
 	}
 	?>
 	</tbody>
 	<tfoot>
 		<tr>
 			<td colspan="13"><a
-				href='<?php echo JRoute::_( 'index.php?option=com_suggestvotecommentbribe&controller=sugg&task=edit'); ?>'><img
+				href='<?php echo JRoute::_( 'index.php?option=com_suggestvotecommentbribe&controller=sugg&task=edit'.'&Itemid='.$this->Itemid); ?>'><img
 				src="<?php echo 'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS ?>icon-32-article-add.png"
 				alt="<?php echo JText::_('SUGGADDNEW');?>"><br />
 				<?php echo JText::_('SUGGADDNEW');?></a></td>

@@ -36,7 +36,7 @@ class SuggestionsModelsugg extends JModel
 		}
 		return true;
 	}
-	 
+
 	function delete()
 	{
 		$cids = JRequest::getVar( 'cid', array(0), 'post', 'array' );

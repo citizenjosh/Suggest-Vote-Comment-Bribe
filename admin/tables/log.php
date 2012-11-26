@@ -4,8 +4,8 @@
  * @package    Suggest Vote Comment Bribe
  * @subpackage Tables
  * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
- * @license GNU/GPL 
-*/
+ * @license GNU/GPL
+ */
 
 //--No direct access
 defined('_JEXEC') or die('=;)');
@@ -17,7 +17,7 @@ defined('_JEXEC') or die('=;)');
 class Tablelog extends JTable
 {
 	var $db = null;
-	
+
 	/**
 	 * @var int
 	 * Primary key

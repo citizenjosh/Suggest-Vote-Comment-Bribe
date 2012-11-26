@@ -4,8 +4,8 @@
  * @package    Suggest Vote Comment Bribe
  * @subpackage Views
  * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
- * @license GNU/GPL 
-*/
+ * @license GNU/GPL
+ */
 
 //--No direct access
 defined('_JEXEC') or die('=;)');
@@ -27,17 +27,17 @@ class SuggestionsViewcomment extends JView
 
 		JToolBarHelper::save();
 		JToolBarHelper::cancel();
-         $db = &JFactory::getDBO();
-         $db->setQuery('select*from #__suggestvotecommentbribe_sugg where id='.$item->SID);
-         $sugg=$db->loadObjectlist();
-         if(count($sugg))
-            $item->Sname=$sugg[0]->title;
-         else $item->Sname='';
+		$db = &JFactory::getDBO();
+		$db->setQuery('select*from #__suggestvotecommentbribe_sugg where id='.$item->SID);
+		$sugg=$db->loadObjectlist();
+		if(count($sugg))
+		$item->Sname=$sugg[0]->title;
+		else $item->Sname='';
 		$editor =& JFactory::getEditor();
-$this->assignRef('editor', $editor);
+		$this->assignRef('editor', $editor);
 
 		$lists['published'] = JHTML::_('select.booleanlist',  'published', 'class="inputbox"', $item->published );
-$this->assignRef('lists', $lists);
+		$this->assignRef('lists', $lists);
 
 		$this->assignRef('item', $item);
 		parent::display($tpl);

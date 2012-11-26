@@ -45,7 +45,7 @@ class SuggestionsControllersugg extends JController
 
 	function cancel()
 	{
-		$msg = JText::_( 'Operation Cancelled' );
+		$msg = JText::_( 'OPERATION_CANCELLED' );
 		$this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=suggs', $msg );
 	}
 	function publish()
@@ -57,7 +57,7 @@ class SuggestionsControllersugg extends JController
 		if (count( $cid ) < 1)
 		{
 			$action = $publish ? 'publish' : 'unpublish';
-			JError::raiseError(500, JText::_( 'Select an item to' .$action, true ) );
+			JError::raiseError(500, JText::_( 'SELECT_AN_ITEM_TO' .$action, true ) );
 		}
 
 		$this->cids = implode( ',', $cid );
@@ -94,7 +94,7 @@ class SuggestionsControllersugg extends JController
 		if (count( $cid ) < 1)
 		{
 			$action = $state? 'Open' : 'Close';
-			JError::raiseError(500, JText::_( 'Select an item to' .$action, true ) );
+			JError::raiseError(500, JText::_( 'SELECT_AN_ITEM_TO' .$action, true ) );
 		}
 
 		$this->cids = implode( ',', $cid );
@@ -112,8 +112,13 @@ class SuggestionsControllersugg extends JController
 		$model1 = $this->getModel( 'log' );
 		$post1['title']=$this->cids;
 		if($user->id)
-		$post1['description']=$user->get('name');
-		else   $post1['description']='Anonymous';
+		{
+			$post1['description']=$user->get('name');
+		}
+		else
+		{
+		   $post1['description']='Anonymous';
+		}
 		$post1['description'].=' has ';
 		$post1['description'].=$this->getTask()!='Open'?'opened':'closed';
 		$post1['description'].=' a suggestion at '.date(DATE_RFC822);
@@ -168,12 +173,21 @@ class SuggestionsControllersugg extends JController
 			}
 			$post1['title']=$CID;
 			if($post[id]==0)
-			$posted='posted';
+			{
+				$posted='posted';
+			}
 			else
-			$posted='edited';
+			{
+				$posted='edited';
+			}
 			if($user->id)
-			$post1['description']=$user->get('name');
-			else   $post1['description']='Anonymous';
+			{
+				$post1['description']=$user->get('name');
+			}
+			else
+			{
+				$post1['description']='Anonymous';
+			}
 			$post1['description'].=' has '.$posted.' a suggestion at '.date(DATE_RFC822);
 			$model1->store($post1);
 
@@ -190,19 +204,26 @@ class SuggestionsControllersugg extends JController
 		$model = $this->getModel('sugg');
 		if(!$model->delete()) {
 			$msg = JText::_( 'Error Deleting Item' );
-		} else {
+		}
+		else
+		{
 			$cids = JRequest::getVar( 'cid', array(0), 'post', 'array' );
 			$model1 = $this->getModel( 'log' );
 			$post1['title']=$cids[0];
 			$user =& JFactory::getUser();
 			foreach($cids as $cid) {
 				if($user->id)
-				$post1['description']=$user->get('name');
-				else   $post1['description']='Anonymous';
+				{
+					$post1['description']=$user->get('name');
+				}
+				else
+				{
+					$post1['description']='Anonymous';
+				}
 				$post1['description'].=' has removed a suggestion at '.date(DATE_RFC822);
 				$model1->store($post1);
 
-				$msg .= JText::_( 'Item Deleted '.' : '.$cid );
+				$msg .= JText::_( 'ITEM_DELETED'.': '.$cid );
 			}
 		}
 

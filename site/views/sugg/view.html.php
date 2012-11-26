@@ -26,6 +26,14 @@ class SuggestionViewsugg extends JView
 
 		$editor =& JFactory::getEditor();
 		$this->assignRef('editor', $editor);
+
+		// active Item ID
+		$menus = &JSite::getMenu();
+		$menu  = $menus->getActive();
+		$Itemid = $menu->id;
+		$this->assignRef('Itemid', $Itemid);
+
+
 		//get the rest
 		$cids='';
 		foreach($_COOKIE as $key=>$val)

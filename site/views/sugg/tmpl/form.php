@@ -28,7 +28,7 @@ JHTML::_('behavior.tooltip');
 		<td colspan="2"><input class="text_area" type="text" name="title"
 			id="title" size="32" maxlength="255"
 			value="<?php echo $this->item->title;?>" /> <br>
-		Max <?php $settings->max_title ?> characters</td>
+		<?php echo JText::_( 'MAX_CHARACTERS' ); ?>: <?php echo $settings->max_title ?></td>
 	</tr>
 </table>
 </fieldset>
@@ -43,7 +43,7 @@ JHTML::_('behavior.tooltip');
 			{
 				echo $this->item->description;
 			}?></textarea> <br>
-		Max <?php $settings->max_desc ?> characters</td>
+		<?php echo JText::_( 'MAX_CHARACTERS' ); ?>: <?php echo $settings->max_desc ?></td>
 	</tr>
 </table>
 </fieldset>
@@ -60,7 +60,8 @@ JHTML::_('behavior.tooltip');
 	value="<?php echo $this->item->id; ?>" /> <input type="hidden"
 	name="UID" value="<?php echo $user->get('id'); ?>" /> <input
 	type="hidden" name="option" value="com_suggestvotecommentbribe" /> <input
-	type="hidden" name="task" value="save" /> <input type="hidden"
+	type="hidden" name="task" value="save" /> <input
+	type="hidden" name="Itemid" value="<?php echo $this->Itemid; ?>" /> <input type="hidden"
 	name="controller" value="sugg" /> <input type="image"
 	src="<?php echo 'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS ?>icon-32-save.png"
 	alt="<?php echo JTEXT::_("SAVE"); ?>"><br />

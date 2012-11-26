@@ -31,7 +31,7 @@ class SuggestionsViewSuggestions extends JView
 		//      JToolBarHelper::deleteList();
 		JToolBarHelper::editListX();
 		//      JToolBarHelper::addNewX();
-//		JToolBarHelper::preferences( 'com_suggestvotecommentbribe' );
+		//		JToolBarHelper::preferences( 'com_suggestvotecommentbribe' );
 
 		// Get data from the model
 		$items =& $this->get('Data');

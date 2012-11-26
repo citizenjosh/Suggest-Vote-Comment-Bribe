@@ -4,8 +4,8 @@
  * @package    Suggest Vote Comment Bribe
  * @subpackage Controllers
  * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
- * @license GNU/GPL 
-*/
+ * @license GNU/GPL
+ */
 
 //--No direct access
 defined('_JEXEC') or die('=;)');
@@ -30,18 +30,18 @@ class SuggestionsControllerlog extends JController
 	{
 		$this->_query = 'UPDATE #__suggestvotecommentbribe_log'
 		. ' SET published = ' . (int) $this->publish
-		. ' WHERE id IN ( '. $this->cids .' )'		
+		. ' WHERE id IN ( '. $this->cids .' )'
 		;
-		return $this->_query;     
+		return $this->_query;
 	}
-/*	function edit()
-	{
+	/*	function edit()
+	 {
 		JRequest::setVar( 'view', 'log' );
 		JRequest::setVar( 'layout', 'form'  );
 		JRequest::setVar('hidemainmenu', 1);
 		parent::display();
-	}
-*/
+		}
+		*/
 	function cancel()
 	{
 		$msg = JText::_( 'OPERATION_CANCELLED' );
@@ -94,16 +94,16 @@ class SuggestionsControllerlog extends JController
 	{
 		$model = $this->getModel('log');
 		if(!$model->delete()) {
-			$msg = JText::_( 'Error Deleting Item' );
+			$msg = JText::_( 'ERROR_DELETING_ITEM' );
 		} else {
 			$cids = JRequest::getVar( 'cid', array(0), 'post', 'array' );
 			foreach($cids as $cid) {
-				$msg .= JText::_( 'Item Deleted '.' : '.$cid );
-			}			
+				$msg .= JText::_( 'ITEM_DELETED'.' : '.$cid );
+			}
 		}
 
 		$this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=logs', $msg );
 	}
 
-	
+
 }

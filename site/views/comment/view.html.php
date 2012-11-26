@@ -5,7 +5,7 @@
  * @subpackage Views
  * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL
-*/
+ */
 
 //--No direct access
 defined('_JEXEC') or die('=;)');
@@ -14,22 +14,26 @@ jimport('joomla.application.component.view');
 
 class SuggestionViewcomment extends JView
 {
-   function display($tpl = null)
-   {
-      JHTML::stylesheet( 'suggestvotecommentbribe.css', 'components/com_suggestvotecommentbribe/assets/' );
+	function display($tpl = null)
+	{
+		JHTML::stylesheet( 'suggestvotecommentbribe.css', 'components/com_suggestvotecommentbribe/assets/' );
 
-      //Data from model
-      $item =& $this->get('Data');
-      $isNew = ($item->id < 1);
-      $text = $isNew ? JText::_( 'New' ) : JText::_( 'Edit' );
+		//Data from model
+		$item =& $this->get('Data');
+		$isNew = ($item->id < 1);
+		$text = $isNew ? JText::_( 'New' ) : JText::_( 'Edit' );
 
-      $editor =& JFactory::getEditor();
-$this->assignRef('editor', $editor);
+		// active Item ID
+		$Itemid = JRequest::getVar('Itemid');
+		$this->assignRef('Itemid', $Itemid);
 
-      $lists['published'] = JHTML::_('select.booleanlist',  'published', 'class="inputbox"', $item->published );
-$this->assignRef('lists', $lists);
+		$editor =& JFactory::getEditor();
+		$this->assignRef('editor', $editor);
 
-      $this->assignRef('item', $item);
-      parent::display($tpl);
-   }
+		$lists['published'] = JHTML::_('select.booleanlist',  'published', 'class="inputbox"', $item->published );
+		$this->assignRef('lists', $lists);
+
+		$this->assignRef('item', $item);
+		parent::display($tpl);
+	}
 }

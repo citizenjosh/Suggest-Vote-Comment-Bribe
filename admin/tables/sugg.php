@@ -17,7 +17,7 @@ defined('_JEXEC') or die('=;)');
 class Tablesugg extends JTable
 {
 	var $db = null;
-	 
+
 	/**
 	 * @var int
 	 * Primary key
@@ -53,17 +53,17 @@ class Tablesugg extends JTable
 	 * @var int
 	 */
 	var $state= 1;
-	 
+
 	/**
 	 * @var decimal
 	 */
 	var $amountDonated= 0;
-	 
+
 	/**
 	 * @var int
 	 */
 	var $noofVotes= 0;
-	 
+
 	/**
 	 * @var int
 	 */
@@ -80,10 +80,10 @@ class Tablesugg extends JTable
 		$this->db = $_db;
 	}// function
 
-	 
-	 
-	   
-	     
+
+
+
+
 	/**
 	 * Overloaded bind function
 	 * http://docs.joomla.org/Adding_a_multiple_item_select_list_parameter_type
@@ -103,12 +103,12 @@ class Tablesugg extends JTable
 
 		return parent::bind( $array, $ignore );
 	}
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
+
+
+
+
+
+
+
+
 }// class

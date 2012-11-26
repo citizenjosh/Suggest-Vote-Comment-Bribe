@@ -25,7 +25,7 @@ JHTML::_('behavior.tooltip');
 		<td colspan="2"><input class="text_area" type="text" name="title"
 			id="title" size="32" maxlength="255"
 			value="<?php echo $this->item->title;?>" /> <br>
-		Max <?php $settings->max_title ?> characters</td>
+		<?php echo JText::_( 'MAX_CHARACTERS' ); ?>: <?php echo $settings->max_title ?></td>
 	</tr>
 </table>
 </fieldset>
@@ -39,7 +39,7 @@ JHTML::_('behavior.tooltip');
 			} else {
 				echo $this->item->description;
 			}?></textarea> <br>
-		Max <?php $settings->max_desc ?> characters</td>
+		<?php echo JText::_( 'MAX_CHARACTERS' ); ?>: <?php echo $settings->max_desc ?></td>
 	</tr>
 </table>
 </fieldset>
@@ -64,4 +64,5 @@ JHTML::_('behavior.tooltip');
 	type="hidden" name="cid[]" value="<?php echo $this->item->id; ?>" /> <input
 	type="hidden" name="option" value="com_suggestvotecommentbribe" /> <input
 	type="hidden" name="task" value="save" /> <input type="hidden"
-	name="controller" value="comment" /></form>
+	name="controller" value="comment" /><input type="hidden"
+	name="Itemid" value="<?php echo $this->Itemid ?>" /></form>

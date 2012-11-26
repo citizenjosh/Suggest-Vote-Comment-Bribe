@@ -369,7 +369,6 @@ $rows = 0;
 	</tbody>
 </table>
 <h2>Next Steps</h2>
-<p>
 <ul>
 	<li>Create a <a
 		href="index.php?option=com_menus&task=edit&type=component&url[option]=com_suggestvotecommentbribe&url[view]=suggs&menutype=mainmenu">menu
@@ -380,5 +379,10 @@ $rows = 0;
 	<li>Update <a
 		href="index.php?option=com_suggestvotecommentbribe&view=suggestions"><i><?php JText::_('COMPONENT_TITLE') ?></i>
 	settings</a></li>
+	<li><i>Please</i> give a 5-star rating at the <a
+		href="http://extensions.joomla.org/extensions/contacts-and-feedback/testimonials-a-suggestions/11505"
+		target="_blank">Joomla! Extensions Directory</a> <b>or</b> please <a
+		href="http://citizenjosh.com/contact.html" target="_blank">tell me
+	what I can improve</a> to get a 5-star rating from you.
+
 </ul>
-</p>

@@ -10,8 +10,8 @@
  * @package    Suggest Vote Comment Bribe
  * @subpackage _ECR_SUBPACKAGE_
  * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
- * @license GNU/GPL 
-*/
+ * @license GNU/GPL
+ */
 
 //--No direct access
 defined('_JEXEC') or die('=;)');
@@ -200,10 +200,10 @@ if (is_a($plugins, 'JSimpleXMLElement') && count($plugins->children()))
  * OUTPUT TO SCREEN
  * ---------------------------------------------------------------------------------------------
  ***********************************************************************************************/
- $rows = 0;
+$rows = 0;
 ?>
 
-<h2>Suggestion Removal</h2>
+<h2>Removed: Suggest, Vote, Comment, Bribe</h2>
 <table class="adminlist">
 	<thead>
 		<tr>
@@ -218,36 +218,49 @@ if (is_a($plugins, 'JSimpleXMLElement') && count($plugins->children()))
 	</tfoot>
 	<tbody>
 		<tr class="row0">
-			<td class="key" colspan="2"><?php echo 'Suggestion '.JText::_('Component'); ?></td>
-			<td><img src="images/publish_g.png" alt="OK" /><strong><?php echo JText::_('Removed'); ?></strong></td>
+			<td class="key" colspan="2"><?php echo "".JText::_('COMPONENT_TITLE')." ".JText::_('COMPONENT'); ?></td>
+			<td><img src="images/publish_g.png" alt="OK" /><strong><?php echo JText::_('REMOVED'); ?></strong></td>
 		</tr>
-<?php if (count($status->modules)) : ?>
+		<?php if (count($status->modules)) : ?>
 		<tr>
-			<th><?php echo JText::_('Module'); ?></th>
-			<th><?php echo JText::_('Client'); ?></th>
+			<th><?php echo JText::_('MODULE'); ?></th>
+			<th><?php echo JText::_('CLIENT'); ?></th>
 			<th></th>
 		</tr>
-	<?php foreach ($status->modules as $module) : ?>
+		<?php foreach ($status->modules as $module) : ?>
 		<tr class="row<?php echo (++ $rows % 2); ?>">
 			<td class="key"><?php echo $module['name']; ?></td>
 			<td class="key"><?php echo ucfirst($module['client']); ?></td>
-			<td><img src="images/publish_g.png" alt="OK" /><strong><?php echo JText::_('Removed'); ?></strong></td>
+			<td><img src="images/publish_g.png" alt="OK" /><strong><?php echo JText::_('REMOVED'); ?></strong></td>
 		</tr>
-	<?php endforeach;
-endif;
-if (count($status->plugins)) : ?>
+		<?php endforeach;
+		endif;
+		if (count($status->plugins)) : ?>
 		<tr>
-			<th><?php echo JText::_('Plugin'); ?></th>
-			<th><?php echo JText::_('Group'); ?></th>
+			<th><?php echo JText::_('PLUGIN'); ?></th>
+			<th><?php echo JText::_('GROUP'); ?></th>
 			<th></th>
 		</tr>
-	<?php foreach ($status->plugins as $plugin) : ?>
+		<?php foreach ($status->plugins as $plugin) : ?>
 		<tr class="row<?php echo (++ $rows % 2); ?>">
 			<td class="key"><?php echo ucfirst($plugin['name']); ?></td>
 			<td class="key"><?php echo ucfirst($plugin['group']); ?></td>
-			<td><img src="images/publish_g.png" alt="OK" /><strong><?php echo JText::_('Removed'); ?></strong></td>
+			<td><img src="images/publish_g.png" alt="OK" /><strong><?php echo JText::_('REMOVED'); ?></strong></td>
 		</tr>
-	<?php endforeach;
-endif; ?>
+		<?php endforeach;
+		endif; ?>
 	</tbody>
 </table>
+<p>Every time you un-install SVCB you make a baby cry.<br />
+But maybe you did it for the best of reasons.</p>
+<ul>
+	<li><b>if you liked SVCB</b><br />
+	<i>please</i> give a 5-star rating at the <a
+		href="http://extensions.joomla.org/extensions/contacts-and-feedback/testimonials-a-suggestions/11505"
+		target="_blank">Joomla! Extensions Directory</a></li>
+	<li>if you don't think <b>SVCB deserves a 5-star rating at the <a
+		href="http://extensions.joomla.org/extensions/contacts-and-feedback/testimonials-a-suggestions/11505"
+		target="_blank">Joomla! Extensions Directory</a></b><br />
+	please <a href="http://citizenjosh.com/contact.html" target="_blank">tell
+	me what I can improve</a> to get a 5-star rating from you</li>
+</ul>

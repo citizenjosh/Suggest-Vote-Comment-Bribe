@@ -23,8 +23,7 @@ defined('_JEXEC') or die('=;)');
 				value="" onclick="checkAll(<?php echo count( $this->items ); ?>);" />
 			</th>
 			<th><?php echo JText::_( 'REQUIRE_LOGIN' ); ?></th>
-			<th><?php echo JText::_( 'REQUIRE CAPTCHA' ); ?></th>
-			<th><?php echo JText::_( 'SHOW_USERS' ); ?></th>
+			<th><?php echo JText::_( 'REQUIRE_CAPTCHA' ); ?></th>
 			<th><?php echo JText::_( 'PAYPAL_EMAIL' ); ?></th>
 			<th><?php echo JText::_( 'THANK_YOU_URL' ); ?></th>
 		</tr>
@@ -36,7 +35,6 @@ defined('_JEXEC') or die('=;)');
 		$row = &$this->items[$i];
 		$checked    = JHTML::_('grid.id',   $i, $row->id );
 		$link       = JRoute::_( 'index.php?option=com_suggestvotecommentbribe&controller=suggestion&task=edit&cid[]='. $row->id );
-
 		?>
 	<tr class="<?php echo "row$k"; ?>">
 		<td><?php echo $checked; ?></td>
@@ -45,9 +43,6 @@ defined('_JEXEC') or die('=;)');
 		</td>
 		<td><a
 			href="index.php?option=com_suggestvotecommentbribe&controller=suggestion&task=captcha"><?php echo $row->captcha?'yes':'No'; ?></a>
-		</td>
-		<td><a
-			href="index.php?option=com_suggestvotecommentbribe&controller=suggestion&task=showUser"><?php echo $row->show?'yes':'No'; ?></a>
 		</td>
 		<td><a href="<?php echo $link; ?>"><?php echo $row->email; ?></a></td>
 		<td><a href="<?php echo $link; ?>"><?php echo $row->URL; ?></a></td>
@@ -64,9 +59,9 @@ defined('_JEXEC') or die('=;)');
 </table>
 </div>
 <input type="hidden" name="option" value="com_suggestvotecommentbribe" />
-<input type="hidden" name="task" value="" /> <input type="hidden"
-	name="boxchecked" value="0" /> <input type="hidden" name="controller"
-	value="suggestion" /></form>
+<input type="hidden" name="task" value="" />
+<input type="hidden" name="boxchecked" value="0" />
+<input type="hidden" name="controller" value="suggestion" /></form>
 <script language="javascript">
 $('toggle').checked=true;
 checkAll(<?php echo count( $this->items ); ?>);

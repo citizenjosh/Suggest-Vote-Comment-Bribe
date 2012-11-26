@@ -33,7 +33,7 @@ if($this->settings->show)
 {
 	if($this->item->UID==0)
 	{
-		$username='Anonymous';
+		$username=JText::_('ANONYMOUS');
 	}
 	else
 	{
@@ -42,27 +42,75 @@ if($this->settings->show)
 	}
 }
 ?>
-<div style="width: 100%;">
+<?php	// handle parameters
+$params = &JComponentHelper::getParams('com_suggestvotecommentbribe');
+$columnstoshow = $params->get( 'columnstoshow' );
+?>
+
+<div style="width: 100%;"><?php
+if( is_array($columnstoshow) && in_array('showTitle', $columnstoshow) )
+{
+	?>
 <div
-	style="color: #666666; font-family: Helvetica, Arial, sans-serif; font-size: 1.3em; font-weight: bold; text-align: left; width: 100%;"><?php echo force_sp(str_replace('&nbsp;','&nbsp; ',$this->item->title),30); ?></div>
-<br>
-<?php echo $this->settings->show?' '.JText::_('AUTHOR').' '.$username:''; ?>
+	style="color: #666666; font-family: Helvetica, Arial, sans-serif; font-size: 1.3em; font-weight: bold; text-align: left; width: 100%;">
+	<?php echo force_sp(str_replace('&nbsp;','&nbsp; ',$this->item->title),30); ?></div>
+	<?php
+}
+?> <br>
+<?php
+if( $this->settings->show && is_array($columnstoshow) && in_array('showAuthor', $columnstoshow) )
+{
+	echo ' '.JText::_('AUTHOR').' '.$username;
+} ?>
+
 <p><?php echo force_sp(str_replace('&nbsp;','&nbsp; ',$this->item->description),50); ?></p>
 </div>
 <p>
 <table>
+<?php
+if( is_array($columnstoshow) && in_array('showBribes', $columnstoshow) )
+{
+	?>
 	<tr>
 		<td><?php echo JText::_('SUGGAMOUNTBRIBED')?>:</td>
 		<td><?php echo $this->item->amountDonated; ?></td>
 		<td><?php echo $this->item->state && $this->item->published?"<form name=\"bribe\" method=\"post\"><input type=\"hidden\" name=\"SID\" value=\"".$this->item->id."\">
-<input type=\"hidden\" name=\"option\" value=\"com_suggestvotecommentbribe\"><input type=\"hidden\" name=\"controller\" value=\"bribe\">
+<input type=\"hidden\" name=\"option\" value=\"com_suggestvotecommentbribe\"><input type=\"hidden\" name=\"Itemid\" value=\"".$this->Itemid."\"><input type=\"hidden\" name=\"controller\" value=\"bribe\">
  <input type=\"hidden\" name=\"task\" value=\"edit\"><a href='javascript:void(0)' onclick='bribe.submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS.'bribe-32.jpg'."\" alt=\"".JText::_('LEAVEBRIBE')."\"><br />".JText::_('LEAVEBRIBE')."</a></form>":'';?></td>
 	</tr>
+	<?php
+}
+?>
+<?php
+if( is_array($columnstoshow) && in_array('showComments', $columnstoshow) )
+{
+	?>
 	<tr>
 		<td><?php echo JText::_('SUGGNOOFCOMMENTS')?>:</td>
 		<td><?php echo $this->item->noofComs; ?></td>
-		<td><?php echo $this->item->state&&$this->item->published?"<form name=\"comment\" method=\"post\"><input type=\"hidden\" name=\"cid\" value=\"0\"><input type=\"hidden\" name=\"SID\" value=".$this->item->id."><input type=\"hidden\" name=\"option\" value=\"com_suggestvotecommentbribe\"><input type=\"hidden\" name=\"controller\" value=\"comment\"><input type=\"hidden\" name=\"task\" value=\"edit\"><a href='javascript:void(0)' onclick='comment.submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS."icon-32-article-add.png\" alt=\"".JText::_('LEAVECOMMENT')."\"><br />".JText::_('LEAVECOMMENT')."</a></form>":'';?></td>
+		<td><?php if($this->item->state&&$this->item->published)
+		{
+			echo "<form name=\"comment\" method=\"post\">
+			<input type=\"hidden\" name=\"cid\" value=\"0\">
+			<input type=\"hidden\" name=\"SID\" value=".$this->item->id.">
+			<input type=\"hidden\" name=\"option\" value=\"com_suggestvotecommentbribe\">
+			<input type=\"hidden\" name=\"controller\" value=\"comment\">
+			<input type=\"hidden\" name=\"task\" value=\"edit\">
+			<input type=\"hidden\" name=\"Itemid\" value=\"".$this->Itemid."\">
+			<a href='javascript:void(0)' onclick='comment.submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS."icon-32-article-add.png\" alt=\"".JText::_('LEAVECOMMENT')."\"><br />".JText::_('LEAVECOMMENT')."</a></form>";
+		}
+		else
+		{
+			echo '';
+		}?></td>
 	</tr>
+	<?php
+}
+?>
+<?php
+if( is_array($columnstoshow) && in_array('showVotes', $columnstoshow) )
+{
+	?>
 	<tr>
 		<td><?php echo JText::_('SUGGNOOFVOTES')?>:</td>
 		<td><?php echo $this->item->noofVotes; ?></td>
@@ -73,47 +121,65 @@ if($this->settings->show)
 				$vote=$this->votes[$i];
 				if( $vote->UID && $vote->UID==$thisuser->id || isset($_COOKIE['vote'.$vote->SID]) )
 				{
-					$del= "<form name=\"vote".$vote->id."\" method=\"post\"><input type=\"hidden\" name=\"cid\" value=\"".$vote->id."\">
-		<input type=\"hidden\" name=\"option\" value=\"com_suggestvotecommentbribe\"><input type=\"hidden\" name=\"controller\" value=\"vote\"><input type=\"hidden\" name=\"SID\" value=\"".$this->item->id."\">
- 		<input type=\"hidden\" name=\"task\" value=\"remove\"><a href='javascript:void(0)' onclick='vote".$vote->id.".submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS.'thumbs-down.png'."\" alt=\"".JText::_('REMOVEVOTE')."\"><br />".JText::_('REMOVEVOTE')."</a></form>";
+					$del= "<form name=\"vote".$vote->id."\" method=\"post\">
+					<input type=\"hidden\" name=\"cid\" value=\"".$vote->id."\">
+					<input type=\"hidden\" name=\"option\" value=\"com_suggestvotecommentbribe\">
+					<input type=\"hidden\" name=\"controller\" value=\"vote\">
+					<input type=\"hidden\" name=\"SID\" value=\"".$this->item->id."\">
+					<input type=\"hidden\" name=\"task\" value=\"remove\">
+					<input type=\"hidden\" name=\"Itemid\" value=\"".$this->Itemid."\">
+					<a href='javascript:void(0)' onclick='vote".$vote->id.".submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS.'thumbs-down.png'."\" alt=\"".JText::_('REMOVEVOTE')."\"><br />".JText::_('REMOVEVOTE')."</a></form>";
 					break;
 				}
 				elseif($thisuser->id||(!$this->settings->captcha&&!$this->settings->login))
 				{
 					$del= '<form name="vote" method="post">
-		<input type="hidden" name="value" value="1" />
-		<input type="hidden" name="option" value="com_suggestvotecommentbribe" />
-		<input type="hidden" name="task" value="save" />
-		<input type="hidden" name="SID" value="'.$this->item->id.'" />
-		<input type="hidden" name="controller" value="vote" />
-		<input type="hidden" name="cid" value="0">
-		<a href="javascript:void(0)" onclick="vote.submit()"><img src="'.'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS.'thumbs-up.png'.'" alt="'.JText::_('LEAVEVOTE').'"><br />'.JText::_('LEAVEVOTE').'</a></form>';
+					<input type="hidden" name="value" value="1" />
+					<input type="hidden" name="option" value="com_suggestvotecommentbribe" />
+					<input type="hidden" name="task" value="save" />
+					<input type="hidden" name="SID" value="'.$this->item->id.'" />
+					<input type="hidden" name="controller" value="vote" />
+					<input type="hidden" name="cid" value="0">
+					<input type="hidden" name="Itemid" value="'.$this->Itemid.'">
+					<a href="javascript:void(0)" onclick="vote.submit()"><img src="'.'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS.'thumbs-up.png'.'" alt="'.JText::_('LEAVEVOTE').'"><br />'.JText::_('LEAVEVOTE').'</a></form>';
 				}
 				else
 				{
-					$del= "<form name=\"vote\" method=\"post\"><input type=\"hidden\" name=\"SID\" value=".$this->item->id."><input type=\"hidden\" name=\"cid\" value=\"0\">
-		<input type=\"hidden\" name=\"option\" value=\"com_suggestvotecommentbribe\"><input type=\"hidden\" name=\"controller\" value=\"vote\">
- 		<input type=\"hidden\" name=\"task\" value=\"edit\"><a href='javascript:void(0)' onclick='vote.submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS.'thumbs-up.png'."\" alt=\"".JText::_('LEAVEVOTE')."\"><br />".JText::_('LEAVEVOTE')."</a></form>";
+					$del= "<form name=\"vote\" method=\"post\">
+					<input type=\"hidden\" name=\"SID\" value=".$this->item->id.">
+					<input type=\"hidden\" name=\"cid\" value=\"0\">
+					<input type=\"hidden\" name=\"option\" value=\"com_suggestvotecommentbribe\">
+					<input type=\"hidden\" name=\"controller\" value=\"vote\">
+ 					<input type=\"hidden\" name=\"task\" value=\"edit\">
+ 					<input type=\"hidden\" name=\"Itemid\" value=\"".$this->Itemid."\">
+ 					<a href='javascript:void(0)' onclick='vote.submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS.'thumbs-up.png'."\" alt=\"".JText::_('LEAVEVOTE')."\"><br />".JText::_('LEAVEVOTE')."</a></form>";
 				}
 			}
 
-			if(!isset($del)){
+			if(!isset($del))
+			{
 				if($thisuser->id||(!$this->settings->captcha&&!$this->settings->login))
 				{
 					$del= '<form name="vote" method="post">
-	   <input type="hidden" name="value" value="1" />
-	   <input type="hidden" name="option" value="com_suggestvotecommentbribe" />
-	   <input type="hidden" name="task" value="save" />
-	   <input type="hidden" name="SID" value="'.$this->item->id.'" />
-	   <input type="hidden" name="controller" value="vote" />
-	   <input type="hidden" name="cid" value="0">
-	   <a href="javascript:void(0)" onclick="vote.submit()"><img src="'.'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS.'thumbs-up.png'.'" alt="'.JText::_('LEAVEVOTE').'"><br />'.JText::_('LEAVEVOTE').'</a></form>';
+				   <input type="hidden" name="value" value="1" />
+				   <input type="hidden" name="option" value="com_suggestvotecommentbribe" />
+				   <input type="hidden" name="task" value="save" />
+				   <input type="hidden" name="SID" value="'.$this->item->id.'" />
+				   <input type="hidden" name="controller" value="vote" />
+				   <input type="hidden" name="cid" value="0">
+				   <input type="hidden" name="Itemid" value="'.$this->Itemid.'">
+				   <a href="javascript:void(0)" onclick="vote.submit()"><img src="'.'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS.'thumbs-up.png'.'" alt="'.JText::_('LEAVEVOTE').'"><br />'.JText::_('LEAVEVOTE').'</a></form>';
 				}
 				else
 				{
-					$del= "<form name=\"vote\" method=\"post\"><input type=\"hidden\" name=\"SID\" value=\"".$this->item->id."\"><input type=\"hidden\" name=\"cid\" value=\"0\">
-		<input type=\"hidden\" name=\"option\" value=\"com_suggestvotecommentbribe\"><input type=\"hidden\" name=\"controller\" value=\"vote\">
- 		<input type=\"hidden\" name=\"task\" value=\"edit\"><a href='javascript:void(0)' onclick='vote.submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS."thumbs-up.png\" alt=\"".JText::_('LEAVEVOTE')."\"><br />".JText::_('LEAVEVOTE')."</a></form>";
+					$del= "<form name=\"vote\" method=\"post\">
+					<input type=\"hidden\" name=\"SID\" value=\"".$this->item->id."\">
+					<input type=\"hidden\" name=\"cid\" value=\"0\">
+					<input type=\"hidden\" name=\"option\" value=\"com_suggestvotecommentbribe\">
+					<input type=\"hidden\" name=\"controller\" value=\"vote\">
+					<input type=\"hidden\" name=\"Itemid\" value=\"".$this->Itemid."\">
+ 					<input type=\"hidden\" name=\"task\" value=\"edit\">
+ 					<a href='javascript:void(0)' onclick='vote.submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS."thumbs-up.png\" alt=\"".JText::_('LEAVEVOTE')."\"><br />".JText::_('LEAVEVOTE')."</a></form>";
 				}
 			}
 			echo $del;
@@ -123,72 +189,107 @@ if($this->settings->show)
 			echo '';
 		}?></td>
 	</tr>
+	<?php
+}
+?>
 </table>
-		<?php
-		if( ($this->item->UID!=0 && $this->item->UID==$thisuser->id) || isset($_COOKIE['suggest'.$this->item->id]) )
-		{
-			echo "<form name=\"sugg\"><input type=\"hidden\" name=\"cid\" value=\"".$this->item->id."\">
-<input type=\"hidden\" name=\"option\" value=\"com_suggestvotecommentbribe\"><input type=\"hidden\" name=\"controller\" value=\"sugg\">
+<?php
+if( ($this->item->UID!=0 && $this->item->UID==$thisuser->id) || isset($_COOKIE['suggest'.$this->item->id]) )
+{
+	echo "<form name=\"sugg\">
+	<input type=\"hidden\" name=\"cid\" value=\"".$this->item->id."\">
+	<input type=\"hidden\" name=\"option\" value=\"com_suggestvotecommentbribe\">
+	<input type=\"hidden\" name=\"controller\" value=\"sugg\">
+	<input type=\"hidden\" name=\"Itemid\" value=\"".$this->Itemid."\">
  ";
-			if($this->item->published){
-				echo "<input type=\"hidden\" name=\"task\" value=\"unpublish\"><a href='javascript:void(0)' onclick='sugg.submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS."icon-32-unpublish.png\" alt=\"".JText::_('UNPUBLISH')."\"><br />".JText::_('UNPUBLISH')."</a></form>";
-			}else{
-				echo "<input type=\"hidden\" name=\"task\" value=\"publish\"><a href='javascript:void(0)' onclick='sugg.submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS."icon-32-publish.png\" alt=\"".JText::_('PUBLISH')."\"><br />".JText::_('PUBLISH')."</a></form>";
-			}
-		}
-		?>
+	if($this->item->published){
+		echo "<input type=\"hidden\" name=\"task\" value=\"unpublish\">
+		<a href='javascript:void(0)' onclick='sugg.submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS."icon-32-unpublish.png\" alt=\"".JText::_('UNPUBLISH')."\"><br />".JText::_('UNPUBLISH')."</a></form>";
+	}else{
+		echo "<input type=\"hidden\" name=\"task\" value=\"publish\">
+		<a href='javascript:void(0)' onclick='sugg.submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS."icon-32-publish.png\" alt=\"".JText::_('PUBLISH')."\"><br />".JText::_('PUBLISH')."</a></form>";
+	}
+}
+?>
+<?php
+if( is_array($columnstoshow) && in_array('showComments', $columnstoshow) )
+{
+	?>
 <h2><?php echo JText::_('SUGGCOMMENTSTITLE')?>:</h2>
-		<?php
-		for($i=0;$i<count($this->comments);$i++)
-		{
-			$comment=$this->comments[$i];
-			if(($comment->UID&&$comment->UID==$thisuser->id)|| isset($_COOKIE['comment'.$comment->id]) )
-			{   $disable="<form name='comment".$comment->id."'><input type=\"hidden\" name=\"cid\" value=\"".$comment->id."\">
-<input type=\"hidden\" name=\"option\" value=\"com_suggestvotecommentbribe\"><input type=\"hidden\" name=\"controller\" value=\"comment\"><input type=\"hidden\" name=\"SID\" value=\"".$this->item->id."\">";
-			if($comment->published){
-				$disable.=" <input type=\"hidden\" name=\"task\" value=\"unpublish\"><a href='javascript:void(0)' onclick='comment".$comment->id.".submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS."icon-32-unpublish.png\" alt=\"".JText::_('UNPUBLISH')."\"><br />".JText::_('UNPUBLISH')."</a></form>";
-			}else{
-				$disable.=" <input type=\"hidden\" name=\"task\" value=\"publish\"><a href='javascript:void(0)' onclick='comment".$comment->id.".submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS."icon-32-publish.png\" alt=\"".JText::_('PUBLISH')."\"><br />".JText::_('PUBLISH')."</a></form>";
-			}
+	<?php
+	for($i=0;$i<count($this->comments);$i++)
+	{
+		$comment=$this->comments[$i];
+		if(($comment->UID&&$comment->UID==$thisuser->id)|| isset($_COOKIE['comment'.$comment->id]) )
+		{   $disable="<form name='comment".$comment->id."'>
+			<input type=\"hidden\" name=\"cid\" value=\"".$comment->id."\">
+			<input type=\"hidden\" name=\"option\" value=\"com_suggestvotecommentbribe\">
+			<input type=\"hidden\" name=\"controller\" value=\"comment\">
+			<input type=\"hidden\" name=\"SID\" value=\"".$this->item->id."\">
+			<input type=\"hidden\" name=\"Itemid\" value=\"".$this->Itemid."\">";
+			if($comment->published)
+			{
+				$disable.=" <input type=\"hidden\" name=\"task\" value=\"unpublish\">
+				<a href='javascript:void(0)' onclick='comment".$comment->id.".submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS."icon-32-unpublish.png\" alt=\"".JText::_('UNPUBLISH')."\"><br />".JText::_('UNPUBLISH')."</a></form>";
 			}
 			else
 			{
-				$disable='';
+				$disable.=" <input type=\"hidden\" name=\"task\" value=\"publish\">
+				<a href='javascript:void(0)' onclick='comment".$comment->id.".submit()'><img src=\"".'components'.DS.'com_suggestvotecommentbribe'.DS.'assets'.DS.'images'.DS."icon-32-publish.png\" alt=\"".JText::_('PUBLISH')."\"><br />".JText::_('PUBLISH')."</a></form>";
 			}
-			if($this->settings->show)
+		}
+		else
+		{
+			$disable='';
+		}
+		if($this->settings->show)
+		{
+			if($comment->UID==0)
 			{
-				if($comment->UID==0)
-				{
-					$username='Anonymous';
-				}
-				else
-				{
-					$user = JFactory::getUser($comment->UID);
-					$username=$user->name;
-				}
+				$username=JText::_('ANONYMOUS');
 			}
-			?>
+			else
+			{
+				$user = JFactory::getUser($comment->UID);
+				$username=$user->name;
+			}
+		}
+		?>
 <h3><?php echo force_sp(str_replace('&nbsp;','&nbsp; ',$comment->title),30);?></h3>
-			<?php echo $this->settings->show?' By: '.$username:''; ?>
+		<?php echo $this->settings->show?' By: '.$username:''; ?>
 <p><?php echo force_sp(str_replace('&nbsp;','&nbsp; ',$comment->description),50);?></p>
 <h4><?php echo $disable;?></h4>
-			<?php } ?>
+		<?php
+	}
+	?>
+	<?php
+}
+?>
+<?php
+if( is_array($columnstoshow) && in_array('showVotes', $columnstoshow) )
+{
+	?>
 <h2><?php echo JText::_('SUGGVOTESTITLE')?>:</h2>
 <ul>
 <?php
-for($i=0; $i<count($this->votes); $i++)
-{
-	$vote=$this->votes[$i];
-	if($vote->UID==0)
+	for($i=0; $i<count($this->votes); $i++)
 	{
-		$username='Anonymous';
+		$vote=$this->votes[$i];
+		if($vote->UID==0)
+		{
+			$username=JText::_('ANONYMOUS');
+		}
+		else
+		{
+			$user = JFactory::getUser($vote->UID);
+			$username=$user->name;
+		}
+		?>
+		<li><?php echo $username;?> <?php
 	}
-	else
-	{
-		$user = JFactory::getUser($vote->UID);
-		$username=$user->name;
-	}
-	?>
-	<li><?php echo $username;?> <?php } ?>
+?>
 
 </ul>
+<?php
+}
+?>

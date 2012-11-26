@@ -5,7 +5,7 @@
  * @subpackage _ECR_SUBPACKAGE_
  * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL
-*/
+ */
 
 //--No direct access
 defined('_JEXEC') or die('=;)');
@@ -19,66 +19,66 @@ defined('_JEXEC') or die('=;)');
  */
 class TableSuggestion extends JTable
 {
-   /**
-    * Primary Key
-    *
-    * @var int
-    */
-   var $id = null;
+	/**
+	 * Primary Key
+	 *
+	 * @var int
+	 */
+	var $id = null;
 
-   /**
-    * @var string
-    */
-   var $URL = null;
+	/**
+	 * @var string
+	 */
+	var $URL = null;
 
-   /**
-    * @var int
-    */
-   var $login= 0;
+	/**
+	 * @var int
+	 */
+	var $login= 0;
 
-   /**
-    * @var int
-    */
-   var $show= 0;
+	/**
+	 * @var int
+	 */
+	var $show= 0;
 
-   /**
-    * @var int
-    */
-   var $captcha= 0;
+	/**
+	 * @var int
+	 */
+	var $captcha= 0;
 
-   /**
-    * @var string
-    */
-   var $email = null;
+	/**
+	 * @var string
+	 */
+	var $email = null;
 
-   /**
-    * @var string
-    */
-   var $pubk = null;
+	/**
+	 * @var string
+	 */
+	var $pubk = null;
 
-   /**
-    * @var string
-    */
-   var $prvk = null;
+	/**
+	 * @var string
+	 */
+	var $prvk = null;
 
-   /**
-    * @var int
-    */
-   var $max_title = 0;
+	/**
+	 * @var int
+	 */
+	var $max_title = 0;
 
-   /**
-    * @var int
-    */
-   var $max_desc = 0;
+	/**
+	 * @var int
+	 */
+	var $max_desc = 0;
 
-   
-   /**
-    * Constructor
-    *
-    * @param object Database connector object
-    */
-   function TableSuggestion(& $db) {
-      parent::__construct('#__suggestvotecommentbribe', 'id', $db);
-   }
+
+	/**
+	 * Constructor
+	 *
+	 * @param object Database connector object
+	 */
+	function TableSuggestion(& $db) {
+		parent::__construct('#__suggestvotecommentbribe', 'id', $db);
+	}
 }
 ?>

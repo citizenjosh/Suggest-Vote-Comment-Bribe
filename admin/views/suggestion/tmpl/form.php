@@ -68,11 +68,6 @@ defined('_JEXEC') or die('=;)');
 		</label></td>
 		<td><?php echo $this->lists['captcha']; ?></td>
 	</tr>
-	<tr>
-		<td width="100" align="right" class="key"><label for="show"> <?php echo JText::_( 'SHOW_USERS' ); ?>:
-		</label></td>
-		<td><?php echo $this->lists['show']; ?></td>
-	</tr>
 </table>
 </fieldset>
 </div>

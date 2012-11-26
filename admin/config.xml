@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <config>
 	<params>
-<!-- explained at http://www.teachmejoomla.net/code/joomla-1.5/joomla-php-developer-extending-config.xml-with-plugins.html
-		<param type="spacer" default="reCAPTCHA" label="Settings for" description="Settings relating to reCAPTCHA" />
-		<param type="text" name="publickey" default="" Size="51" label="Public Key" description="Your reCAPTCHA public key" />
-		<param type="text" name="privatekey" default="" size="51" label="Private Key" description="Your reCAPTCHA private key" />
--->
+		<!--
+			explained at
+			http://www.teachmejoomla.net/code/joomla-1.5/joomla-php-developer-extending-config.xml-with-plugins.html
+			<param type="spacer" default="reCAPTCHA" label="Settings for"
+			description="Settings relating to reCAPTCHA" /> <param type="text"
+			name="publickey" default="" Size="51" label="Public Key"
+			description="Your reCAPTCHA public key" /> <param type="text"
+			name="privatekey" default="" size="51" label="Private Key"
+			description="Your reCAPTCHA private key" />
+		-->
 	</params>
 </config>
