@@ -119,7 +119,8 @@ function recaptcha_get_html ($pubkey, $error = null, $use_ssl = false)
         if ($error) {
            $errorpart = "&amp;error=" . $error;
         }
-        return '<script language="javascript" type="text/javascript">var RecaptchaOptions = {theme : \'clean\'};</script>
+        $params = &JComponentHelper::getParams('com_suggestvotecommentbribe');
+        return '<script language="javascript" type="text/javascript">var RecaptchaOptions = {theme : \''.$params->get("recaptchatheme").'\',lang : \''.$params->get("recaptchalng").'\'};</script>
 	<script type="text/javascript" src="'. $server . '/challenge?k=' . $pubkey . $errorpart . '"></script>
 
 	<noscript>
@@ -216,7 +217,7 @@ function _recaptcha_aes_encrypt($val,$ky) {
 	if (! function_exists ("mcrypt_encrypt")) {
 		die ("To use reCAPTCHA Mailhide, you need to have the mcrypt php module installed.");
 	}
-	$mode=MCRYPT_MODE_CBC;   
+	$mode=MCRYPT_MODE_CBC;
 	$enc=MCRYPT_RIJNDAEL_128;
 	$val=_recaptcha_aes_pad($val);
 	return mcrypt_encrypt($enc, $ky, $val, $mode, "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0");

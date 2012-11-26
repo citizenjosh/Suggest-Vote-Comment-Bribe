@@ -1,0 +1,105 @@
+<install type="component" version="1.5.0">
+    <name>Suggest, Vote, Comment, Bribe</name>
+    <author>CitizenJosh.com</author>
+    <authorEmail>joomla@Interpreneurial.com</authorEmail>
+    <authorUrl>http://CitizenJosh.com</authorUrl>
+    <version>1.1.0</version>
+    <description>A user can write a suggestion on which users can vote, comment, and bribe.</description>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <copyright>Copyright (C) 2010 All rights reserved.</copyright>
+    <creationDate>21-Mar-2010</creationDate>
+    
+    <installfile>install/install.suggestvotecommentbribe.php</installfile>
+    <uninstallfile>install/uninstall.suggestvotecommentbribe.php</uninstallfile>
+    <install>
+        <sql>
+            <file driver="mysql" charset="utf8">install/sql/install.suggestvotecommentbribe.sql</file>
+        </sql>
+    </install>
+    <uninstall>
+        <sql>
+            <file driver="mysql" charset="utf8">install/sql/uninstall.suggestvotecommentbribe.sql</file>
+        </sql>
+    </uninstall>
+    
+    <files folder="site">
+        <folder>assets</folder>
+        <folder>controllers</folder>
+        <folder>language</folder>
+        <folder>models</folder>
+        <folder>views</folder>
+        <filename>controller.php</filename>
+        <filename>recaptchalib.php</filename>
+        <filename>suggestvotecommentbribe.php</filename>
+    </files>
+    <languages folder="site/language">
+        <language tag="en-GB">en-GB/en-GB.com_suggestvotecommentbribe.ini</language>
+    </languages>
+    <administration>
+        <menu img="components/com_suggestvotecommentbribe/assets/images/favicon.ico" link="option=com_suggestvotecommentbribe">Suggest Vote Comment Bribe</menu>
+        <submenu>
+            <menu img="" link="option=com_suggestvotecommentbribe&amp;view=suggs">Suggestions</menu>
+            <menu img="" link="option=com_suggestvotecommentbribe&amp;view=comments">Comments</menu>
+            <menu img="" link="option=com_suggestvotecommentbribe&amp;view=votes">Votes</menu>
+            <menu img="" link="option=com_suggestvotecommentbribe&amp;view=bribes">Bribes</menu>
+            <menu img="" link="option=com_suggestvotecommentbribe&amp;view=logs">Log</menu>
+            <menu img="" link="option=com_suggestvotecommentbribe&amp;view=suggestions">Settings</menu>
+        </submenu>
+        <files folder="admin">
+            <folder>assets</folder>
+            <folder>controllers</folder>
+            <folder>install</folder>
+            <folder>language</folder>
+            <folder>models</folder>
+            <folder>tables</folder>
+            <folder>views</folder>
+            <filename>CHANGELOG.php</filename>
+            <filename>admin.suggestvotecommentbribe.php</filename>
+            <filename>config.xml</filename>
+            <filename>controller.php</filename>
+        </files>
+        <languages folder="admin/language">
+            <language tag="en-GB">en-GB/en-GB.com_suggestvotecommentbribe.ini</language>
+        </languages>
+    </administration>
+    
+    <params>
+<!-- 
+    <params group="group-name" addPath="/administrator/components/com_suggestvotecommentbribe/elements">
+    	<param type="spacer" default="show/hide" />
+ 		<param name="columnstoshow" type="multilist" default="id,title,bribes,votes,comments,bribes,author,state" multiple="multiple" label="Select columns to show" description="Select one or more items from the list.  You can use Ctrl-click to select more than one item.">
+			<option value="id">ID</option>
+			<option value="title">Title</option>
+			<option value="votes">Votes</option>
+			<option value="comments">Comments</option>
+			<option value="bribes">Bribes</option>
+			<option value="author">Author</option>
+			<option value="state">State</option>
+		</param>
+-->
+    	<param type="spacer" default="reCAPTCHA" />
+<!--  
+		<param type="radio" name="usecaptcha" default="1" label="Use CAPTCHA" description="When to use CAPTCHA" >
+			<option value="0">No</option>
+			<option value="1">Only for Guests</option>
+			<option value="2">For Everyone</option>
+		</param>
+-->
+		<param type="list" name="recaptchatheme" default="clean" label="reCAPTCHA theme" description="Theme for reCAPTCHA" >
+			<option value="blackglass">Blackglass</option>
+	        <option value="clean">Clean</option>
+	        <option value="red">Red</option>
+			<option value="white">White</option>
+		</param>
+		<param type="list" name="recaptchalng" default="en" label="reCAPTCHA language" description="Language for reCAPTCHA" >
+	        <option value="nl">Dutch</option>
+	        <option value="en">English</option>
+			<option value="fr">French</option>
+	        <option value="de">German</option>
+			<option value="pt">Portuguese</option>
+	        <option value="ru">Russian</option>
+			<option value="es">Spanish</option>
+	        <option value="tr">Turkish</option>
+		</param>
+    </params>    
+</install>

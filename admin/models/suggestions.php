@@ -4,8 +4,8 @@
  * @package    Suggest Vote Comment Bribe
  * @subpackage _ECR_SUBPACKAGE_
  * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
- * @license GNU/GPL 
-*/
+ * @license GNU/GPL
+ */
 
 //--No direct access
 defined('_JEXEC') or die('=;)');
@@ -28,31 +28,31 @@ class SuggestionsModelSuggestions extends JModel
 	 */
 	var $_data;
 
-  /**
-   * Items total
-   * @var integer
-   */
+	/**
+	 * Items total
+	 * @var integer
+	 */
 	var $_total = null;
 
-  /**
-   * Pagination object
-   * @var object
-   */
+	/**
+	 * Pagination object
+	 * @var object
+	 */
 	var $_pagination = null;
-	
+
 	function __construct()
 	{
-	 	parent::__construct();
-	
+		parent::__construct();
+
 		global $mainframe, $option;
-	
+
 		// Get pagination request variables
 		$limit = $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
 		$limitstart = $mainframe->getUserStateFromRequest($option.'.limitstart', 'limitstart', 0, 'int');
-	
+
 		// In case limit has been changed, adjust it
 		$limitstart = ($limit != 0 ? (floor($limitstart / $limit) * $limit) : 0);
-	
+
 		$this->setState('limit', $limit);
 		$this->setState('limitstart', $limitstart);
 	}//function
@@ -64,7 +64,7 @@ class SuggestionsModelSuggestions extends JModel
 	function _buildQuery()
 	{
 		$query = ' SELECT * '
-			. ' FROM #__suggestvotecommentbribe ';
+		. ' FROM #__suggestvotecommentbribe ';
 		return $query;
 	}
 
@@ -82,27 +82,27 @@ class SuggestionsModelSuggestions extends JModel
 		}
 		return $this->_data;
 	}//function
-	
+
 	function getTotal()
 	{
 		// Load the content if it doesn't already exist
 		if (empty($this->_total))
 		{
 			$query = $this->_buildQuery();
-			$this->_total = $this->_getListCount($query);	
+			$this->_total = $this->_getListCount($query);
 		}
 		return $this->_total;
 	}//function
-  
+
 	function getPagination()
-  {
- 	// Load the content if it doesn't already exist
- 	if (empty($this->_pagination))
- 	{
- 	    jimport('joomla.html.pagination');
- 	    $this->_pagination = new JPagination($this->getTotal(), $this->getState('limitstart'), $this->getState('limit') );
- 	}
- 	return $this->_pagination;
-  }//function
+	{
+		// Load the content if it doesn't already exist
+		if (empty($this->_pagination))
+		{
+			jimport('joomla.html.pagination');
+			$this->_pagination = new JPagination($this->getTotal(), $this->getState('limitstart'), $this->getState('limit') );
+		}
+		return $this->_pagination;
+	}//function
 
 }//class

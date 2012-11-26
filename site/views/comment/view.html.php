@@ -4,7 +4,7 @@
  * @package    Suggest Vote Comment Bribe
  * @subpackage Views
  * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
- * @license GNU/GPL 
+ * @license GNU/GPL
 */
 
 //--No direct access
@@ -16,7 +16,7 @@ class SuggestionViewcomment extends JView
 {
    function display($tpl = null)
    {
-      JHTML::stylesheet( 'suggestvotecommentbribe.css', 'administrator/components/com_suggestvotecommentbribe/assets/' );
+      JHTML::stylesheet( 'suggestvotecommentbribe.css', 'components/com_suggestvotecommentbribe/assets/' );
 
       //Data from model
       $item =& $this->get('Data');

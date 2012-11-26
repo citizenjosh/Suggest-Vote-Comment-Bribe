@@ -4,7 +4,7 @@
  * @package    Suggest Vote Comment Bribe
  * @subpackage _ECR_SUBPACKAGE_
  * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
- * @license GNU/GPL 
+ * @license GNU/GPL
 */
 
 //--No direct access

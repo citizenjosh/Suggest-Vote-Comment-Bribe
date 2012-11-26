@@ -28,7 +28,7 @@ JHTML::_('behavior.tooltip');
          </td>
          <td colspan="2">
              <input class="text_area" type="text" name="title" id="title" size="32" maxlength="255" value="<?php $this->item->title=str_replace('"', "&quot;",$this->item->title);$this->item->title=str_replace('&nbsp;', " ",$this->item->title); $this->item->title=htmlspecialchars_decode($this->item->title,ENT_NOQUOTES); echo $this->item->title;?>" />
-            <br>Max <?=$settings->max_title?> characters
+            <br>Max <?php echo $settings->max_title; ?> characters
         </td>
       </tr>
             <tr>
@@ -39,7 +39,7 @@ JHTML::_('behavior.tooltip');
             <?php echo $this->lists['published']; ?>
          </td>
       </tr>
-      </tr>
+<!-- </tr> -->
             <tr>
          <td valign="top" align="right" class="key">
             <?php echo JText::_( 'Open' ); ?>:
@@ -55,11 +55,8 @@ JHTML::_('behavior.tooltip');
       <table class="admintable">
          <tr>
          <td valign="top" colspan="3">
-         <textarea name=description cols=70 rows=10><?php if($_GET['ses']) echo $_SESSION[$_GET['ses']]; else{ $this->item->description=str_replace("<br />","",$this->item->description);$this->item->description=str_replace("&nbsp;"," ",$this->item->description); $this->item->description=htmlspecialchars_decode($this->item->description,ENT_NOQUOTES); echo $this->item->description;}?></textarea>
-         <br>Max <?=$settings->max_desc?> characters
-         <?php
-//            echo $this->editor->display( 'description', $this->item->description, '550', '300', '60', '20', array('pagebreak', 'readmore') ) ;
-         ?>
+         <textarea name="description" cols="70" rows="10"><?php if(isset($_GET['ses'])) echo $_SESSION[$_GET['ses']]; else{ $this->item->description=str_replace("<br />","",$this->item->description);$this->item->description=str_replace("&nbsp;"," ",$this->item->description); $this->item->description=htmlspecialchars_decode($this->item->description,ENT_NOQUOTES); echo $this->item->description;}?></textarea>
+         <br>Max <?php echo $settings->max_desc; ?> characters
          </td>
          </tr>
       </table>
@@ -79,7 +76,7 @@ JHTML::_('behavior.tooltip');
       <table width="100%">
 <tr>
       <td valign="middle" align="center">
-      <?=JText::_('DONATE')?>
+      <?php JText::_('DONATE') ?>
       <form name="_xclick" action="https://www.paypal.com/cgi-bin/webscr" method="post">
 <input type="hidden" name="cmd" value="_xclick">
 <input type="hidden" name="business" value="bursar@Interpreneurial.com">
