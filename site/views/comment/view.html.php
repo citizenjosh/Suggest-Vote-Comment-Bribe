@@ -40,9 +40,6 @@ class SuggestionViewcomment extends JView
 		$this->assignRef('lists', $lists);
 
 		/** settings **/
-//		$db = &JFactory::getDBO();
-//		$db->setQuery('select*from #__suggestvotecommentbribe');
-//		$settings=$db->loadObjectlist();
 		$params = &JComponentHelper::getParams('com_suggestvotecommentbribe');
 		$menuitemid = JRequest::getInt( 'Itemid' );
 		if ($menuitemid)
@@ -51,7 +48,6 @@ class SuggestionViewcomment extends JView
 			$menuparams = $menu->getParams( $menuitemid );
 			$params->merge( $menuparams );
 		}
-//		echo "<pre>";print_r($params);echo "</pre>";
 		
 		$settings = new stdClass();
 		$settings->URL 				= $params->get("URL","");

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * @version $Id$
  * @package    Suggest Vote Comment Bribe

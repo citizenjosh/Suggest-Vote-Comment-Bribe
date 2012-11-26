@@ -80,5 +80,10 @@ function CHANGELOG()
 	 - remove button text, to simplify internationalization
 	 + improve CSS usage
 
+	 -------------------- 1.3.2 [16-January-2011] ------------------
+	 01-January-2011 Citizen Josh
+	 + added Spanish translation, thanks to Fracisco @ FranciscoMeneu.com
+	 # corrected user log entry, thanks to Robbie @ Category5.tv
+	 # corrected site en-GB BRIBETEXT, thanks to Jim @ ElkoList.com
 	 */
 }//--This is the END

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * @version $Id$
  * @package    Suggest Vote Comment Bribe
@@ -8,9 +8,6 @@
  */
 //--No direct access
 defined('_JEXEC') or die('=;)');
-
-$document =& JFactory::getDocument();
-$document->addStyleSheet( "components/com_suggestvotecommentbribe/assets/style.css" );
 
 function force_sp($string,$charcount)
 {
@@ -45,10 +42,10 @@ if( $this->showtitle )
 if( $this->showauthor )
 {
 	if($this->item->UID)
-{
-$user2 =& JFactory::getUser($this->item->UID);
-echo 'This suggestion was submitted by ' . $user2->get('name') . '.';
-}
+	{
+		$user2 =& JFactory::getUser($this->item->UID);
+		echo 'This suggestion was submitted by ' . $user2->get('name') . '.';
+	}
 } ?>
 
 <h2><?php echo JText::_('DESCRIPTION') ?></h2>

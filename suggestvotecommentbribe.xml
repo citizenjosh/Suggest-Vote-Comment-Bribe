@@ -3,11 +3,11 @@
 	<author>CitizenJosh.com</author>
 	<authorEmail>joomla@Interpreneurial.com</authorEmail>
 	<authorUrl>http://CitizenJosh.com</authorUrl>
-	<version>1.3.JoomlaSEO_org</version>
+	<version>1.3.2</version>
 	<description>A user can write a suggestion on which users can vote, comment, and bribe.</description>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<copyright>Copyright (C) 2010 All rights reserved.</copyright>
-	<creationDate>01-January-2011</creationDate>
+	<creationDate>16-January-2011</creationDate>
 
 	<installfile>install/install.suggestvotecommentbribe.php</installfile>
 	<uninstallfile>install/uninstall.suggestvotecommentbribe.php</uninstallfile>
@@ -36,6 +36,7 @@
 	<languages folder="site/language">
 		<language tag="en-GB">en-GB/en-GB.com_suggestvotecommentbribe.ini</language>
 		<language tag="et-EE">et-EE/et-EE.com_suggestvotecommentbribe.ini</language>
+		<language tag="es-ES">es-ES/es-ES.com_suggestvotecommentbribe.ini</language>
 	</languages>
 	<administration>
 		<menu img="components/com_suggestvotecommentbribe/assets/images/favicon.ico" link="option=com_suggestvotecommentbribe">Suggest Vote Comment Bribe</menu>

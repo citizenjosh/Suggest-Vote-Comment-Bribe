@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * @version $Id$
  * @package    Suggest Vote Comment Bribe
@@ -9,9 +9,6 @@
 // LOCATION: views/suggs/tmpl/default.php
 //--No direct access
 defined('_JEXEC') or die('=;)');
-
-$document =& JFactory::getDocument();
-$document->addStyleSheet( "components/com_suggestvotecommentbribe/assets/style.css" );
 
 JHTML::_('behavior.tooltip');
 ?>

@@ -132,7 +132,7 @@ class SuggestionModelsecurity extends JModel
 		}
 		else
 		{
-			if($settings->login)
+			if(isset($settings->login) && $settings->login)
 			{
 				if(!$user->id)
 				{
