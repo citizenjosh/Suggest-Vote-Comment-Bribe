@@ -42,7 +42,7 @@ JHTML::_('behavior.tooltip');
 			</th>
 			<th class="title" style="text-align: left;"><?php echo JHTML::_('grid.sort',   'Suggestion', 'SID', $this->lists['order_Dir'], $this->lists['order'] ); ?>
 			</th>
-			<th><?php echo JHTML::_('grid.sort', 'description', 'description', $this->lists['order_Dir'], $this->lists['order']);?>
+			<th class="title" style="text-align: left;"><?php echo JHTML::_('grid.sort', 'description', 'description', $this->lists['order_Dir'], $this->lists['order']);?>
 			</th>
 			<th width="5%" style="text-align: left;"><?php echo JHTML::_('grid.sort', 'published', 'published', $this->lists['order_Dir'], $this->lists['order']);?>
 			</th>
@@ -66,7 +66,14 @@ JHTML::_('behavior.tooltip');
 			<td align="center"><?php echo $row->id; ?></td>
 			<td><span class="editlinktip hasTip"
 				title="<?php echo JText::_( 'Edit comment' );?>::<?php echo $row->title; ?>">
-			<a href="<?php echo $link  ?>"> <?php $row->title=html_entity_decode($row->title,ENT_NOQUOTES); if(strlen($row->title)>25) $row->title=substr($row->title, 0,25).'...'; echo htmlentities($row->title,ENT_NOQUOTES); ?></a>
+			<a href="<?php echo $link  ?>"> <?php 
+							$row->title=html_entity_decode($row->title,ENT_NOQUOTES,'UTF-8'); 
+							$row->title=strip_tags($row->title); 
+							if(strlen($row->title)>25) $row->title=substr($row->title, 0,25).'...'; 
+							//$row->title=htmlentities($row->title,ENT_NOQUOTES,'UTF-8');
+							echo $row->title;  
+							?>
+			</a>
 			</span></td>
 			<td><?php
 			if($row->UID)
@@ -76,9 +83,21 @@ JHTML::_('behavior.tooltip');
 			}
 			else echo 'Anonymous';
 			?></td>
-			<td><?php $row->SID=html_entity_decode($row->SID,ENT_NOQUOTES); if(strlen($row->SID)>25) $row->SID=substr($row->SID, 0,25).'...'; echo htmlentities($row->SID,ENT_NOQUOTES); ?>
+			<td>	<?php 				
+				$row->SID=html_entity_decode($row->SID,ENT_NOQUOTES,'UTF-8'); 
+				$row->SID=strip_tags($row->SID); 
+				if(strlen($row->SID)>25) $row->SID=substr($row->SID, 0,25).'...'; 
+				//$row->SID=htmlentities($row->SID,ENT_NOQUOTES,'UTF-8'); 
+				echo $row->SID;
+				?>
 			</td>
-			<td><?php $row->description=html_entity_decode(str_replace('<br />',' ',$row->description),ENT_NOQUOTES); if(strlen($row->description)>50) $row->description=substr($row->description, 0,50).'...'; echo htmlentities($row->description,ENT_NOQUOTES); ?>
+			<td>	<?php 		
+				$row->description=html_entity_decode(str_replace('<br />',' ',$row->description),ENT_NOQUOTES,'UTF-8'); 
+				$row->description=strip_tags($row->description); 
+				if(strlen($row->description)>50) $row->description=substr($row->description, 0,50).'...'; 
+				//$row->description=htmlentities($row->description,ENT_NOQUOTES,'UTF-8'); 
+				echo $row->description;
+				?>
 			</td>
 			<td align="center"><?php echo $published;?></td>
 

@@ -43,6 +43,7 @@ CREATE TABLE `#__suggestvotecommentbribe_sugg` (
   `amountDonated` decimal(10,2) NOT NULL,
   `noofVotes` int(11) NOT NULL,
   `noofComs` int(11) NOT NULL,
+  `catid` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 

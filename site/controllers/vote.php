@@ -89,10 +89,12 @@ class SuggestionControllervote extends JController
 		$post['UID']=$user->id;
 		$post['published']=1;
 		$model = $this->getModel( 'vote' );
-		if ($model->store($post)) {
+		$VID=$model->store($post);
+		if ($VID) {
 			$msg = JText::_( 'Item Saved' );
 			$post2['type']='vote';
-			$post2['VID']=$SID;
+			$post2['VID']=$VID;
+			$post2['SID']=$SID;
 			$model = $this->getModel( 'security' );
 			$model->store($post2);
 		} else {
@@ -128,6 +130,7 @@ class SuggestionControllervote extends JController
 		$model = $this->getModel( 'security' );
 		$user =& JFactory::getUser();
 		$SID=$post['SID'];
+		$VID=$post['cid'];
 		$can=$model->canVote($post['cid'],array($SID));
 		if($can!==true)
 		{
@@ -163,11 +166,16 @@ class SuggestionControllervote extends JController
 		$db->query();
 		if($user->id)
 		{
-			$db->setQuery('delete from #__suggestvotecommentbribe_security where UID='.$user->id.' and action="vote'.$SID.'"');
+			$db->setQuery('delete from #__suggestvotecommentbribe_security where UID='.$user->id.' and action="vote'.$VID.'"');
 		}
 		else
 		{
-			$db->setQuery('delete from #__suggestvotecommentbribe_security where IP="'.$_SERVER [ 'REMOTE_ADDR' ].'" and action="vote'.$SID.'"');
+			$db->setQuery('delete from #__suggestvotecommentbribe_security where IP="'.$_SERVER [ 'REMOTE_ADDR' ].'" and action="vote_'.$SID.'_'.$VID.'"');
+
+			//Remove cookie when removing vote for anonymous user.
+                        if(isset($_COOKIE['vote_'.$SID.'_'.$VID]))
+                                setcookie('vote_'.$SID.'_'.$VID , '', time()-3600);
+
 		}
 		$db->query();
 		$this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=sugg&cid[0]='.$SID.'&Itemid='.JRequest::getVar('Itemid'), $msg );

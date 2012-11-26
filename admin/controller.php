@@ -27,15 +27,18 @@ class SuggestionsController extends JController
 	 */
 	function display()
 	{
-		global $mainframe;
+		//require_once JPATH_COMPONENT.'/helpers/suggestvotecommentbribe.php';
+		$app= JFactory::getApplication();
 		$view = &JRequest::getVar('view');
 		if(!$view)
 		{
 			#$this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=suggestions','' );
-			$mainframe->redirect( 'index.php?option=com_suggestvotecommentbribe&view=suggs','' );
+			$app->redirect( 'index.php?option=com_suggestvotecommentbribe&view=suggs','' );
 		}
 
 		parent::display();
+		// Load the submenu.
+                //SVCBHelper::addSubmenu(JRequest::getCmd('view', 'suggs'));
 		?>
 <table width="100%">
 	<tr>

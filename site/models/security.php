@@ -27,7 +27,8 @@ class SuggestionModelsecurity extends JModel
 		// if this is a vote
 		if($data['type']=='vote')
 		{
-			$type='vote'.$data['VID'];
+			$type='vote'.'_'.$data['SID'].'_'.$data['VID'];
+			// Set Cookie for vote being casted, it will include Suggestion ID and Vote ID.
 			setcookie($type,1);
 		}
 		else
@@ -113,7 +114,7 @@ class SuggestionModelsecurity extends JModel
 		}
 		if((is_array($VID)&&$VID[0]!=0)||($VID!=0&&!is_array($VID)))
 		{
-			if($_COOKIE['vote'.$SID[0]])
+			if($_COOKIE['vote_'.$SID[0].'_'.$VID])
 			{
 				$db->setQuery('select 1 as c');
 			}
@@ -150,7 +151,7 @@ class SuggestionModelsecurity extends JModel
 			}
 			else
 			{
-				$db->setQuery('select count(*) as c from #__suggestvotecommentbribe_security where IP="'.$_SERVER [ 'REMOTE_ADDR' ].'"  and action="vote'.$SID[0].'"');
+				$db->setQuery('select count(*) as c from #__suggestvotecommentbribe_security where IP="'.$_SERVER [ 'REMOTE_ADDR' ].'"  and action like "vote_'.$SID[0].'_%"');
 			}
 			$can=$db->loadObjectlist();
 			if($can[0]->c==1)

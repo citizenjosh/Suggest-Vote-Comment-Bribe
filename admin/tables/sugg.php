@@ -70,6 +70,11 @@ class Tablesugg extends JTable
 	var $noofComs=0;
 
 	/**
+	 * @var int
+	 */
+	var $catid=0;
+
+	/**
 	 * Constructor
 	 *
 	 * @param object $_db Database connector object

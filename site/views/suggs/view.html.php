@@ -86,6 +86,9 @@ class SuggestionViewsuggs extends JView
 		$settings->prvk 		= $params->get("prvk","");
 		$settings->max_title 	= $params->get("max_title","");
 		$settings->max_desc 	= $params->get("max_desc","");
+		$settings->catid 	= $params->get("id","");
+		$settings->show_cat_title 	= $params->get("show_category_title","100");
+		$settings->show_cat_descript 	= $params->get("show_description","1000");
 
 		$this->assignRef('settings', $settings);#$this->assignRef('settings', $settings[0]);
 

@@ -12,6 +12,25 @@ defined('_JEXEC') or die('=;)');
 
 JHTML::_('behavior.tooltip');
 ?>
+<script type="text/javascript">
+Joomla.submitbutton=function(action) {
+          var form = document.adminForm;
+  switch(action)
+  {
+  case 'save':case 'apply':   
+   <?php
+                 $editor =& JFactory::getEditor();
+                 echo $editor->save( 'description' );
+         ?>
+  case 'publish':
+  case 'unpublish':
+  case 'cancel':
+  default:
+   Joomla.submitform( action );
+  }
+ } 
+</script>
+
 <form action="index.php" method="post" name="adminForm" id="adminForm">
 <fieldset class="adminform"><legend><?php echo JText::_( 'Details' ); ?></legend>
 <table class="admintable">
@@ -29,14 +48,21 @@ JHTML::_('behavior.tooltip');
 <fieldset class="adminform"><legend><?php echo JText::_( 'Description' ); ?></legend>
 <table class="admintable">
 	<tr>
-		<td valign="top" colspan="3"><textarea name="description" cols="70"
-			rows="10"><?php if($_GET['ses']){
-				echo $_SESSION[$_GET['ses']];
+		<td valign="top" colspan="3">
+		<?php $editor =& JFactory::getEditor();
+			if($_GET['ses']){
+				$descript=$_SESSION[$_GET['ses']];
 			} else {
-				echo $this->item->description;
-			}?></textarea> <br>
+				$descript=$this->item->description;
+			}
+
+                        echo $editor->display('description', $descript, '550', '400', '60', '20', false);
+                        //echo '<textarea name="description" cols="60" rows="20">'. $descript . '</textarea>';
+                 ?>
+	 </td></tr>
+	 <tr><td>
 		<?php echo JText::_( 'MAX_CHARACTERS' ); ?>: <?php echo $this->settings->max_desc ?></td>
-	</tr>
+	</td></tr>
 </table>
 </fieldset>
 <?php
@@ -50,8 +76,11 @@ if( ($useracces =='guests_enter_captcha'&& !$user->id )||$useracces =='everyone_
 	echo recaptcha_get_html($this->settings->pubk);
 	echo "</fieldset>";
 }
+
+//document.forms['adminForm'].submit()
 ?>
-<a href="#" onclick="document.forms['adminForm'].submit();return false;"><img src="<?php echo 'components/com_suggestvotecommentbribe/assets/images/icon-32-save.png'?>" alt="<?php echo JTEXT::_("SAVE"); ?>"><br /></a>
+
+<a href="#" onclick="Joomla.submitbutton('save');return false;"><img src="<?php echo 'components/com_suggestvotecommentbribe/assets/images/icon-32-save.png'?>" alt="<?php echo JTEXT::_("SAVE"); ?>"><br /></a>
 
 
 <input type="hidden" name="UID" value="<?php echo $this->userID;?>" />

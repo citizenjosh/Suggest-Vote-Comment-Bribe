@@ -21,11 +21,30 @@ $settings->URL 			= $params->get("URL","");
 $settings->email 		= $params->get("email","");
 $settings->pubk 		= $params->get("pubk","");
 $settings->prvk 		= $params->get("prvk","");
-$settings->max_title 	= $params->get("max_title","");
-$settings->max_desc 	= $params->get("max_desc","");
+$settings->max_title 	= $params->get("max_title","100");
+$settings->max_desc 	= $params->get("max_desc","1000");
 
 JHTML::_('behavior.tooltip');
 ?>
+
+<script type="text/javascript">
+Joomla.submitbutton=function(action) {
+          var form = document.adminForm;
+  switch(action)
+  {
+  case 'save':case 'apply':   
+   <?php
+                 $editor =& JFactory::getEditor();
+                 echo $editor->save( 'description' );
+         ?>
+  case 'publish':
+  case 'unpublish':
+  case 'cancel':
+  default:
+   Joomla.submitform( action );
+  }
+ } 
+</script>
 <form action="index.php" method="post" name="adminForm" id="adminForm">
 <fieldset class="adminform"><legend><?php echo JText::_( 'Details' ); ?></legend>
 <table class="admintable">
@@ -48,29 +67,33 @@ JHTML::_('behavior.tooltip');
 	<tr>
 		<td valign="top" align="right" class="key"><?php echo JText::_( 'Published' ); ?>:
 		</td>
-		<td colspan="2"><?php echo $this->lists['published']; ?></td>
+		<td colspan="2"><fieldset id="jform_published" class="radio"><?php echo $this->lists['published']; ?></fieldset></td>
 	</tr>
 </table>
 </fieldset>
 
 <fieldset class="adminform"><legend><?php echo JText::_( 'Description' ); ?></legend>
 <table class="admintable">
-	<tr>
-		<td valign="top" colspan="3"><textarea name="description" cols="70"
-			rows=10><?php if($_GET['ses'])
+	<tr><td>
+			<?php if($_GET['ses'])
 			{
-				echo $_SESSION[$_GET['ses']];
+				$description=$_SESSION[$_GET['ses']];
 			}
 			else
 			{
-				$this->item->description=str_replace("<br />","",$this->item->description);
-				$this->item->description=str_replace("&nbsp;"," ",$this->item->description);
+				//$this->item->description=str_replace("<br />","",$this->item->description);
+				//$this->item->description=str_replace("&nbsp;"," ",$this->item->description);
 				$this->item->description=htmlspecialchars_decode($this->item->description,ENT_NOQUOTES);
-				echo $this->item->description;
-			}?></textarea>
-		<br>
+				$description=$this->item->description;
+			}?>
+		<?php $editor =& JFactory::getEditor();
+                        echo $editor->display('description', $description, '550', '400', '60', '20', false);
+                 ?>
+
+         </td></tr>
+	 <tr><td>
 		<?php echo JText::_( 'MAX_DESCRIPTION_LENGTH' ); ?>: <?php echo $settings->max_desc ?></td>
-	</tr>
+	</td></tr>
 </table>
 </fieldset>
 <fieldset><?php

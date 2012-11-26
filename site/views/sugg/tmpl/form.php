@@ -11,8 +11,26 @@
 defined('_JEXEC') or die('=;)');
 JHTML::_('behavior.tooltip');
 ?>
+<script type="text/javascript">
+Joomla.submitbutton=function(action) {
+          var form = document.adminForm;
+  switch(action)
+  {
+  case 'save':case 'apply':   
+   <?php
+                 $editor =& JFactory::getEditor();
+                 echo $editor->save( 'description' );
+         ?>
+  case 'publish':
+  case 'unpublish':
+  case 'cancel':
+  default:
+   Joomla.submitform( action );
+  }
+ } 
+</script>
 
-<form action="index.php" method="post" name="Form" id="Form">
+<form action="index.php" method="post" name="adminForm" id="adminForm">
 <fieldset class="adminform"><legend><?php echo JText::_( 'Details' ); ?></legend>
 <table class="admintable">
 	<tr>
@@ -28,9 +46,16 @@ JHTML::_('behavior.tooltip');
 <fieldset class="adminform"><legend><?php echo JText::_( 'Description' ); ?></legend>
 <table class="admintable">
 	<tr>
-		<td valign="top" colspan="3"><textarea name="description" cols="70"
-			rows="10"><?php echo $this->item->description; ?></textarea> <br>
+		<td valign="top" colspan="3">
+		 <?php $editor =& JFactory::getEditor();
+			echo $editor->display('description', $this->item->description, '550', '400', '60', '20', false);
+		 ?>
+		</td>
+	</tr>
+	<tr>
+		<td>
 		<?php echo JText::_( 'MAX_CHARACTERS' ); ?>: <?php echo $this->settings->max_desc ?></td>
+		</td>
 	</tr>
 </table>
 </fieldset>
@@ -50,5 +75,6 @@ if( $this->requiresCaptcha )
 	<input type="hidden" name="task" value="save" />
 	<input type="hidden" name="Itemid" value="<?php echo $this->Itemid; ?>" />
 	<input type="hidden" name="controller" value="sugg" />
-	<a href="#" onclick="document.forms['Form'].submit();return false;"><img src="<?php echo 'components/com_suggestvotecommentbribe/assets/images/icon-32-save.png' ?>" alt="<?php echo JTEXT::_("SAVE"); ?>"><br /></a>
+	<input type="hidden" name="catid" value="<?php echo $this->settings->catid; ?>" />
+	<a href="#" onclick="Joomla.submitbutton('save');return false;"><img src="<?php echo 'components/com_suggestvotecommentbribe/assets/images/icon-32-save.png' ?>" alt="<?php echo JTEXT::_("SAVE"); ?>"><br /></a>
 </form>

@@ -120,8 +120,9 @@ class SuggestionViewsugg extends JView
 		$settings->email 		= $params->get("email","");
 		$settings->pubk 		= $params->get("pubk","");
 		$settings->prvk 		= $params->get("prvk","");
-		$settings->max_title 	= $params->get("max_title","");
-		$settings->max_desc 	= $params->get("max_desc","");
+		$settings->max_title 	= $params->get("max_title","100");
+		$settings->max_desc 	= $params->get("max_desc","1000");
+		$settings->catid 	= $params->get("id","");
 
 		$this->assignRef('settings', $settings);#$this->assignRef('settings', $settings[0]);
 

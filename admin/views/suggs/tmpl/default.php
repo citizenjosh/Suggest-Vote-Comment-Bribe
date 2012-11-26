@@ -30,6 +30,8 @@ $ordering = ($this->lists['order'] == 'ordering');
 			</th>
 			<th style="text-align: left;"><?php echo JHTML::_('grid.sort', 'description', 'description', $this->lists['order_Dir'], $this->lists['order']);?>
 			</th>
+			<th style="text-align: left;"><?php echo JHTML::_('grid.sort', 'Category', 'catid', $this->lists['order_Dir'], $this->lists['order']);?>
+			</th>
 			<th style="text-align: left;"><?php echo JHTML::_('grid.sort', '# of votes', 'noofVotes', $this->lists['order_Dir'], $this->lists['order']);?>
 			</th>
 			<th style="text-align: left;"><?php echo JHTML::_('grid.sort', '# of comments', 'noofComs', $this->lists['order_Dir'], $this->lists['order']);?>
@@ -62,10 +64,27 @@ $ordering = ($this->lists['order'] == 'ordering');
 			<td align="center"><?php echo $row->id; ?></td>
 			<td><span class="editlinktip hasTip"
 				title="<?php echo JText::_( 'Edit sugg' );?>::<?php echo $row->title; ?>">
-			<a href="<?php echo $link  ?>"> <?php $row->title=html_entity_decode($row->title,ENT_NOQUOTES); if(strlen($row->title)>25) $row->title=substr($row->title, 0,25).'...'; echo htmlentities($row->title,ENT_NOQUOTES); ?></a>
+			<a href="<?php echo $link  ?>"><?php 
+							$row->title=html_entity_decode($row->title,ENT_NOQUOTES,'UTF-8'); 
+							$row->title=strip_tags($row->title); 
+							if(strlen($row->title)>25) $row->title=substr($row->title, 0,25).'...'; 
+							//$row->title=htmlentities($row->title,ENT_NOQUOTES,'UTF-8'); 
+							echo $row->title; 
+							?>
+			</a>
 			</span></td>
-			<td><?php $row->description=html_entity_decode(str_replace('<br />',' ',$row->description),ENT_NOQUOTES); if(strlen($row->description)>50) $row->description=substr($row->description, 0,50).'...'; echo htmlentities($row->description,ENT_NOQUOTES); ?>
+			<td><?php 
+				  $row->description=html_entity_decode(str_replace('<br />',' ',$row->description),ENT_NOQUOTES,'UTF-8'); 
+				  $row->description=strip_tags($row->description); 
+				  //$row->description=htmlspecialchars($description);
+				  //$row->description=preg_replace( "'<[^>]+>'U", "", $row->description);
+				  if(strlen($row->description)>50) { $row->description=substr($row->description, 0,50).'...' ; } 
+
+				  //$row->description=htmlentities($row->description,ENT_NOQUOTES,'UTF-8'); 
+				  echo $row->description;
+			    ?>
 			</td>
+			<td><?php echo $this->_models['suggs']->getCategoryTitle($row->catid);  ?></td>
 			<td align="center"><?php echo $row->noofVotes; ?></td>
 			<td align="center"><?php echo $row->noofComs; ?></td>
 			<td align="center"><?php echo $row->amountDonated; ?></td>
@@ -88,7 +107,7 @@ $ordering = ($this->lists['order'] == 'ordering');
 			}
 			?> <a href="javascript:void(0);"
 				onclick="return listItemTask('cb<?php echo $i;?>','<?php echo $row->state ? "Open" : "Close";?>');">
-			<img src="images/<?php echo $img;?>" border="0"
+			<img src="templates/bluestork/images/admin/<?php echo $img;?>" border="0"
 				alt="<?php echo $alt; ?>" /> </a></td>
 		</tr>
 		<?php

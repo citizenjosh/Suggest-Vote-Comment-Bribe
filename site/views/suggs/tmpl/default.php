@@ -16,8 +16,19 @@ JHTML::_('behavior.tooltip');
 
 <script type="text/javascript" src="includes/js/joomla.javascript.js"></script>
 
+<?php   
 
-<form action="index.php?option=com_suggestvotecommentbribe&view=suggs" method="post" name="adminForm">
+$cat_object=$this->_models['suggs']->getCategory($this->settings->catid); 
+if( $this->settings->show_cat_title) { 
+	echo '<h1>' .$cat_object->title . '</h1>';
+}
+
+if( $this->settings->show_cat_descript) { 
+	echo $cat_object->description;
+}
+ ?>
+
+<form action="<?php JRoute::_("index.php?option=com_suggestvotecommentbribe&view=suggs") ?>" method="post" name="adminForm">
 
 <div id="tablecell">
 <table class="adminlist" cellpadding="5px">
@@ -94,7 +105,7 @@ if( $this->showstate ){
 <?php
 	if( $this->showtitle ){
 ?>
-			<td><a href="<?php echo $link  ?>"> <?php $row->title=html_entity_decode($row->title,ENT_NOQUOTES); if(strlen($row->title)>20) $row->title=substr($row->title, 0,20).'...'; echo htmlentities($row->title,ENT_NOQUOTES); ?></a></td>
+			<td><a href="<?php echo $link  ?>"> <?php $row->title=html_entity_decode($row->title,ENT_NOQUOTES,'UTF-8'); if(strlen($row->title)>20) $row->title=substr($row->title, 0,20).'...'; /*echo htmlentities($row->title,ENT_NOQUOTES,'UTF-8'); */ echo $row->title;  ?></a></td>
 <?php } ?>
 <?php
 	if( $this->showvotes ){

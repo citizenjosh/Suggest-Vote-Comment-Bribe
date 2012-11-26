@@ -34,7 +34,7 @@ function force_sp($string,$charcount)
 if( $this->showtitle )
 {
 ?>
-<h1><?php echo force_sp(str_replace('&nbsp;','&nbsp; ',$this->item->title),30); ?></h1>
+<h1><?php echo str_replace('&nbsp;','&nbsp; ',$this->item->title); ?></h1>
 <?php
 }
 ?>
@@ -44,19 +44,29 @@ if( $this->showauthor )
 	if($this->item->UID)
 	{
 		$user2 =& JFactory::getUser($this->item->UID);
-		echo 'This suggestion was submitted by ' . $user2->get('name') . '.';
+		echo '<p>This suggestion was submitted by ' . $user2->get('name') . '.</p>';
 	}
 } ?>
 
 <h2><?php echo JText::_('DESCRIPTION') ?></h2>
-<p><?php echo force_sp(str_replace('&nbsp;','&nbsp; ',$this->item->description),50); ?></p>
+<?php 
+//$desc=force_sp(str_replace('&nbsp;','&nbsp; ',$this->item->description),50); 
+$desc=str_replace('&nbsp;','&nbsp; ',$this->item->description);
+//$desc=htmlspecialchars($desc) ;
+$desc=html_entity_decode($desc,ENT_NOQUOTES,'UTF-8');
+//$desc=htmlspecialchars($desc);
+echo stripslashes($desc);
+//echo "<p><span style=\"font-size: 12px; font-weight: bold;\">Hi</style></p>";
+//echo '&lt;p&gt;&lt;strong&gt;&lt;span&nbsp; style="text-decoration:&nbsp; underline;"&gt;Please give some suggestions&lt; /span&gt;&lt;/strong&gt;&lt;/p&gt;';
+//echo "<h5>".$this->item->description . "</h5>";
+?>
 </div>
 
 <div>
 <?php
 // if the current User made this Suggestion
 // then allow them to publish/unpublish it
-if( ($this->item->UID!=0 && $this->item->UID==$this->user_id) || isset($_COOKIE['suggest'.$this->item->id]) )
+if( ($this->item->UID!=0 && $this->item->UID==$this->user_id) || ( $this->item->UID==0&& $this->item->UID==$this->user_id && isset($_COOKIE['suggest'.$this->item->id])) )
 {
 	echo "<form name=\"sugg\">
 	<input type=\"hidden\" name=\"cid\" value=\"".$this->item->id."\">
@@ -141,7 +151,7 @@ if( $this->showvotes )
 				$vote=$this->votes[$i];
 				// if this vote was cast by the current User
 				// then allow the current User to remove their Vote on this Suggestion
-				if( $vote->UID && $vote->UID==$this->user_id || isset($_COOKIE['vote'.$vote->SID]) )
+				if( ($vote->UID && $vote->UID==$this->user_id) || ( $vote->UID==0 && $vote->UID==$this->user_id && isset($_COOKIE['vote'.'_'.$vote->SID.'_'.$vote->id]) ) )
 				{
 					$del= "<form name=\"vote".$vote->id."\" method=\"post\">
 					<input type=\"hidden\" name=\"cid\" value=\"".$vote->id."\">
@@ -227,7 +237,7 @@ if( $this->showcomments )
 	for($i=0;$i<count($this->comments);$i++)
 	{
 		$comment=$this->comments[$i];
-		if(($comment->UID&&$comment->UID==$this->user_id)|| isset($_COOKIE['comment'.$comment->id]) )
+		if(($comment->UID&&$comment->UID==$this->user_id)|| ($comment->UID==0&&$comment->UID==$this->user_id&&isset($_COOKIE['comment'.$comment->id])) )
 		{   $disable="<form name='comment".$comment->id."'>
 			<input type=\"hidden\" name=\"cid\" value=\"".$comment->id."\">
 			<input type=\"hidden\" name=\"option\" value=\"com_suggestvotecommentbribe\">
@@ -262,9 +272,9 @@ if( $this->showcomments )
 			}
 		}
 		?>
-<h3><?php echo force_sp(str_replace('&nbsp;','&nbsp; ',$comment->title),30);?></h3>
+<h3><?php echo str_replace('&nbsp;','&nbsp; ',$comment->title);?></h3>
 		<?php echo $this->showauthor? JText::_('By').": ".$username:""; ?>
-<p><?php echo force_sp(str_replace('&nbsp;','&nbsp; ',$comment->description),50);?></p>
+<p><?php $com_desc=str_replace('&nbsp;','&nbsp; ',$comment->description); $com_desc=html_entity_decode($com_desc,ENT_NOQUOTES,'UTF-8'); echo stripslashes($com_desc);?></p>
 <h4><?php echo $disable;?></h4>
 		<?php
 	}

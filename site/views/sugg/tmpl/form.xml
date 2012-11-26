@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+        <layout title="COM_SUGGESTVOTECOMMENTBRIBE_SUGG_LAYOUT">
+                <message>
+                        <![CDATA[COM_SUGGESTVOTECOMMENTBRIBE_SUGG_LAYOUT_DESC]]>
+                                </message>
+        </layout>
+         <!--        <name>COM_SUGGESTVOTECOMMENTBRIBE_DEFAULT_LAYOUT</name> -->
+          <!--      <description>COM_SUGGESTVOTECOMMENTBRIBE_DEFAULT_LAYOUT_DESC</description> -->
+	
+	<!-- Add fields to the request variables for the layout. -->
+        <fields name="params">
+                <fieldset name="request">
+
+                        <field name="id" type="category"
+                                description="JGLOBAL_CHOOSE_CATEGORY_DESC"
+                                extension="com_content"
+                                label="JGLOBAL_CHOOSE_CATEGORY_LABEL"
+                                required="true"
+                        />
+                </fieldset>
+
+	<!-- Add fields to the parameters object for the layout. -->
+        <fieldset name="basic" label="JGLOBAL_CATEGORY_OPTIONS">
+
+                        <field name="show_category_title" type="list"
+                                label="JGLOBAL_SHOW_CATEGORY_TITLE"
+                                description="JGLOBAL_SHOW_CATEGORY_TITLE_DESC"
+                        >
+                                <option value="0">JHIDE</option>
+                                <option value="1">JSHOW</option>
+                        </field>
+
+                        <field name="show_description" type="list"
+                                description="JGLOBAL_SHOW_CATEGORY_DESCRIPTION_DESC"
+                                label="JGLOBAL_SHOW_CATEGORY_DESCRIPTION_LABEL"
+                        >
+                                <option value="0">JHIDE</option>
+                                <option value="1">JSHOW</option>
+                        </field>
+         </fieldset>
+
+	<!-- Add fields to the parameters object for the layout. -->
+
+                <!-- Basic options. -->
+
+	<fieldset name="suggestions" 
+		  >
+		<field type="list" name="useraccess" default="" label="User Restrictions" description="Restrictions for a user to use this." > 
+			<option value="">JGLOBAL_USE_GLOBAL</option>
+			<option value="must_be_logged_in">Must be logged in (no CAPTCHA)</option>
+			<option value="guests_enter_captcha">Guests enter CAPTCHA</option> 
+			<option value="everyone_enters_captcha">Everyone enters CAPTCHA</option> 
+			<option value="unrestricted">Unrestricted</option>
+		</field>
+		<field type="spacer" label="Show/Hide" class="text" /> 
+		<field name="columnstoshow" type="list"
+			default=""
+			multiple="multiple" label="Select columns to show"
+			description="Select one or more items from the list. You can use Ctrl-click to select more than one item."> 
+			<option value="showId">ID</option> 
+			<option value="showTitle">Title</option> 
+			<option value="showVotes">Votes</option> 
+			<option value="showComments">Comments</option> 
+			<option value="showBribes">Bribes</option> 
+			<option value="showAuthor">Author</option>
+			<option value="showState">State</option> 
+		</field>
+		<field type="spacer" label="reCAPTCHA" class="text" />
+		<field type="list" name="recaptchatheme" default=""
+			label="reCAPTCHA theme" description="Theme for reCAPTCHA">
+			<option value="">JGLOBAL_USE_GLOBAL</option>
+			<option value="blackglass">Blackglass</option>
+			<option value="clean">Clean</option>
+			<option value="red">Red</option>
+			<option value="white">White</option>
+		</field>
+		<field type="list" name="recaptchalng" default=""
+			label="reCAPTCHA language" description="Language for reCAPTCHA">
+			<option value="">JGLOBAL_USE_GLOBAL</option>
+			<option value="nl">Dutch</option>
+			<option value="en">English</option>
+			<option value="fr">French</option>
+			<option value="de">German</option>
+			<option value="pt">Portuguese</option>
+			<option value="ru">Russian</option>
+			<option value="es">Spanish</option>
+			<option value="tr">Turkish</option>
+		</field>
+		<field type="text" name="pubk" default="" label="reCAPTCHA Public Key" description="reCAPTCHA Public Key" />
+		<field type="text" name="prvk" default="" label="reCAPTCHA Private Key" description="reCAPTCHA Private Key" />
+		
+		<field type="spacer" label="Settings" class="text" />
+		<field type="text" name="URL" default="http://CitizenJosh.com" label="URL" description="URL" />
+		<field type="text" name="email" default="bursar@Interpreneurial.com" label="PayPal E-mail Address" description="PayPal E-mail Address" />
+		<field type="text" name="max_title" default="100" label="Max Title Length" description="Max Title Length" />
+		<field type="text" name="max_desc" default="1000" label="Max Description Length" description="Max Description Length" />
+	</fieldset>
+	</fields>
+</metadata>

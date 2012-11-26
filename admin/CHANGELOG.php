@@ -85,5 +85,15 @@ function CHANGELOG()
 	 + added Spanish translation, thanks to Fracisco @ FranciscoMeneu.com
 	 # corrected user log entry, thanks to Robbie @ Category5.tv
 	 # corrected site en-GB BRIBETEXT, thanks to Jim @ ElkoList.com
+
+	 -------------------- 1.4.0 [29-August-2012] ------------------
+	 + Joomla 2.x compliance
+	 - Jommla 1.x compliance
+	 + added categories for Suggestions
+	 # multi-downvotes prevented
+	 + international characters allowed
+	 # "max description length" shows proper value
+	 + WYSIWYG editor allowed. 
+	 ! Not all dangerous tags are neutralized when using WYSIWYG editor
 	 */
 }//--This is the END

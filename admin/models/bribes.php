@@ -61,16 +61,17 @@ class SuggestionsModelbribes extends JModel
 	function __construct()
 	{
 		parent::__construct();
-		global $mainframe, $option;
-		$this->filter_order_Dir = $mainframe->getUserStateFromRequest( $option.'b.filter_order_Dir', 'filter_order_Dir', '', 'word' );
-		$this->filter_order  = $mainframe->getUserStateFromRequest( $option.'b.filter_order', 'filter_order',  'ordering', 'cmd' );
-		$this->filter_order  = $mainframe->getUserStateFromRequest( $option.'b.filter_order', 'filter_order',  'ordering', 'cmd' );
+		$app= JFactory::getApplication();
+		$option = JRequest::getCmd('option');
+		$this->filter_order_Dir = $app->getUserStateFromRequest( $option.'b.filter_order_Dir', 'filter_order_Dir', '', 'word' );
+		$this->filter_order  = $app->getUserStateFromRequest( $option.'b.filter_order', 'filter_order',  'ordering', 'cmd' );
+		$this->filter_order  = $app->getUserStateFromRequest( $option.'b.filter_order', 'filter_order',  'ordering', 'cmd' );
 
-		//      $this->search     = $mainframe->getUserStateFromRequest( "$option.search", 'search', '', 'string' );
+		//      $this->search     = $app->getUserStateFromRequest( "$option.search", 'search', '', 'string' );
 		//      $this->search     = JString::strtolower( $this->search );
 
-		$limit      = $mainframe->getUserStateFromRequest( 'global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int' );
-		$limitstart = $mainframe->getUserStateFromRequest( $option.'b.limitstart', 'limitstart', 0, 'int' );
+		$limit      = $app->getUserStateFromRequest( 'global.list.limit', 'limit', $app->getCfg('list_limit'), 'int' );
+		$limitstart = $app->getUserStateFromRequest( $option.'b.limitstart', 'limitstart', 0, 'int' );
 		$limitstart = ($limit != 0 ? (floor($limitstart / $limit) * $limit) : 0);
 		$this->setState('limit', $limit);
 		$this->setState('limitstart', $limitstart);

@@ -12,6 +12,9 @@ defined('_JEXEC') or die('=;)');
 
 jimport('joomla.application.component.model');
 
+// import Joomla Categories library
+jimport( 'joomla.application.categories' );
+
 class SuggestionModelsuggs extends JModel
 {
 	var $_data;
@@ -35,10 +38,12 @@ class SuggestionModelsuggs extends JModel
 			}
 		}
 		$ids=trim($ids, ',');
+		$params = &JComponentHelper::getParams('com_suggestvotecommentbribe');
+		$catid=$params->get("id","");
 		if( $user->id ){
-			$where=' where published=1 or id in('.$ids.'0) or UID='.JFactory::getUser()->id;
+			$where=' where catid='.$catid.' and published=1 or id in('.$ids.'0) or UID='.JFactory::getUser()->id;
 		}else {
-			$where=' where published=1';
+			$where=' where catid='.$catid.' and published=1';
 		}
 		##ECR_MAT_FILTER_MODEL1##
 		if (($this->filter_order) && ($this->filter_order_Dir))
@@ -59,7 +64,8 @@ class SuggestionModelsuggs extends JModel
 	function __construct()
 	{
 		parent::__construct();
-		global $mainframe, $option;
+		$mainframe=JFactory::getApplication();
+		$option=JRequest::getCmd('option');
 		$this->filter_order_Dir = $mainframe->getUserStateFromRequest( $option.'.filter_order_Dir', 'filter_order_Dir', '', 'word' );
 		$this->filter_order  = $mainframe->getUserStateFromRequest( $option.'.filter_order', 'filter_order',  'ordering', 'cmd' );
 		$this->filter_order  = $mainframe->getUserStateFromRequest( $option.'.filter_order', 'filter_order',  'ordering', 'cmd' );
@@ -116,4 +122,12 @@ class SuggestionModelsuggs extends JModel
 		}
 		return $this->_pagination;
 	}
+
+	function getCategory($catid)
+        {
+                $categories = JCategories::getInstance('Content');
+                $cat = $categories->get($catid);
+                return $cat;
+        }
+
 }// class

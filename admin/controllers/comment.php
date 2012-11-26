@@ -95,6 +95,9 @@ class SuggestionsControllercomment extends JController
 
 	function save()
 	{
+		$data = JRequest::getVar( 'description', 'defaultValue', 'post', 'string', JREQUEST_ALLOWRAW );
+		//print_r($data);
+		//exit();
 		$post = JRequest::get('post');
 		$cid  = JRequest::getVar( 'cid', array(0), 'post', 'array' );
 		#_ECR_SMAT_DESCRIPTION_CONTROLLER1_
@@ -115,6 +118,7 @@ class SuggestionsControllercomment extends JController
 		}
 
 		$db = &JFactory::getDBO();
+		$data = $db->getEscaped($data);
 /*		$db->setQuery('select * from #__suggestvotecommentbribe');
 		$settings=$db->loadObjectlist();*/
 $params = &JComponentHelper::getParams('com_suggestvotecommentbribe');
@@ -123,22 +127,26 @@ $setting->URL 			= $params->get("URL","");
 $setting->email 		= $params->get("email","");
 $setting->pubk 		= $params->get("pubk","");
 $setting->prvk 		= $params->get("prvk","");
-$setting->max_title 	= $params->get("max_title","");
-$setting->max_desc 	= $params->get("max_desc","");
+$setting->max_title 	= $params->get("max_title","100");
+$setting->max_desc 	= $params->get("max_desc","1000");
 $settings = array($setting);
 
+		//////////////// Changes for storing data from description editor
+                $post['description']=$data;
 		$post['title']=substr($_POST['title'], 0,$settings[0]->max_title);
-		$post['description']=substr($_POST['description'], 0,$settings[0]->max_desc);
-		$post['title']=(htmlentities($post['title'],ENT_NOQUOTES));
-		$post['description']=((htmlentities($post['description'],ENT_NOQUOTES)));
-		$post['title']=str_replace("\\\\", "\\", $post['title']);
-		$post['title']=str_replace("\\\"", "\"", $post['title']);
-		$post['title']=str_replace("\\'", "'", $post['title']);
-		$post['description']=str_replace("\\\\", "\\", $post['description']);
-		$post['description']=str_replace("\\\"", "\"", $post['description']);
-		$post['description']=str_replace("\\'", "'", $post['description']);
+		$post['description']=substr($post['description'], 0,$settings[0]->max_desc);
+		$post['title']=(htmlentities($post['title'],ENT_NOQUOTES,'UTF-8'));
+		$post['description']=((htmlentities($post['description'],ENT_NOQUOTES,'UTF-8')));
+		//$post['title']=str_replace("\\\\", "\\", $post['title']);
+		//$post['title']=str_replace("\\\"", "\"", $post['title']);
+		//$post['title']=str_replace("\\'", "'", $post['title']);
+		//$post['description']=str_replace("\\\\", "\\", $post['description']);
+		//$post['description']=str_replace("\\\"", "\"", $post['description']);
+		//$post['description']=str_replace("\\'", "'", $post['description']);
 		$post['title']=str_replace(" ", "&nbsp;", $post['title']);
-		$post['description']=nl2br(str_replace(" ", "&nbsp;", $post['description']));
+		//$post['description']=nl2br(str_replace(" ", "&nbsp;", $post['description']));
+		$post['description']=str_replace(" ", "&nbsp;", $post['description']);
+
 		$model = $this->getModel( 'comment' );
 		if ($model->store($post)) {
 			$msg = JText::_( 'ITEM_SAVED' );

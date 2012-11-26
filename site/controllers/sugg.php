@@ -108,6 +108,11 @@ class SuggestionControllersugg extends JController
 
 	function save()
 	{
+		// Get data from description editor
+                $data = JRequest::getVar( 'description', 'defaultValue', 'post', 'string', JREQUEST_ALLOWRAW );
+		//echo $data;
+		//exit();
+
 		$post = JRequest::get('post');
 		$cid  = JRequest::getVar( 'cid', array(0), 'post', 'array' );
 		$model_can = $this->getModel( 'security' );
@@ -135,12 +140,13 @@ class SuggestionControllersugg extends JController
 		$max_title 	= $params->get('max_title',100);
 		$captcha 	= $params->get('captcha');
 		$prvk 		= $params->get('prvk');
-		$max_desc 	= $params->get('max_desc');
+		$max_desc 	= $params->get('max_desc','1000');
 		$useraccess = $params->get('useraccess');
 		$db = &JFactory::getDBO();
+		$data = $db->getEscaped($data);
 
 		$user=JFactory::getUser();
-//		echo '<h1>'.$useraccess.'</h1>';exit();
+		//echo '<h1>'.$useraccess.'</h1>';exit();
 		if($useraccess == 'everyone_enters_captcha' || ($useraccess=='guests_enter_captcha'&&!$user->id))
 		{
 			include(JPATH_ROOT."/components/com_suggestvotecommentbribe/recaptchalib.php");
@@ -168,17 +174,21 @@ class SuggestionControllersugg extends JController
 		#$post['title']=substr(JRequest::getVar('title'), 0,$max_title);
 		$post['title']=substr($_POST['title'], 0,$max_title);
 		#$post['description']=substr(JRequest::getVar('description'), 0,$max_desc);
-		$post['description']=substr($_POST['description'], 0,$max_desc);
-		$post['title']=(htmlentities($post['title'],ENT_NOQUOTES));
-		$post['description']=((htmlentities($post['description'],ENT_NOQUOTES)));
-		$post['title']=str_replace("\\\\", "\\", $post['title']);
-		$post['title']=str_replace("\\\"", "\"", $post['title']);
-		$post['title']=str_replace("\\'", "'", $post['title']);
-		$post['description']=str_replace("\\\\", "\\", $post['description']);
-		$post['description']=str_replace("\\\"", "\"", $post['description']);
-		$post['description']=str_replace("\\'", "'", $post['description']);
-		$post['title']=str_replace(' ','&nbsp;',$post['title']);
-		$post['description']=nl2br(str_replace(' ','&nbsp;',$post['description']));
+		$post['description']=substr($data, 0,$max_desc);
+		$post['title']=(htmlentities($post['title'],ENT_NOQUOTES,'UTF-8'));
+                $post['description']=((htmlentities($post['description'],ENT_NOQUOTES,'UTF-8')));
+		//$post['title']=str_replace("\\\\", "\\", $post['title']);
+		//$post['title']=str_replace("\\\"", "\"", $post['title']);
+		//$post['title']=str_replace("\\'", "'", $post['title']);
+		//$post['description']=str_replace("\\\\", "\\", $post['description']);
+		//$post['description']=str_replace("\\\"", "\"", $post['description']);
+		//$post['description']=str_replace("\\'", "'", $post['description']);
+		//$post['title']=str_replace(' ','&nbsp;',$post['title']);
+		//$post['description']=nl2br(str_replace(' ','&nbsp;',$post['description']));
+		//////////////// Changes for storing data from description editor
+                //$post['description']=$data;
+		$post['title']=str_replace(" ", '&nbsp;', $post['title']);
+                $post['description']=str_replace(" ", '&nbsp;', $post['description']);
 
 		if($post['id']===0)
 		{

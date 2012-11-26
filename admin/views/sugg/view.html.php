@@ -14,6 +14,25 @@ jimport('joomla.application.component.view');
 
 class SuggestionsViewsugg extends JView
 {
+	private $_cats = null;
+
+	function listcats($cat= null)
+	{
+		if(is_array($cat))
+		{
+			foreach($cat as $val)
+			{
+				$key=$val->id;
+				$this->_cats[$key]=$val->title;
+				if(is_array($val->children))
+				{
+					$this->listcats($val->children);
+				}
+			}
+		}
+
+	}
+
 	function display($tpl = null)
 	{
 		JHTML::stylesheet( 'suggestvotecommentbribe.css', 'administrator/components/com_suggestvotecommentbribe/assets/' );
@@ -22,6 +41,15 @@ class SuggestionsViewsugg extends JView
 		$item =& $this->get('Data');
 		$isNew = ($item->id < 1);
 		$text = $isNew ? JText::_( 'New' ) : JText::_( 'Edit' );
+
+		$this->categories = $this->get('Categories');
+		//echo '<pre>'; print_r($this->categories); echo '</pre>';
+		
+		// Call listcats function to generate _cats variable.
+		$this->listcats($this->categories);
+		
+		//Get Categories list
+		$this->cats=$this->_cats;
 
 		JToolBarHelper::title(   '  ' .JText::_( 'Suggestion' ).': <small><small>[ ' . $text.' ]</small></small>', 'sugg');
 

@@ -35,7 +35,7 @@ class SuggestionModelvote extends JModel
 			return false;
 		}
 
-		return true;
+		return $row->id;
 	}
 
 	function delete()

@@ -25,6 +25,13 @@ if( $controller = JRequest::getWord('controller'))
 	}
 }
 
+#$language = JFactory::getLanguage();
+#$language->load('com_suggestvotecommentbribe', JPATH_ADMINISTRATOR, 'en-GB', true);
+#$language->load('com_suggestvotecommentbribe', JPATH_ADMINISTRATOR, null, true);
+require_once JPATH_COMPONENT.'/helpers/suggestvotecommentbribe.php';
+// Load the submenu.
+SVCBHelper::addSubmenu(JRequest::getCmd('view', 'suggs'));
+
 // Create the controller
 $classname    = 'SuggestionsController'.$controller;
 $controller   = new $classname( );
