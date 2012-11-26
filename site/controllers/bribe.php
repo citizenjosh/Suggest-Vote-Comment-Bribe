@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Controllers
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -32,7 +32,7 @@ class SuggestionControllerbribe extends JController
       $can=$model->canBribe(JRequest::getVar('SID'));
 	  if($can!==true)
       {
-      	 $this->setRedirect( 'index.php?option=com_suggestion&view=suggs', $can );
+      	 $this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=suggs', $can );
 		 return;
 	  }
       JRequest::setVar( 'view', 'bribe' );
@@ -44,12 +44,12 @@ class SuggestionControllerbribe extends JController
    function cancel()
    {
       $msg = JText::_( 'Operation Cancelled' );
-      $this->setRedirect( 'index.php?option=com_suggestion&view=bribes', $msg );
+      $this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=bribes', $msg );
    }
    function save()
    {
         $db = &JFactory::getDBO();
-        $db->setQuery('select*from #__suggestion');
+        $db->setQuery('select*from #__suggestvotecommentbribe');
         $settings=$db->loadObjectlist();
         $settings=$settings[0];
         // read the post from PayPal system and add 'cmd'
@@ -107,7 +107,7 @@ class SuggestionControllerbribe extends JController
                     $post1['description'].=' has bribed $'.$payment_amount.' to '.$sugg->title.' at '.date(DATE_RFC822);
                     $model1->store($post1);
                     $db = &JFactory::getDBO();
-                    $db->setQuery('update #__suggestion_sugg set amountDonated=(select sum(amount) from #__suggestion_bribe where SID='.$post['SID'].') where id='.$post['SID']);
+                    $db->setQuery('update #__suggestvotecommentbribe_sugg set amountDonated=(select sum(amount) from #__suggestvotecommentbribe_bribe where SID='.$post['SID'].') where id='.$post['SID']);
                     $db->query();
 
                 }

@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Tables
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -47,7 +47,7 @@ class Tablebribe extends JTable
     */
    function __construct( &$_db )
    {
-      parent::__construct( '#__suggestion_bribe', 'id', $_db );
+      parent::__construct( '#__suggestvotecommentbribe_bribe', 'id', $_db );
       $this->db = $_db;
    }// function
 

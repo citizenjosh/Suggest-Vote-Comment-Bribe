@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Views
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -17,7 +17,7 @@ class SuggestionViewsuggs extends JView
 
    function display($tpl = null)
    {
-      JHTML::stylesheet( 'Suggestion.css', 'administrator/components/com_suggestion/assets/' );
+      JHTML::stylesheet( 'suggestvotecommentbribe.css', 'administrator/components/com_suggestvotecommentbribe/assets/' );
 
       $items   = & $this->get( 'Data');
       $pagination =& $this->get('Pagination');

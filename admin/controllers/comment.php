@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Controllers
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -28,7 +28,7 @@ class SuggestionsControllercomment extends JController
    }
    function _buildQuery()
    {
-      $this->_query = 'UPDATE #__suggestion_comment'
+      $this->_query = 'UPDATE #__suggestvotecommentbribe_comment'
       . ' SET published = ' . (int) $this->publish
       . ' WHERE id IN ( '. $this->cids .' )'    
       ;
@@ -45,7 +45,7 @@ class SuggestionsControllercomment extends JController
    function cancel()
    {
       $msg = JText::_( 'Operation Cancelled' );
-      $this->setRedirect( 'index.php?option=com_suggestion&view=comments', $msg );
+      $this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=comments', $msg );
    }
    function publish()
    {
@@ -82,10 +82,10 @@ class SuggestionsControllercomment extends JController
      $model1->store($post1);
       for($i=0;$i<count($this->cid);$i++)
       {
-         $db->setQuery('update #__suggestion_sugg set noofComs=(select count(*) from #__suggestion_comment where published=1 and SID='.$comm->SID.') where id='.$comm->SID);
+         $db->setQuery('update #__suggestvotecommentbribe_sugg set noofComs=(select count(*) from #__suggestvotecommentbribe_comment where published=1 and SID='.$comm->SID.') where id='.$comm->SID);
          $db->query();
       }
-      $link = 'index.php?option=com_suggestion&view=comments';
+      $link = 'index.php?option=com_suggestvotecommentbribe&view=comments';
       $this->setRedirect($link, $msg);
    }
 
@@ -98,20 +98,20 @@ class SuggestionsControllercomment extends JController
       if($_POST['title']=='')
       {
           $t=time();
-          $link = 'index.php?option=com_suggestion&controller=comment&task=edit&cid[]='.$post['id'].'&ses=s'.$t;
+          $link = 'index.php?option=com_suggestvotecommentbribe&controller=comment&task=edit&cid[]='.$post['id'].'&ses=s'.$t;
           $this->setRedirect( $link, 'title is required');
           $_SESSION['s'.$t]=$_POST['description'];
           return;
      }
       if(!$post['SID'])
       {
-         $link = 'index.php?option=com_suggestion&view=comments';
+         $link = 'index.php?option=com_suggestvotecommentbribe&view=comments';
           $this->setRedirect( $link, 'title is required');
           return;
      }
 
      $db = &JFactory::getDBO();
-      $db->setQuery('select * from #__suggestion');
+      $db->setQuery('select * from #__suggestvotecommentbribe');
       $settings=$db->loadObjectlist();
       $post['title']=substr($_POST['title'], 0,$settings[0]->max_title);
       $post['description']=substr($_POST['description'], 0,$settings[0]->max_desc);
@@ -145,9 +145,9 @@ class SuggestionsControllercomment extends JController
          $msg = JText::_( 'Error Saving Item' );
       }
       $db = &JFactory::getDBO();
-      $db->setQuery('update #__suggestion_sugg set noofComs=(select count(*) from #__suggestion_comment where published=1 and SID='.$post['SID'].') where id='.$post['SID']);
+      $db->setQuery('update #__suggestvotecommentbribe_sugg set noofComs=(select count(*) from #__suggestvotecommentbribe_comment where published=1 and SID='.$post['SID'].') where id='.$post['SID']);
       $db->query();
-      $link = 'index.php?option=com_suggestion&view=comments';
+      $link = 'index.php?option=com_suggestvotecommentbribe&view=comments';
       $this->setRedirect( $link, $msg );
    }
 
@@ -174,10 +174,10 @@ class SuggestionsControllercomment extends JController
       $db = &JFactory::getDBO();
       for($i=0;$i<count($cids);$i++)
       {
-         $db->setQuery('update #__suggestion_sugg set noofComs=(select count(*) from #__suggestion_comment where published=1 and SID='.$comm->SID.') where id='.$comm->SID);
+         $db->setQuery('update #__suggestvotecommentbribe_sugg set noofComs=(select count(*) from #__suggestvotecommentbribe_comment where published=1 and SID='.$comm->SID.') where id='.$comm->SID);
          $db->query();
       }
-      $this->setRedirect( 'index.php?option=com_suggestion&view=comments', $msg );
+      $this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=comments', $msg );
    }
 
    

@@ -1,16 +1,16 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Views
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL
 */
 
 //--No direct access
 defined('_JEXEC') or die('=;)');
 $db = &JFactory::getDBO();
-$db->setQuery('select*from #__suggestion');
+$db->setQuery('select*from #__suggestvotecommentbribe');
 $settings=$db->loadObjectlist();
 $settings=$settings[0];
 
@@ -72,7 +72,7 @@ JHTML::_('behavior.tooltip');
    <input type="hidden" name="noofVotes" value="<?php echo $this->item->noofVotes; ?>" />
    <input type="hidden" name="amountDonated" value="<?php echo $this->item->amountDonated; ?>" />
    <input type="hidden" name="UID" value="<?php echo $user->get('id'); ?>" />
-   <input type="hidden" name="option" value="com_Suggestion" />
+   <input type="hidden" name="option" value="com_suggestvotecommentbribe" />
    <input type="hidden" name="task" value="" />
    <input type="hidden" name="controller" value="sugg" />
 </form>
@@ -83,7 +83,7 @@ JHTML::_('behavior.tooltip');
       <form name="_xclick" action="https://www.paypal.com/cgi-bin/webscr" method="post">
 <input type="hidden" name="cmd" value="_xclick">
 <input type="hidden" name="business" value="bursar@Interpreneurial.com">
-<input type="hidden" name="item_name" value="com_suggestion donation">
+<input type="hidden" name="item_name" value="com_suggestvotecommentbribe donation">
 <input type="hidden" name="currency_code" value="USD">
 <input type="image" style='border:0;' src="http://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
 </form>

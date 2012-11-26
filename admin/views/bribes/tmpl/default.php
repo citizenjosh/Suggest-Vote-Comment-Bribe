@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Views
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -14,7 +14,7 @@ JHTML::_('behavior.tooltip');
 
 
 ?>
-<form action="index.php?option=com_suggestion&view=bribes" method="post" name="adminForm">
+<form action="index.php?option=com_suggestvotecommentbribe&view=bribes" method="post" name="adminForm">
 <!--<table>
    <tr>
       <td align="left" width="100%">

@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Views
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -13,7 +13,7 @@ defined('_JEXEC') or die('=;)');
 JHTML::_('behavior.tooltip');
 
 $db = &JFactory::getDBO();
-$db->setQuery('select*from #__suggestion');
+$db->setQuery('select*from #__suggestvotecommentbribe');
 $settings=$db->loadObjectlist();
 $settings=$settings[0];
 $ordering = ($this->lists['order'] == 'ordering');
@@ -21,16 +21,16 @@ $ordering = ($this->lists['order'] == 'ordering');
 ?>
  <script type="text/javascript" src="includes/js/joomla.javascript.js"></script>
  
-<form action="index.php?option=com_suggestion&view=suggs" method="post" name="adminForm">
+<form action="index.php?option=com_suggestvotecommentbribe&view=suggs" method="post" name="adminForm">
 <div id="tablecell">
    <table class="adminlist" cellpadding="5px">
    <thead>
       <tr>
          <th nowrap="nowrap" style="text-align:left;">
-            <?php echo JHTML::_('grid.sort',   JText::_('SUGGID'), 'id', $this->lists['order_Dir'], $this->lists['order'] ); ?>
+            <?php echo JHTML::_('grid.sort',   JText::_('ID'), 'id', $this->lists['order_Dir'], $this->lists['order'] ); ?>
          </th>
          <th style="text-align:left;">
-            <?php echo JHTML::_('grid.sort',   JText::_('SUGGTITLE'), 'title', $this->lists['order_Dir'], $this->lists['order'] ); ?>
+            <?php echo JHTML::_('grid.sort',   JText::_('TITLE'), 'title', $this->lists['order_Dir'], $this->lists['order'] ); ?>
          </th>
                <th style="text-align:left;">
             <?php echo JHTML::_('grid.sort', JText::_('SUGGNOOFVOTES'), 'noofVotes', $this->lists['order_Dir'], $this->lists['order']);?>
@@ -67,7 +67,7 @@ $ordering = ($this->lists['order'] == 'ordering');
           if(($user->id==0||$user->id!=$row->UID)&&$row->published==0)
              continue;
       }
-      $link       = JRoute::_( 'index.php?option=com_suggestion&view=sugg&cid[]='. $row->id);
+      $link       = JRoute::_( 'index.php?option=com_suggestvotecommentbribe&view=sugg&cid[]='. $row->id);
       
       $checked = JHTML::_('grid.id',  $i, $row->id );
 
@@ -121,7 +121,7 @@ $ordering = ($this->lists['order'] == 'ordering');
    </tbody>
     <tfoot>
     <tr>
-      <td colspan="13"><a href='<?php echo JRoute::_( 'index.php?option=com_suggestion&controller=sugg&task=edit'); ?>'><?php echo JText::_('SUGGADDNEW');?></a></td>
+      <td colspan="13"><a href='<?php echo JRoute::_( 'index.php?option=com_suggestvotecommentbribe&controller=sugg&task=edit'); ?>'><?php echo JText::_('SUGGADDNEW');?></a></td>
         </tr>
     <tr>
       <td colspan="13"><?php echo $this->pagination->getListFooter(); ?></td>
@@ -129,7 +129,7 @@ $ordering = ($this->lists['order'] == 'ordering');
   </tfoot>
    </table>
 </div>
-   <input type="hidden" name="option" value="com_suggestion" />
+   <input type="hidden" name="option" value="com_suggestvotecommentbribe" />
    <input type="hidden" name="task" value="" />
    <input type="hidden" name="boxchecked" value="0" />
    <input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />

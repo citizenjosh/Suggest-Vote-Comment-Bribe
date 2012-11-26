@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Views
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -11,7 +11,7 @@
 defined('_JEXEC') or die('=;)');
 
 $db = &JFactory::getDBO();
-$db->setQuery('select*from #__suggestion');
+$db->setQuery('select*from #__suggestvotecommentbribe');
 $settings=$db->loadObjectlist();
 $settings=$settings[0];
 $user =& JFactory::getUser();
@@ -49,17 +49,17 @@ JHTML::_('behavior.tooltip');
    </fieldset>
    <fieldset>
       <?php
-      if($this->item->id==0&&$settings->capcha&&$user->id<1)
+      if($this->item->id==0&&$settings->captcha&&$user->id<1)
       {
 	echo JTEXT::_("COPYWHATYOUWROTE");
-         require_once(JPATH_ROOT.'/components/com_suggestion/recaptchalib.php');
+         require_once(JPATH_ROOT.'/components/com_suggestvotecommentbribe/recaptchalib.php');
          echo recaptcha_get_html($settings->pubk);
       }
       ?>
    </fieldset>
    <input type="hidden" name="cid[]" value="<?php echo $this->item->id; ?>" />
    <input type="hidden" name="UID" value="<?php echo $user->get('id'); ?>" />
-   <input type="hidden" name="option" value="com_suggestion" />
+   <input type="hidden" name="option" value="com_suggestvotecommentbribe" />
    <input type="hidden" name="task" value="save" />
    <input type="hidden" name="controller" value="sugg" />
    <input type=submit value=ADD>

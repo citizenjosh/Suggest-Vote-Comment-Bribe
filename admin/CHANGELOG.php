@@ -6,7 +6,7 @@
  * <b>Please</b> be patient =;)
  * 
  * @version    $Id: CHANGELOG.php 827 2009-04-30 17:45:07Z elkuku $
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Documentation
  */
 
@@ -41,6 +41,15 @@ Legend:
 ______________________________________________
 
  ! Startup
+
+-------------------- 1.1.0 [31-March-2010] ------------------
+10-Mar-2010 Citizen Josh
+ ^ changed name to "Suggest, Vote, Comment, Bribe"
+ ^ changed package to "com_suggestvotecommentbribe"
+ ^ improved post-installation setup instructions
+ ^ allow reCAPTCHA theme change  
+
+
 
 */
 }//--This is the END

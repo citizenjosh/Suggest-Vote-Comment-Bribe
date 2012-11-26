@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Controllers
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -29,7 +29,7 @@ class SuggestionControllercomment extends JController
    function _buildQuery()
    {
       $user=JFactory::getUser();
-      $this->_query = 'UPDATE #__suggestion_comment'
+      $this->_query = 'UPDATE #__suggestvotecommentbribe_comment'
       . ' SET published = ' . (int) $this->publish
       . ' WHERE id IN ( '. $this->cids .')  '    
       ;
@@ -41,7 +41,7 @@ class SuggestionControllercomment extends JController
       $can=$model->canComment(JRequest::getVar('cid'),JRequest::getVar('SID'));
      if($can!==true)
       {
-          $this->setRedirect( 'index.php?option=com_suggestion&view=suggs', $can );
+          $this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=suggs', $can );
        return;
      }
       JRequest::setVar( 'view', 'comment' );
@@ -65,7 +65,7 @@ class SuggestionControllercomment extends JController
       $can=$model->canComment(JRequest::getVar('cid'),JRequest::getVar('SID'));
      if($can!==true&&!$_COOKIE['comment'.$cid[0]])
       {
-          $this->setRedirect( 'index.php?option=com_suggestion&view=suggs', $can );
+          $this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=suggs', $can );
        return;
      }
       $this->cids = implode( ',', $cid );
@@ -79,7 +79,7 @@ class SuggestionControllercomment extends JController
       }
       for($i=0;$i<count($this->cid);$i++)
       {
-         $db->setQuery('update #__suggestion_sugg set noofComs=(select count(*) from #__suggestion_comment where published=1 and SID=(select SID from #__suggestion_comment where id='.$this->cid[$i].')) where id=(select SID from #__suggestion_comment where id='.$this->cid[$i].')');
+         $db->setQuery('update #__suggestvotecommentbribe_sugg set noofComs=(select count(*) from #__suggestvotecommentbribe_comment where published=1 and SID=(select SID from #__suggestvotecommentbribe_comment where id='.$this->cid[$i].')) where id=(select SID from #__suggestvotecommentbribe_comment where id='.$this->cid[$i].')');
          $db->query();
       }
        $user =& JFactory::getUser();
@@ -93,7 +93,7 @@ class SuggestionControllercomment extends JController
      $post1['description'].=' a comment at '.date(DATE_RFC822);
      $model1->store($post1);
 
-      $link = 'index.php?option=com_suggestion&view=sugg&cid[0]='.$sid;
+      $link = 'index.php?option=com_suggestvotecommentbribe&view=sugg&cid[0]='.$sid;
       $this->setRedirect($link, '');
    }
 
@@ -108,29 +108,29 @@ class SuggestionControllercomment extends JController
       $can=$model_sec->canComment(JRequest::getVar('cid'),JRequest::getVar('SID'));
      if($can!==true)
       {
-          $this->setRedirect( 'index.php?option=com_suggestion&view=suggs', $can );
+          $this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=suggs', $can );
        return;
      }
      $db = &JFactory::getDBO();
-      $db->setQuery('select * from #__suggestion');
-      $capcha=$db->loadObjectlist();
-      if($capcha[0]->capcha&&!$user->id)
+      $db->setQuery('select * from #__suggestvotecommentbribe');
+      $captcha=$db->loadObjectlist();
+      if($captcha[0]->captcha&&!$user->id)
       {
-         include(JPATH_ROOT."/components/com_suggestion/recaptchalib.php");
-         $resp = recaptcha_check_answer ($capcha[0]->prvk,
+         include(JPATH_ROOT."/components/com_suggestvotecommentbribe/recaptchalib.php");
+         $resp = recaptcha_check_answer ($captcha[0]->prvk,
                                 $_SERVER["REMOTE_ADDR"],
                                 $_POST["recaptcha_challenge_field"],
                                 $_POST["recaptcha_response_field"]);
 
          if (!$resp->is_valid) 
          {
-            $link = 'index.php?option=com_suggestion&view=sugg&cid[0]='.$post['SID'];
+            $link = 'index.php?option=com_suggestvotecommentbribe&view=sugg&cid[0]='.$post['SID'];
             $this->setRedirect( $link, 'You entered a wrong CAPTCHA');
             return;
          }
       }
-      $post['title']=substr($_POST['title'], 0,$capcha[0]->max_title);
-      $post['description']=substr($_POST['description'], 0,$capcha[0]->max_desc);
+      $post['title']=substr($_POST['title'], 0,$captcha[0]->max_title);
+      $post['description']=substr($_POST['description'], 0,$captcha[0]->max_desc);
       $post['title']=(htmlentities($post['title'],ENT_NOQUOTES));
       $post['description']=((htmlentities($post['description'],ENT_NOQUOTES)));
       $post['title']=str_replace("\\\\", "\\", $post['title']);
@@ -145,7 +145,7 @@ class SuggestionControllercomment extends JController
       if($post['title']=='')
       {
           $t=time();
-         $link = 'index.php?option=com_suggestion&controller=comment&task=edit&SID='.$post['SID'].'&ses=s'.$t;
+         $link = 'index.php?option=com_suggestvotecommentbribe&controller=comment&task=edit&SID='.$post['SID'].'&ses=s'.$t;
           $this->setRedirect( $link, 'title is required');
           $_SESSION['s'.$t]=$_POST['description'];
           return;
@@ -154,7 +154,7 @@ class SuggestionControllercomment extends JController
       $can=$model_sec->canComment(JRequest::getVar('cid'),JRequest::getVar('SID'));
      if($can!==true)
       {
-          $this->setRedirect( 'index.php?option=com_suggestion&view=suggs', $can );
+          $this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=suggs', $can );
        return;
      }
       if ($model->store($post)) {
@@ -163,7 +163,7 @@ class SuggestionControllercomment extends JController
          {
             $post['title']=htmlentities($post['title'],ENT_NOQUOTES);
             $post['description']=nl2br(htmlentities($post['description'],ENT_NOQUOTES));
-            $db->setQuery("select max(id) as id from #__suggestion_comment where SID=$post[SID]");
+            $db->setQuery("select max(id) as id from #__suggestvotecommentbribe_comment where SID=$post[SID]");
             $CID=$db->loadObjectlist();
             setcookie('comment'.$CID[0]->id,1);
          }
@@ -183,10 +183,10 @@ class SuggestionControllercomment extends JController
       } else {
          $msg = JText::_( 'Error Saving Item' );
       }
-      $db->setQuery('update #__suggestion_sugg set noofComs=(select count(*) from #__suggestion_comment where published=1 and SID='.$post['SID'].') where id='.$post['SID']);
+      $db->setQuery('update #__suggestvotecommentbribe_sugg set noofComs=(select count(*) from #__suggestvotecommentbribe_comment where published=1 and SID='.$post['SID'].') where id='.$post['SID']);
       $db->query();
 
-      $link = 'index.php?option=com_suggestion&view=sugg&cid[0]='.$post['SID'];
+      $link = 'index.php?option=com_suggestvotecommentbribe&view=sugg&cid[0]='.$post['SID'];
       $this->setRedirect( $link, $msg );
    }
 

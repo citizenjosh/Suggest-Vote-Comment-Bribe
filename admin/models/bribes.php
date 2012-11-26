@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Models
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -32,17 +32,17 @@ class SuggestionsModelbribes extends JModel
       if (($this->filter_order != 'title') && ($this->filter_order != 'type_id') && ($this->filter_order != 'description') && ($this->filter_order != 'e.ordering') && ($this->filter_order != 'id') && ($this->filter_order != 'min') && ($this->filter_order != 'def') && ($this->filter_order != 'max')) $this->filter_order = '';*/
       if (($this->filter_order) && ($this->filter_order_Dir))
          $orderby    = ' ORDER BY '. $this->filter_order .' '. $this->filter_order_Dir;
-      else $orderby=' ORDER BY #__suggestion_bribe.id';
+      else $orderby=' ORDER BY #__suggestvotecommentbribe_bribe.id';
       if($where)
       {
-         $where.=' and SID=#__suggestion_sugg.id';         
+         $where.=' and SID=#__suggestvotecommentbribe_sugg.id';         
       }
       else
       {
-         $where=' where SID=#__suggestion_sugg.id';
+         $where=' where SID=#__suggestvotecommentbribe_sugg.id';
       }
       $this->_query = ' SELECT *'
-            . ' FROM #__suggestion_bribe,#__suggestion_sugg'
+            . ' FROM #__suggestvotecommentbribe_bribe,#__suggestvotecommentbribe_sugg'
             . $where
             . $orderby
             ;

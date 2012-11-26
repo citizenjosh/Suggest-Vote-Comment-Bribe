@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Views
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -14,14 +14,14 @@ JHTML::_('behavior.tooltip');
 
 
 ?>
-<form action="index.php?option=com_suggestion&view=logs" method="post" name="adminForm">
+<form action="index.php?option=com_suggestvotecommentbribe&view=logs" method="post" name="adminForm">
 <table>
    <tr>
       <td align="left" width="100%">
-         <?php echo JText::_( 'Filter' ); ?>:
+         <?php echo JText::_( 'FILTER' ); ?>:
          <input type="text" name="search" id="search" value="<?php echo $this->lists['search'];?>" class="text_area" onchange="document.adminForm.submit();" />
-         <button onclick="this.form.submit();"><?php echo JText::_( 'Go' ); ?></button>
-         <button onclick="document.getElementById('search').value='';this.form.getElementById('filter_item').value='';this.form.submit();"><?php echo JText::_( 'Reset' ); ?></button>
+         <button onclick="this.form.submit();"><?php echo JText::_( 'GO' ); ?></button>
+         <button onclick="document.getElementById('search').value='';this.form.getElementById('filter_item').value='';this.form.submit();"><?php echo JText::_( 'RESET' ); ?></button>
       </td>
    </tr>
 </table>
@@ -47,7 +47,7 @@ JHTML::_('behavior.tooltip');
    for ($i=0, $n=count( $this->items ); $i < $n; $i++)
    {
       $row = &$this->items[$i];
-      $link       = JRoute::_( 'index.php?option=com_Suggestion&controller=log&task=edit&cid[]='. $row->id);
+      $link       = JRoute::_( 'index.php?option=com_suggestvotecommentbribe&controller=log&task=edit&cid[]='. $row->id);
       
       $checked = JHTML::_('grid.id',  $i, $row->id );
       
@@ -75,7 +75,7 @@ JHTML::_('behavior.tooltip');
   </tfoot>
    </table>
 </div>
-   <input type="hidden" name="option" value="com_Suggestion" />
+   <input type="hidden" name="option" value="com_suggestvotecommentbribe" />
    <input type="hidden" name="task" value="" />
    <input type="hidden" name="boxchecked" value="0" />
    <input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />

@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage _ECR_SUBPACKAGE_
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -15,7 +15,7 @@ jimport( 'joomla.application.component.model' );
 /**
  * Suggestion Model
  *
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Models
  */
 class SuggestionsModelSuggestion extends JModel
@@ -58,7 +58,7 @@ class SuggestionsModelSuggestion extends JModel
    {
       // Load the data
       if (empty( $this->_data )) {
-         $query = ' SELECT * FROM #__suggestion '.
+         $query = ' SELECT * FROM #__suggestvotecommentbribe '.
                '  WHERE id = '.$this->_id;
          $this->_db->setQuery( $query );
          $this->_data = $this->_db->loadObject();

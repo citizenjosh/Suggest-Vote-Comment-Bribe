@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Models
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -35,14 +35,14 @@ class SuggestionsModelvotes extends JModel
       else $orderby=' ORDER BY id';
       if($where)
       {
-         $where.=' and SID=#__suggestion_sugg.id';
+         $where.=' and SID=#__suggestvotecommentbribe_sugg.id';
       }
       else
       {
-         $where=' where SID=#__suggestion_sugg.id';
+         $where=' where SID=#__suggestvotecommentbribe_sugg.id';
       }
-      $this->_query = ' SELECT #__suggestion_vote.*,#__suggestion_sugg.title '
-            . ' FROM #__suggestion_vote,#__suggestion_sugg'
+      $this->_query = ' SELECT #__suggestvotecommentbribe_vote.*,#__suggestvotecommentbribe_sugg.title '
+            . ' FROM #__suggestvotecommentbribe_vote,#__suggestvotecommentbribe_sugg'
             . $where
             . $orderby
             ;

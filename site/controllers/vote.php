@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Controllers
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -32,7 +32,7 @@ class SuggestionControllervote extends JController
       $can=$model->canVote(JRequest::getVar('CID'),array(JRequest::getVar('SID')));
 	  if($can!==true)
       {
-      	 $this->setRedirect( 'index.php?option=com_suggestion&view=suggs', $can );
+      	 $this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=suggs', $can );
 		 return;
 	  }
       JRequest::setVar( 'view', 'vote' );
@@ -51,24 +51,24 @@ class SuggestionControllervote extends JController
       $can=$model->canVote($cid,array($post['SID']));
 	  if($can!==true)
       {
-      	 $this->setRedirect( 'index.php?option=com_suggestion&view=suggs', $can );
+      	 $this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=suggs', $can );
 		 return;
 	  }
       $user =& JFactory::getUser();
       $db = &JFactory::getDBO();
-      $db->setQuery('select * from #__suggestion');
-      $capcha=$db->loadObjectlist();
-      if($capcha[0]->capcha&&!$user->id)
+      $db->setQuery('select * from #__suggestvotecommentbribe');
+      $captcha=$db->loadObjectlist();
+      if($captcha[0]->captcha&&!$user->id)
       {
-         include(JPATH_ROOT."/components/com_suggestion/recaptchalib.php");
-         $resp = recaptcha_check_answer ($capcha[0]->prvk,
+         include(JPATH_ROOT."/components/com_suggestvotecommentbribe/recaptchalib.php");
+         $resp = recaptcha_check_answer ($captcha[0]->prvk,
                                 $_SERVER["REMOTE_ADDR"],
                                 $_POST["recaptcha_challenge_field"],
                                 $_POST["recaptcha_response_field"]);
 
          if (!$resp->is_valid) 
          {
-            $link = 'index.php?option=com_suggestion&view=sugg&cid[0]='.$SID;
+            $link = 'index.php?option=com_suggestvotecommentbribe&view=sugg&cid[0]='.$SID;
             $this->setRedirect( $link, 'You entered a wrong captcha');
             return;
          }
@@ -86,7 +86,7 @@ class SuggestionControllervote extends JController
          $msg = JText::_( 'Error Saving Item' );
       }
 
-        $db->setQuery('update #__suggestion_sugg set noofVotes=(select count(*) from #__suggestion_vote where SID='.$SID.' and published=1) where id='.$SID);
+        $db->setQuery('update #__suggestvotecommentbribe_sugg set noofVotes=(select count(*) from #__suggestvotecommentbribe_vote where SID='.$SID.' and published=1) where id='.$SID);
         $db->query();
          $model1 = $this->getModel( 'sugg' );
          JRequest::setVar('cid',array($SID));
@@ -98,7 +98,7 @@ class SuggestionControllervote extends JController
          $post1['description'].=' has voted for '.$sugg->title.' at '.date(DATE_RFC822);
          $model1->store($post1);
 
-         $link = 'index.php?option=com_suggestion&view=suggs';
+         $link = 'index.php?option=com_suggestvotecommentbribe&view=suggs';
          $this->setRedirect( $link, $msg );
    }
 
@@ -111,7 +111,7 @@ class SuggestionControllervote extends JController
       $can=$model->canVote($post['cid'],array($SID));
 	  if($can!==true)
       {
-      	 $this->setRedirect( 'index.php?option=com_suggestion&view=suggs', $can );
+      	 $this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=suggs', $can );
 		 return;
 	  }
       $model = $this->getModel('vote');
@@ -133,18 +133,18 @@ class SuggestionControllervote extends JController
          }        
       }
       $db = &JFactory::getDBO();
-      $db->setQuery('update #__suggestion_sugg set noofVotes=(select count(*) from #__suggestion_vote where SID='.$SID.' and published=1) where id='.$SID);
+      $db->setQuery('update #__suggestvotecommentbribe_sugg set noofVotes=(select count(*) from #__suggestvotecommentbribe_vote where SID='.$SID.' and published=1) where id='.$SID);
       $db->query();
       if($user->id)
       {
-            $db->setQuery('delete from #__suggestion_security where UID='.$user->id.' and action="vote'.$SID.'"');
+            $db->setQuery('delete from #__suggestvotecommentbribe_security where UID='.$user->id.' and action="vote'.$SID.'"');
       }
       else
       {
-            $db->setQuery('delete from #__suggestion_security where IP="'.$_SERVER [ 'REMOTE_ADDR' ].'" and action="vote'.$SID.'"');
+            $db->setQuery('delete from #__suggestvotecommentbribe_security where IP="'.$_SERVER [ 'REMOTE_ADDR' ].'" and action="vote'.$SID.'"');
       }
       $db->query();
-      $this->setRedirect( 'index.php?option=com_suggestion&view=sugg&cid[0]='.$SID, $msg );
+      $this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=sugg&cid[0]='.$SID, $msg );
    }
 
    

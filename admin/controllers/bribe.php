@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Controllers
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -28,7 +28,7 @@ class SuggestionsControllerbribe extends JController
 	}
 	function _buildQuery()
 	{
-		$this->_query = 'UPDATE #__suggestion_bribe'
+		$this->_query = 'UPDATE #__suggestvotecommentbribe_bribe'
 		. ' SET published = ' . (int) $this->publish
 		. ' WHERE id IN ( '. $this->cids .' )'		
 		;
@@ -45,7 +45,7 @@ class SuggestionsControllerbribe extends JController
 	function cancel()
 	{
 		$msg = JText::_( 'Operation Cancelled' );
-		$this->setRedirect( 'index.php?option=com_suggestion&view=bribes', $msg );
+		$this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=bribes', $msg );
 	}
 	function publish()
 	{
@@ -68,7 +68,7 @@ class SuggestionsControllerbribe extends JController
 		{
 			JError::raiseError(500, $db->getErrorMsg() );
 		}
-		$link = 'index.php?option=com_suggestion&view=bribes';
+		$link = 'index.php?option=com_suggestvotecommentbribe&view=bribes';
 		$this->setRedirect($link, $msg);
 	}
 
@@ -86,7 +86,7 @@ class SuggestionsControllerbribe extends JController
 			$msg = JText::_( 'Error Saving Item' );
 		}
 
-		$link = 'index.php?option=com_suggestion&view=bribes';
+		$link = 'index.php?option=com_suggestvotecommentbribe&view=bribes';
 		$this->setRedirect( $link, $msg );
 	}
 
@@ -102,7 +102,7 @@ class SuggestionsControllerbribe extends JController
 			}			
 		}
 
-		$this->setRedirect( 'index.php?option=com_suggestion&view=bribes', $msg );
+		$this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=bribes', $msg );
 	}
 */
 	

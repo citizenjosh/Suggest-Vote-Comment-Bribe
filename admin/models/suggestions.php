@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage _ECR_SUBPACKAGE_
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -15,7 +15,7 @@ jimport( 'joomla.application.component.model' );
 /**
  * Suggestion Model
  *
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Models
  */
 class SuggestionsModelSuggestions extends JModel
@@ -64,7 +64,7 @@ class SuggestionsModelSuggestions extends JModel
 	function _buildQuery()
 	{
 		$query = ' SELECT * '
-			. ' FROM #__suggestion ';
+			. ' FROM #__suggestvotecommentbribe ';
 		return $query;
 	}
 

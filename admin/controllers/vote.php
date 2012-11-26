@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Controllers
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -28,7 +28,7 @@ class SuggestionsControllervote extends JController
    }
    function _buildQuery()
    {
-      $this->_query = 'UPDATE #__suggestion_vote'
+      $this->_query = 'UPDATE #__suggestvotecommentbribe_vote'
       . ' SET published = ' . (int) $this->publish
       . ' WHERE id IN ( '. $this->cids .' )'    
       ;
@@ -45,7 +45,7 @@ class SuggestionsControllervote extends JController
    function cancel()
    {
       $msg = JText::_( 'Operation Cancelled' );
-      $this->setRedirect( 'index.php?option=com_suggestion&view=votes', $msg );
+      $this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=votes', $msg );
    }
    function publish()
    {
@@ -68,7 +68,7 @@ class SuggestionsControllervote extends JController
       {
          JError::raiseError(500, $db->getErrorMsg() );
       }
-      $link = 'index.php?option=com_suggestion&view=votes';
+      $link = 'index.php?option=com_suggestvotecommentbribe&view=votes';
       $this->setRedirect($link, $msg);
    }
 
@@ -86,10 +86,10 @@ class SuggestionsControllervote extends JController
          $msg = JText::_( 'Error Saving Item' );
       }
       $db = &JFactory::getDBO();
-      $db->setQuery('update #__suggestion_sugg set noofVotes=(select count(*) from #__suggestion_vote where SID='.$post['SID'].') where id='.$post['SID']);
+      $db->setQuery('update #__suggestvotecommentbribe_sugg set noofVotes=(select count(*) from #__suggestvotecommentbribe_vote where SID='.$post['SID'].') where id='.$post['SID']);
       $db->query();
 
-      $link = 'index.php?option=com_suggestion&view=votes';
+      $link = 'index.php?option=com_suggestvotecommentbribe&view=votes';
       $this->setRedirect( $link, $msg );
    }
 
@@ -105,7 +105,7 @@ class SuggestionsControllervote extends JController
          }        
       }
 
-      $this->setRedirect( 'index.php?option=com_suggestion&view=votes', $msg );
+      $this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=votes', $msg );
    }
 */
    

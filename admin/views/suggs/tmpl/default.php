@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Views
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -15,7 +15,7 @@ JHTML::_('behavior.tooltip');
 $ordering = ($this->lists['order'] == 'ordering');
 
 ?>
-<form action="index.php?option=com_suggestion&view=suggs" method="post" name="adminForm">
+<form action="index.php?option=com_suggestvotecommentbribe&view=suggs" method="post" name="adminForm">
 <div id="tablecell">
    <table class="adminlist">
    <thead>
@@ -60,7 +60,7 @@ $ordering = ($this->lists['order'] == 'ordering');
    for ($i=0, $n=count( $this->items ); $i < $n; $i++)
    {
       $row = &$this->items[$i];
-      $link       = JRoute::_( 'index.php?option=com_Suggestion&controller=sugg&task=edit&cid[]='. $row->id);
+      $link       = JRoute::_( 'index.php?option=com_suggestvotecommentbribe&controller=sugg&task=edit&cid[]='. $row->id);
       
       $checked = JHTML::_('grid.id',  $i, $row->id );
       $published  = JHTML::_('grid.published', $row, $i );
@@ -128,7 +128,7 @@ $ordering = ($this->lists['order'] == 'ordering');
   </tfoot>
    </table>
 </div>
-   <input type="hidden" name="option" value="com_Suggestion" />
+   <input type="hidden" name="option" value="com_suggestvotecommentbribe" />
    <input type="hidden" name="task" value="" />
    <input type="hidden" name="boxchecked" value="0" />
    <input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />

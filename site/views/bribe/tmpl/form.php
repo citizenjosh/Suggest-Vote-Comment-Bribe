@@ -1,16 +1,16 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Views
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
 //--No direct access
 defined('_JEXEC') or die('=;)');
 $db = &JFactory::getDBO();
-$db->setQuery('select*from #__suggestion');
+$db->setQuery('select*from #__suggestvotecommentbribe');
 $settings=$db->loadObjectlist();
 $settings=$settings[0];
 $us=JFactory::getUser();
@@ -41,6 +41,6 @@ JHTML::_('behavior.tooltip');
 <input type="hidden" name="item_name" value="Donation">
 <input type="hidden" name="currency_code" value="USD">
 <input type="hidden" name="return" value="<?php echo $URL;?>">
-<INPUT TYPE="hidden" NAME="notify_url" value="<?php echo JURI::root();?>index.php?option=com_suggestion&controller=bribe&task=save&SID=<?php echo $_POST['SID'];?>&UID=<?php echo $us->id;?>">
+<INPUT TYPE="hidden" NAME="notify_url" value="<?php echo JURI::root();?>index.php?option=com_suggestvotecommentbribe&controller=bribe&task=save&SID=<?php echo $_POST['SID'];?>&UID=<?php echo $us->id;?>">
 <input type="image" src="http://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
 </form>

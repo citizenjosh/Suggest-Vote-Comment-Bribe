@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage _ECR_SUBPACKAGE_
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -15,7 +15,7 @@ jimport( 'joomla.application.component.view');
 /**
  * HTML View class for the Suggestion Component
  *
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Views
  */
 
@@ -39,11 +39,11 @@ class SuggestionsViewSuggestion extends JView
          JToolBarHelper::cancel();
       } else {
          // for existing items the button is renamed `close`
-         JToolBarHelper::cancel( 'cancel', JText::_('Close') );
+         JToolBarHelper::cancel( 'cancel', JText::_('Cancel') );
       }
       $lists['login'] = JHTML::_('select.booleanlist',  'login', 'class="inputbox"', $Suggestion->login);
       $lists['show'] = JHTML::_('select.booleanlist',  'show', 'class="inputbox"', $Suggestion->show);
-      $lists['capcha'] = JHTML::_('select.booleanlist',  'capcha', 'class="inputbox"', $Suggestion->capcha);
+      $lists['captcha'] = JHTML::_('select.booleanlist',  'captcha', 'class="inputbox"', $Suggestion->captcha);
 
       $this->assignRef('Suggestion', $Suggestion);
       $this->assignRef('lists', $lists);

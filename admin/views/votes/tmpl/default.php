@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Views
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -13,22 +13,22 @@ defined('_JEXEC') or die('=;)');
 JHTML::_('behavior.tooltip');
 
 ?>
-<form action="index.php?option=com_suggestion&view=votes" method="post" name="adminForm">
+<form action="index.php?option=com_suggestvotecommentbribe&view=votes" method="post" name="adminForm">
 <div id="tablecell">
    <table class="adminlist">
    <thead>
       <tr>
          <th width="1%" nowrap="nowrap" style="text-align:left;">
-            <?php echo JHTML::_('grid.sort',   JText::_('id'), 'id', $this->lists['order_Dir'], $this->lists['order'] ); ?>
+            <?php echo JHTML::_('grid.sort',   JText::_('ID'), 'id', $this->lists['order_Dir'], $this->lists['order'] ); ?>
          </th>
          <th class="by" style="text-align:left;">
-            <?php echo JHTML::_('grid.sort',   JText::_('By'), 'UID', $this->lists['order_Dir'], $this->lists['order'] ); ?>
+            <?php echo JHTML::_('grid.sort',   JText::_('BY'), 'UID', $this->lists['order_Dir'], $this->lists['order'] ); ?>
          </th>
            <!-- <th style="text-align:left;">
-      <?php echo JHTML::_('grid.sort', JText::_('Value'), 'value', $this->lists['order_Dir'], $this->lists['order']);?>
+      <?php echo JHTML::_('grid.sort', JText::_('VALUE'), 'value', $this->lists['order_Dir'], $this->lists['order']);?>
    </th>-->
             <th style="text-align:left;">
-      <?php echo JHTML::_('grid.sort', JText::_('Suggestion'), 'title', $this->lists['order_Dir'], $this->lists['order']);?>
+      <?php echo JHTML::_('grid.sort', JText::_('SUGGESTION'), 'title', $this->lists['order_Dir'], $this->lists['order']);?>
    </th>
       </tr>
    </thead>
@@ -51,7 +51,7 @@ JHTML::_('behavior.tooltip');
             $user =& JFactory::getUser($row->UID);
             echo $user->get('name');
          }
-         else echo 'Anonymous';
+         else echo JText::_('ANONYMOUS');
                 ?>
          </td>
 <!--            <td>
@@ -73,7 +73,7 @@ JHTML::_('behavior.tooltip');
   </tfoot>
    </table>
 </div>
-   <input type="hidden" name="option" value="com_Suggestion" />
+   <input type="hidden" name="option" value="com_suggestvotecommentbribe" />
    <input type="hidden" name="task" value="" />
    <input type="hidden" name="boxchecked" value="0" />
    <input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />

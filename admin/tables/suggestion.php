@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage _ECR_SUBPACKAGE_
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -44,7 +44,7 @@ class TableSuggestion extends JTable
    /**
     * @var int
     */
-   var $capcha= 0;
+   var $captcha= 0;
 
    /**
     * @var string
@@ -78,7 +78,7 @@ class TableSuggestion extends JTable
     * @param object Database connector object
     */
    function TableSuggestion(& $db) {
-      parent::__construct('#__suggestion', 'id', $db);
+      parent::__construct('#__suggestvotecommentbribe', 'id', $db);
    }
 }
 ?>

@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Controllers
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -29,7 +29,7 @@ class SuggestionsControllersugg extends JController
    }
    function _buildQuery()
    {
-      $this->_query = 'UPDATE #__suggestion_sugg'
+      $this->_query = 'UPDATE #__suggestvotecommentbribe_sugg'
       . ' SET published = ' . (int) $this->publish
       . ' WHERE id IN ( '. $this->cids .' )'    
       ;
@@ -46,7 +46,7 @@ class SuggestionsControllersugg extends JController
    function cancel()
    {
       $msg = JText::_( 'Operation Cancelled' );
-      $this->setRedirect( 'index.php?option=com_suggestion&view=suggs', $msg );
+      $this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=suggs', $msg );
    }
    function publish()
    {
@@ -79,7 +79,7 @@ class SuggestionsControllersugg extends JController
      $post1['description'].=$this->getTask().'ed';
      $post1['description'].=' a suggestion at '.date(DATE_RFC822);
      $model1->store($post1);
-      $link = 'index.php?option=com_suggestion&view=suggs';
+      $link = 'index.php?option=com_suggestvotecommentbribe&view=suggs';
       $this->setRedirect($link, $msg);
    }
 
@@ -98,7 +98,7 @@ class SuggestionsControllersugg extends JController
       }
 
       $this->cids = implode( ',', $cid );
-      $query='UPDATE #__suggestion_sugg'
+      $query='UPDATE #__suggestvotecommentbribe_sugg'
       . ' SET state= ' . (int) $this->state
       . ' WHERE id IN ( '. $this->cids .' )'    
       ;
@@ -118,7 +118,7 @@ class SuggestionsControllersugg extends JController
      $post1['description'].=$this->getTask()!='Open'?'opened':'closed';
      $post1['description'].=' a suggestion at '.date(DATE_RFC822);
      $model1->store($post1);
-      $link = 'index.php?option=com_suggestion&view=suggs';
+      $link = 'index.php?option=com_suggestvotecommentbribe&view=suggs';
       $this->setRedirect($link, $msg);
    }
 
@@ -131,13 +131,13 @@ class SuggestionsControllersugg extends JController
       if($_POST['title']=='')
       {
           $t=time();
-         $link = 'index.php?option=com_suggestion&controller=sugg&task=edit&ses=s'.$t;
+         $link = 'index.php?option=com_suggestvotecommentbribe&controller=sugg&task=edit&ses=s'.$t;
           $_SESSION['s'.$t]=$_POST['description'];
           $this->setRedirect( $link, 'title is required');
           return;
      }
       $db = &JFactory::getDBO();
-      $db->setQuery('select * from #__suggestion');
+      $db->setQuery('select * from #__suggestvotecommentbribe');
       $settings=$db->loadObjectlist();
       $post['title']=substr($_POST['title'], 0,$settings[0]->max_title);
       $post['description']=substr($_POST['description'], 0,$settings[0]->max_desc);
@@ -181,7 +181,7 @@ class SuggestionsControllersugg extends JController
          $msg = JText::_( 'Error Saving Item' );
       }
 
-      $link = 'index.php?option=com_suggestion&view=suggs';
+      $link = 'index.php?option=com_suggestvotecommentbribe&view=suggs';
       $this->setRedirect( $link, $msg );
    }
 
@@ -206,6 +206,6 @@ class SuggestionsControllersugg extends JController
          }        
       }
 
-      $this->setRedirect( 'index.php?option=com_suggestion&view=suggs', $msg );
+      $this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=suggs', $msg );
    }
 }

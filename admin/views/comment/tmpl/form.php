@@ -1,16 +1,16 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Views
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL
 */
 
 //--No direct access
 defined('_JEXEC') or die('=;)');
 $db = &JFactory::getDBO();
-$db->setQuery('select*from #__suggestion');
+$db->setQuery('select*from #__suggestvotecommentbribe');
 $settings=$db->loadObjectlist();
 $settings=$settings[0];
 
@@ -27,7 +27,7 @@ JHTML::_('behavior.tooltip');
             </label>
          </td>
          <td colspan="2">
-            <a href="index.php?option=com_Suggestion&controller=sugg&task=edit&cid[]=<?php echo $this->item->SID; ?>"><?php echo $this->item->Sname; ?></a>
+            <a href="index.php?option=com_suggestvotecommentbribe&controller=sugg&task=edit&cid[]=<?php echo $this->item->SID; ?>"><?php echo $this->item->Sname; ?></a>
          </td>
       </tr>
       <tr>
@@ -69,9 +69,9 @@ JHTML::_('behavior.tooltip');
    </fieldset>
    <fieldset>
       <?php
-      if($this->item->id==0&&$settings->capcha&&$user->id<1)
+      if($this->item->id==0&&$settings->captcha&&$user->id<1)
       {
-         require_once(JPATH_ROOT.'/components/com_suggestion/recaptchalib.php');
+         require_once(JPATH_ROOT.'/components/com_suggestvotecommentbribe/recaptchalib.php');
          echo recaptcha_get_html($settings->pubk);
       }
       ?>
@@ -86,7 +86,7 @@ JHTML::_('behavior.tooltip');
    <input type="hidden" name="SID" value="<?php echo $this->item->SID;?>" />
    <input type="hidden" name="UID" value="<?php echo $this->item->UID;?>" />
    <input type="hidden" name="cid[]" value="<?php echo $this->item->id; ?>" />
-   <input type="hidden" name="option" value="com_suggestion" />
+   <input type="hidden" name="option" value="com_suggestvotecommentbribe" />
    <input type="hidden" name="task" value="save" />
    <input type="hidden" name="controller" value="comment" />
 </form>
@@ -97,7 +97,7 @@ JHTML::_('behavior.tooltip');
       <form name="_xclick" action="https://www.paypal.com/cgi-bin/webscr" method="post">
 <input type="hidden" name="cmd" value="_xclick">
 <input type="hidden" name="business" value="bursar@Interpreneurial.com">
-<input type="hidden" name="item_name" value="com_suggestion donation">
+<input type="hidden" name="item_name" value="com_suggestvotecommentbribe donation">
 <input type="hidden" name="currency_code" value="USD">
 <input type="image" style='border:0;' src="http://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
 </form>

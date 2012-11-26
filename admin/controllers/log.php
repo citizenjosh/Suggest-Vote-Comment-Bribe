@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Controllers
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -28,7 +28,7 @@ class SuggestionsControllerlog extends JController
 	}
 	function _buildQuery()
 	{
-		$this->_query = 'UPDATE #__suggestion_log'
+		$this->_query = 'UPDATE #__suggestvotecommentbribe_log'
 		. ' SET published = ' . (int) $this->publish
 		. ' WHERE id IN ( '. $this->cids .' )'		
 		;
@@ -44,8 +44,8 @@ class SuggestionsControllerlog extends JController
 */
 	function cancel()
 	{
-		$msg = JText::_( 'Operation Cancelled' );
-		$this->setRedirect( 'index.php?option=com_suggestion&view=logs', $msg );
+		$msg = JText::_( 'OPERATION_CANCELLED' );
+		$this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=logs', $msg );
 	}
 	function publish()
 	{
@@ -56,7 +56,7 @@ class SuggestionsControllerlog extends JController
 		if (count( $cid ) < 1)
 		{
 			$action = $publish ? 'publish' : 'unpublish';
-			JError::raiseError(500, JText::_( 'Select an item to' .$action, true ) );
+			JError::raiseError(500, JText::_( 'SELECT_AN_ITEM_TO' .$action, true ) );
 		}
 
 		$this->cids = implode( ',', $cid );
@@ -68,7 +68,7 @@ class SuggestionsControllerlog extends JController
 		{
 			JError::raiseError(500, $db->getErrorMsg() );
 		}
-		$link = 'index.php?option=com_suggestion&view=logs';
+		$link = 'index.php?option=com_suggestvotecommentbribe&view=logs';
 		$this->setRedirect($link, $msg);
 	}
 
@@ -81,12 +81,12 @@ class SuggestionsControllerlog extends JController
 
 		$model = $this->getModel( 'log' );
 		if ($model->store($post)) {
-			$msg = JText::_( 'Item Saved' );
+			$msg = JText::_( 'ITEM_SAVED' );
 		} else {
-			$msg = JText::_( 'Error Saving Item' );
+			$msg = JText::_( 'ERROR_SAVING_ITEM' );
 		}
 
-		$link = 'index.php?option=com_suggestion&view=logs';
+		$link = 'index.php?option=com_suggestvotecommentbribe&view=logs';
 		$this->setRedirect( $link, $msg );
 	}
 
@@ -102,7 +102,7 @@ class SuggestionsControllerlog extends JController
 			}			
 		}
 
-		$this->setRedirect( 'index.php?option=com_suggestion&view=logs', $msg );
+		$this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=logs', $msg );
 	}
 
 	

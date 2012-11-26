@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Views
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -17,8 +17,8 @@ class SuggestionsViewvotes extends JView
 
    function display($tpl = null)
    {
-      JHTML::stylesheet( 'Suggestion.css', 'administrator/components/com_Suggestion/assets/' );
-      JToolBarHelper::title(   '  ' .JText::_( 'votes' ), 'vote');
+      JHTML::stylesheet( 'suggestvotecommentbribe.css', 'administrator/components/com_suggestvotecommentbribe/assets/' );
+      JToolBarHelper::title(   '  ' .JText::_( 'VOTES' ), 'vote');
 
 //      JToolBarHelper::deleteList();
 //      JToolBarHelper::editListX();

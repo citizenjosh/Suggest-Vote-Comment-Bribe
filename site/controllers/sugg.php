@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Controllers
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -32,7 +32,7 @@ class SuggestionControllersugg extends JController
    function _buildQuery()
    {
       $user=JFactory::getUser();
-      $this->_query = 'UPDATE #__suggestion_sugg'
+      $this->_query = 'UPDATE #__suggestvotecommentbribe_sugg'
       . ' SET published = ' . (int) $this->publish
       . ' WHERE id IN ( '. $this->cids .' )'
       ;
@@ -44,7 +44,7 @@ class SuggestionControllersugg extends JController
       $can=$model->canSuggest(JRequest::getVar('cid'));
      if($can!==true)
       {
-          $this->setRedirect( 'index.php?option=com_suggestion&view=suggs', $can );
+          $this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=suggs', $can );
        return;
      }
       JRequest::setVar( 'view', 'sugg' );
@@ -70,7 +70,7 @@ class SuggestionControllersugg extends JController
       $can=$model->canSuggest(JRequest::getVar('cid'));
      if($can!==true&&!$_COOKIE['suggest'.$cid[0]])
       {
-          $this->setRedirect( 'index.php?option=com_suggestion&view=suggs', $can );
+          $this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=suggs', $can );
        return;
      }
 
@@ -91,7 +91,7 @@ class SuggestionControllersugg extends JController
      $post1['description'].=$this->getTask().'ed';
      $post1['description'].=' a suggestion at '.date(DATE_RFC822);
      $model1->store($post1);
-      $link = 'index.php?option=com_suggestion&view=suggs';
+      $link = 'index.php?option=com_suggestvotecommentbribe&view=suggs';
       $this->setRedirect($link, '');
    }
 
@@ -103,7 +103,7 @@ class SuggestionControllersugg extends JController
       $can=$model_can->canSuggest($cid);
      if($can!==true)
       {
-          $this->setRedirect( 'index.php?option=com_suggestion&view=suggs', $can );
+          $this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=suggs', $can );
        return;
      }
 
@@ -111,20 +111,20 @@ class SuggestionControllersugg extends JController
       #_ECR_SMAT_DESCRIPTION_CONTROLLER1_
       $post['id']    = (int) $cid[0];
       $db = &JFactory::getDBO();
-      $db->setQuery('select * from #__suggestion');
-      $capcha=$db->loadObjectlist();
+      $db->setQuery('select * from #__suggestvotecommentbribe');
+      $captcha=$db->loadObjectlist();
       $user=JFactory::getUser();
-      if($capcha[0]->capcha&&!$user->id)
+      if($captcha[0]->captcha&&!$user->id)
       {
-         include(JPATH_ROOT."/components/com_suggestion/recaptchalib.php");
-         $resp = recaptcha_check_answer ($capcha[0]->prvk,
+         include(JPATH_ROOT."/components/com_suggestvotecommentbribe/recaptchalib.php");
+         $resp = recaptcha_check_answer ($captcha[0]->prvk,
                                 $_SERVER["REMOTE_ADDR"],
                                 $_POST["recaptcha_challenge_field"],
                                 $_POST["recaptcha_response_field"]);
 
          if (!$resp->is_valid) 
          {
-            $link = 'index.php?option=com_suggestion&view=suggs';
+            $link = 'index.php?option=com_suggestvotecommentbribe&view=suggs';
             $this->setRedirect( $link, 'You entered a wrong CAPTCHA');
             return;
          }
@@ -132,13 +132,13 @@ class SuggestionControllersugg extends JController
       if($post['title']=='')
       {
           $t=time();
-         $link = 'index.php?option=com_suggestion&controller=sugg&task=edit&ses=s'.$t;
+         $link = 'index.php?option=com_suggestvotecommentbribe&controller=sugg&task=edit&ses=s'.$t;
           $_SESSION['s'.$t]=$_POST['description'];
           $this->setRedirect( $link, 'title is required');
           return;
      }
-      $post['title']=substr($_POST['title'], 0,$capcha[0]->max_title);
-      $post['description']=substr($_POST['description'], 0,$capcha[0]->max_desc);
+      $post['title']=substr($_POST['title'], 0,$captcha[0]->max_title);
+      $post['description']=substr($_POST['description'], 0,$captcha[0]->max_desc);
       $post['title']=(htmlentities($post['title'],ENT_NOQUOTES));
       $post['description']=((htmlentities($post['description'],ENT_NOQUOTES)));
       $post['title']=str_replace("\\\\", "\\", $post['title']);
@@ -162,7 +162,7 @@ class SuggestionControllersugg extends JController
       $can=$model_can->canSuggest($cid);
      if($can!==true)
       {
-          $this->setRedirect( 'index.php?option=com_suggestion&view=suggs', $can );
+          $this->setRedirect( 'index.php?option=com_suggestvotecommentbribe&view=suggs', $can );
        return;
      }
       if ($model->store($post)) {
@@ -198,7 +198,7 @@ class SuggestionControllersugg extends JController
          $msg = JText::_( 'Error Saving Item' );
       }
       
-      $link = 'index.php?option=com_suggestion&view=suggs';
+      $link = 'index.php?option=com_suggestvotecommentbribe&view=suggs';
       $this->setRedirect( $link, $msg );
    }   
 }//class

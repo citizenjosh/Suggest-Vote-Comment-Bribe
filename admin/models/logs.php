@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Models
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -36,7 +36,7 @@ class SuggestionsModellogs extends JModel
          $orderby=' order by id desc';
 
       $this->_query = ' SELECT *'
-            . ' FROM #__suggestion_log'
+            . ' FROM #__suggestvotecommentbribe_log'
             . $where
             . $orderby
             ;

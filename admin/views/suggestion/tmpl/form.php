@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage _ECR_SUBPACKAGE_
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL
 */
 
@@ -31,7 +31,7 @@ defined('_JEXEC') or die('=;)');
       <tr>
          <td width="100" align="right" class="key">
             <label for="URL">
-               <?php echo JText::_( 'E-mail' ); ?>:
+               <?php echo JText::_( 'PAYPAL_EMAIL' ); ?>:
             </label>
          </td>
          <td>
@@ -41,7 +41,7 @@ defined('_JEXEC') or die('=;)');
       <tr>
          <td width="100" align="right" class="key">
             <label for="URL">
-               <?php echo JText::_( 'reCaptcha public key' ); ?>:
+               <?php echo JText::_( 'RECAPTCHA_PUBLIC_KEY' ); ?>:
             </label>
          </td>
          <td>
@@ -51,7 +51,7 @@ defined('_JEXEC') or die('=;)');
       <tr>
          <td width="100" align="right" class="key">
             <label for="URL">
-               <?php echo JText::_( 'reCaptcha private key' ); ?>:
+               <?php echo JText::_( 'RECAPTCHA_PRIVATE_KEY' ); ?>:
             </label>
          </td>
          <td>
@@ -61,7 +61,7 @@ defined('_JEXEC') or die('=;)');
       <tr>
          <td width="100" align="right" class="key">
             <label for="URL">
-               <?php echo JText::_( 'Max title length' ); ?>:
+               <?php echo JText::_( 'MAX_TITLE_LENGTH' ); ?>:
             </label>
          </td>
          <td>
@@ -71,7 +71,7 @@ defined('_JEXEC') or die('=;)');
       <tr>
          <td width="100" align="right" class="key">
             <label for="URL">
-               <?php echo JText::_( 'Max description length' ); ?>:
+               <?php echo JText::_( 'MAX_DESCRIPTION_LENGTH' ); ?>:
             </label>
          </td>
          <td>
@@ -81,7 +81,7 @@ defined('_JEXEC') or die('=;)');
       <tr>
          <td width="100" align="right" class="key">
             <label for="login">
-               <?php echo JText::_( 'Require Login' ); ?>:
+               <?php echo JText::_( 'REQUIRE_LOGIN' ); ?>:
             </label>
          </td>
          <td>
@@ -91,17 +91,17 @@ defined('_JEXEC') or die('=;)');
       <tr>
          <td width="100" align="right" class="key">
             <label for="show">
-               <?php echo JText::_( 'Require CAPTCHA if the user isn\'t logged in' ); ?>:
+               <?php echo JText::_( 'REQUIRE_CAPTCHA_FOR_GUESTS' ); ?>:
             </label>
          </td>
          <td>
-            <?php echo $this->lists['capcha']; ?>
+            <?php echo $this->lists['captcha']; ?>
          </td>
       </tr>
       <tr>
          <td width="100" align="right" class="key">
             <label for="show">
-               <?php echo JText::_( 'Show Users' ); ?>:
+               <?php echo JText::_( 'SHOW_USERS' ); ?>:
             </label>
          </td>
          <td>
@@ -113,7 +113,7 @@ defined('_JEXEC') or die('=;)');
 </div>
 <div class="clr"></div>
 
-<input type="hidden" name="option" value="com_suggestion" />
+<input type="hidden" name="option" value="com_suggestvotecommentbribe" />
 <input type="hidden" name="id" value="<?php echo $this->Suggestion->id; ?>" />
 <input type="hidden" name="task" value="" />
 <input type="hidden" name="controller" value="suggestion" />

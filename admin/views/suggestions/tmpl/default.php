@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage _ECR_SUBPACKAGE_
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -11,7 +11,7 @@
 defined('_JEXEC') or die('=;)');
 
 ?>
-<form action="index.php?option=com_suggestion&view=suggestions" method="post" name="adminForm">
+<form action="index.php?option=com_suggestvotecommentbribe&view=suggestions" method="post" name="adminForm">
 <div id="editcell">
    <table class="adminlist">
    <thead>
@@ -20,19 +20,19 @@ defined('_JEXEC') or die('=;)');
             <input type="checkbox" id="toggle" name="toggle" value="" onclick="checkAll(<?php echo count( $this->items ); ?>);" />
          </th>       
          <th>
-            <?php echo JText::_( 'Require Login' ); ?>
+            <?php echo JText::_( 'REQUIRE_LOGIN' ); ?>
          </th>
          <th>
-            <?php echo JText::_( 'Require captcha' ); ?>
+            <?php echo JText::_( 'REQUIRE CAPTCHA' ); ?>
          </th>
          <th>
-            <?php echo JText::_( 'Show Users' ); ?>
+            <?php echo JText::_( 'SHOW_USERS' ); ?>
          </th>
          <th>
-            <?php echo JText::_( 'email' ); ?>
+            <?php echo JText::_( 'PAYPAL_EMAIL' ); ?>
          </th>
          <th>
-            <?php echo JText::_( 'bribe "thank you" URL' ); ?>
+            <?php echo JText::_( 'THANK_YOU_URL' ); ?>
          </th>
       </tr>       
    </thead>
@@ -42,7 +42,7 @@ defined('_JEXEC') or die('=;)');
    {
       $row = &$this->items[$i];
       $checked    = JHTML::_('grid.id',   $i, $row->id );
-      $link       = JRoute::_( 'index.php?option=com_suggestion&controller=suggestion&task=edit&cid[]='. $row->id );
+      $link       = JRoute::_( 'index.php?option=com_suggestvotecommentbribe&controller=suggestion&task=edit&cid[]='. $row->id );
 
       ?>
       <tr class="<?php echo "row$k"; ?>">
@@ -50,13 +50,13 @@ defined('_JEXEC') or die('=;)');
             <?php echo $checked; ?>
          </td>
          <td>
-            <a href="index.php?option=com_suggestion&controller=suggestion&task=login"><?php echo $row->login?'yes':'No'; ?></a>
+            <a href="index.php?option=com_suggestvotecommentbribe&controller=suggestion&task=login"><?php echo $row->login?'yes':'No'; ?></a>
          </td>
          <td>
-            <a href="index.php?option=com_suggestion&controller=suggestion&task=capcha"><?php echo $row->capcha?'yes':'No'; ?></a>
+            <a href="index.php?option=com_suggestvotecommentbribe&controller=suggestion&task=captcha"><?php echo $row->captcha?'yes':'No'; ?></a>
          </td>
          <td>
-            <a href="index.php?option=com_suggestion&controller=suggestion&task=showUser"><?php echo $row->show?'yes':'No'; ?></a>
+            <a href="index.php?option=com_suggestvotecommentbribe&controller=suggestion&task=showUser"><?php echo $row->show?'yes':'No'; ?></a>
          </td>
          <td>
             <a href="<?php echo $link; ?>"><?php echo $row->email; ?></a>
@@ -78,7 +78,7 @@ defined('_JEXEC') or die('=;)');
   </tfoot>
    </table>
 </div>
-<input type="hidden" name="option" value="com_suggestion" />
+<input type="hidden" name="option" value="com_suggestvotecommentbribe" />
 <input type="hidden" name="task" value="" />
 <input type="hidden" name="boxchecked" value="0" />
 <input type="hidden" name="controller" value="suggestion" />

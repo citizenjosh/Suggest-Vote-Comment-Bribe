@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage _ECR_SUBPACKAGE_
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -15,7 +15,7 @@ jimport('joomla.application.component.controller');
 /**
  * Suggestion default Controller
  *
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Controllers
  */
 class SuggestionController extends JController
@@ -32,12 +32,12 @@ class SuggestionController extends JController
 		$db=JFactory::getDBO();
 		$thisuser=JFactory::getUser();
 		$cids=implode(',',$_REQUEST['cid']);
-		$db->setQuery("select * from #__suggestion_sugg where ID in ($cids)");
+		$db->setQuery("select * from #__suggestvotecommentbribe_sugg where ID in ($cids)");
 		$item=$db->loadObjectlist();
 		$item=$item[0];
 		if($item->published==0&&(($thisuser!=0||$thisuser!=$item->UID)&&!$_COOKIE['suggest'.$item->id]))
 		{
-			$this->setRedirect('index.php?option=com_suggestion&view=suggs',JTEXT::_('THISWASUNPUBLISHED'));
+			$this->setRedirect('index.php?option=com_suggestvotecommentbribe&view=suggs',JTEXT::_('THISWASUNPUBLISHED'));
 		}
 	}
       parent::display();

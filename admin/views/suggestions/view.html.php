@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id$
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage _ECR_SUBPACKAGE_
- * @copyright Copyright (C) 2009 Interpreneurial LLC. All rights reserved.
+ * @copyright Copyright (C) 2010 Interpreneurial LLC. All rights reserved.
  * @license GNU/GPL 
 */
 
@@ -15,7 +15,7 @@ jimport( 'joomla.application.component.view');
 /**
  * HTML View class for the Suggestion Component
  *
- * @package    Suggestion
+ * @package    Suggest Vote Comment Bribe
  * @subpackage Views
  */
 
@@ -27,7 +27,7 @@ class SuggestionsViewSuggestions extends JView
     **/
    function display($tpl = null)
    {
-      JToolBarHelper::title(   JText::_( 'Suggestion Manager' ), 'generic.png' );
+      JToolBarHelper::title(   JText::_( 'COMPONENT_TITLE' ), 'generic.png' );
 //      JToolBarHelper::deleteList();
       JToolBarHelper::editListX();
 //      JToolBarHelper::addNewX();
