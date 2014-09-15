@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="suggestvotecommentbribe" default="all" basedir=".">
+        
+    <property name="project.name"   value="suggestvotecommentbribe"/>
+    <property name="component.name"   value="com_${project.name}"/>
+    <property name="src.dir"        value="."/>
+    <property name="joomla.dir"     value="/var/www/html/joomla/components/${component.name}"/>
+    <property name="jar.dir"        value="${src.dir}/jar"/>
+
+    
+    <target name="clean">
+        <echo message=">> clean >> Deleting ${jar.dir}"></echo>
+        <delete dir="${jar.dir}"/>
+    </target>
+
+    <target name="jar">
+        <echo message=">> jar >> Making ${jar.dir}/${component.name}.jar"></echo>
+        <mkdir dir="${jar.dir}"/>
+        <jar    destfile="${jar.dir}/${component.name}.jar"
+                basedir="${src.dir}"
+                includes="admin/**,site/**,*.php,*.html,${project.name}.xml"
+        >
+        </jar>
+    </target>
+
+    <target name="joomla">
+        <echo message=">> joomla >> Copying files to ${joomla.dir}"></echo>
+        <copy file="index.html"                     tofile="${joomla.dir}/index.html"/>
+        <copy file="install.${project.name}.php"    tofile="${joomla.dir}/install.${project.name}.php"/>
+        <copy file="${project.name}.xml"            tofile="${joomla.dir}/${project.name}.xml"/>
+        <copy file="uninstall.${project.name}.php"  tofile="${joomla.dir}/uninstall.${project.name}.php"/>
+        <echo message=">> joomla >> Copying files to ${joomla.dir}/admin"></echo>
+        <copy todir="${joomla.dir}/admin">
+            <fileset dir="${src.dir}/admin"></fileset>
+        </copy>
+        <echo message=">> joomla >> Copying files to ${joomla.dir}/site"></echo>
+        <copy todir="${joomla.dir}/site">
+            <fileset dir="${src.dir}/site"></fileset>
+        </copy>
+    </target>
+        
+    <target name="clean-jar" depends="clean,jar"/>
+
+    <target name="main" depends="clean,jar,joomla"/>
+</project>
