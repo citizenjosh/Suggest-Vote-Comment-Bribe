@@ -5,8 +5,10 @@
     <property name="project.name"   value="suggestvotecommentbribe"/>
     <property name="component.name"   value="com_${project.name}"/>
     <property name="src.dir"        value="."/>
-    <property name="joomla.dir"     value="/var/www/html/joomla/components/${component.name}"/>
     <property name="jar.dir"        value="${src.dir}/jar"/>
+    <property name="joomla.dir"     value="/var/www/html/joomla/"/>
+    <property name="joomla.site.dir"     value="${joomla.dir}/components/${component.name}"/>
+    <property name="joomla.admin.dir"     value="${joomla.dir}/administrator/${component.name}"/>
 
     
     <target name="clean">
@@ -25,17 +27,16 @@
     </target>
 
     <target name="joomla">
-        <echo message=">> joomla >> Copying files to ${joomla.dir}"></echo>
+        <echo message=">> joomla >> Copying files to ${joomla.admin.dir}"></echo>
+        <copy todir="${joomla.admin.dir}/admin">
+            <fileset dir="${src.dir}/admin"></fileset>
+        </copy>
+        <echo message=">> joomla >> Copying files to ${joomla.site.dir}"></echo>
         <copy file="index.html"                     tofile="${joomla.dir}/index.html"/>
         <copy file="install.${project.name}.php"    tofile="${joomla.dir}/install.${project.name}.php"/>
         <copy file="${project.name}.xml"            tofile="${joomla.dir}/${project.name}.xml"/>
         <copy file="uninstall.${project.name}.php"  tofile="${joomla.dir}/uninstall.${project.name}.php"/>
-        <echo message=">> joomla >> Copying files to ${joomla.dir}/admin"></echo>
-        <copy todir="${joomla.dir}/admin">
-            <fileset dir="${src.dir}/admin"></fileset>
-        </copy>
-        <echo message=">> joomla >> Copying files to ${joomla.dir}/site"></echo>
-        <copy todir="${joomla.dir}/site">
+        <copy todir="${joomla.site.dir}">
             <fileset dir="${src.dir}/site"></fileset>
         </copy>
     </target>
